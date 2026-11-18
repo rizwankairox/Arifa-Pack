@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.vercel
+# secrets
+.env
+.env.local
+.env.*.local
+
+# assets no page uses (kept aside, safe to delete)
+_unused-assets/
+Claude outputs/

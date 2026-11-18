@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" role="img" aria-label="Sample client logo: Trading">
+  <g><path d="M32 8l21 12v24L32 56 11 44V20z" fill="none" stroke="#1b998b" stroke-width="6" stroke-linejoin="round"/><circle cx="32" cy="32" r="6" fill="#1b998b"/></g>
+  <text x="72" y="25" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" letter-spacing="2.6" fill="#8a8780">SAMPLE</text>
+  <text x="71" y="50" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="600" font-style="normal" letter-spacing="0.1em" fill="#151515">Trading</text>
+</svg>

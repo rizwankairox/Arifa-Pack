@@ -1,0 +1,225 @@
+{
+  "_note": "SAMPLE CONTENT for layout. Before launch: replace each client with an approved logo (file in public/images/clients/) and delete its \"sample\": true; confirm each industry's wording and product families with Arifa and delete its \"sample\": true. Items marked sample show a small 'Sample' tag on the page. The industries are the delivery stops on the page, in this order; 'label' is the pin over each building. All stories are explicitly labeled mock testimonials with sample personas and illustrative AI imagery. They are not customer evidence. Replace quotes, attribution and imagery only with customer-approved material, and update the section disclosure in clients.html when real stories are approved.",
+  "industries": [
+    {
+      "id": "bakeries",
+      "name": "Bakeries & sweet shops",
+      "label": "Bakery",
+      "short": "bakeries",
+      "trade": "Bakery or sweet shop",
+      "use": "Baking and gifting: cups, trays and platters for cakes, sweets and pastries.",
+      "families": [
+        "cups-trays",
+        "platters",
+        "foil"
+      ],
+      "sample": true
+    },
+    {
+      "id": "hotels",
+      "name": "Hotels & hospitality",
+      "label": "Hotel",
+      "short": "hotels",
+      "trade": "Hotel or hospitality",
+      "use": "Hotel kitchens and room service: film, foil and pots for prep and storage, cutlery for the tray.",
+      "families": [
+        "cling-film",
+        "foil",
+        "pots",
+        "cutlery"
+      ],
+      "sample": true
+    },
+    {
+      "id": "restaurants",
+      "name": "Restaurants & cloud kitchens",
+      "label": "Restaurant",
+      "short": "restaurants",
+      "trade": "Restaurant or cloud kitchen",
+      "use": "Takeaway and delivery: containers that seal, stack and travel, with cutlery to match.",
+      "families": [
+        "containers",
+        "microwave",
+        "cutlery",
+        "foil"
+      ],
+      "sample": true
+    },
+    {
+      "id": "retail",
+      "name": "Retail & supermarkets",
+      "label": "Supermarket",
+      "short": "retail",
+      "trade": "Retail or supermarket",
+      "use": "On the shelf: Arifa self-range retail packs of containers, platters, pots and microwave containers.",
+      "families": [
+        "containers",
+        "platters",
+        "pots",
+        "microwave"
+      ],
+      "sample": true
+    },
+    {
+      "id": "catering",
+      "name": "Catering & events",
+      "label": "Events",
+      "short": "catering",
+      "trade": "Catering",
+      "use": "Buffets and events: platters and pots to cook, carry and serve, and film to keep it covered.",
+      "families": [
+        "platters",
+        "pots",
+        "containers",
+        "cling-film"
+      ],
+      "sample": true
+    },
+    {
+      "id": "distributors",
+      "name": "Distributors & traders",
+      "label": "Distributor",
+      "short": "distributors",
+      "trade": "Distributor or trader",
+      "use": "The full range, by the carton and by the pallet, for wholesale and trading.",
+      "families": [
+        "containers",
+        "foil",
+        "platters",
+        "cups-trays",
+        "pots",
+        "microwave",
+        "cutlery",
+        "cling-film"
+      ],
+      "sample": true
+    }
+  ],
+  "stories": [
+    {
+      "id": "restaurant",
+      "sample": true,
+      "sector": "Restaurants",
+      "scene": "At the kitchen pass",
+      "summary": "Made for the takeaway rhythm.",
+      "quote": "The last thing we pack is the first thing our customer opens. We want it to feel as considered as the food inside.",
+      "persona": "The restaurant team",
+      "attribution": "Sample persona · Not a verified customer quote",
+      "brief": "A little care. In every takeaway.",
+      "note": "Prep. Pack. Send with care.",
+      "image": "/images/stories/restaurant-counter.webp",
+      "imageAlt": "Illustrative AI-generated scene of hands closing aluminium takeaway containers at a restaurant counter.",
+      "families": ["containers", "microwave"],
+      "trade": "Restaurant or cloud kitchen",
+      "cta": "Find your takeaway packaging"
+    },
+    {
+      "id": "bakery",
+      "sample": true,
+      "sector": "Bakeries",
+      "scene": "Before the morning rush",
+      "summary": "A good bake deserves a good finish.",
+      "quote": "There is a lot of care in a small pastry. The way we present it should carry that same feeling, all the way to the table.",
+      "persona": "The bakery team",
+      "attribution": "Sample persona · Not a verified customer quote",
+      "brief": "From the first batch to the last bite.",
+      "note": "Bake. Arrange. Make their day.",
+      "image": "/images/stories/bakery-counter.webp",
+      "imageAlt": "Illustrative AI-generated bakery scene with golden pastries, aluminium trays and baking cups on a sunlit counter.",
+      "families": ["cups-trays", "platters"],
+      "trade": "Bakery or sweet shop",
+      "cta": "Find your bakery packaging"
+    },
+    {
+      "id": "catering",
+      "sample": true,
+      "sector": "Catering",
+      "scene": "Behind the occasion",
+      "summary": "Every detail has a place at the table.",
+      "quote": "Guests see the finished table. Behind it are a hundred little decisions, right down to what we use to carry and present each dish.",
+      "persona": "The catering team",
+      "attribution": "Sample persona · Not a verified customer quote",
+      "brief": "Big occasions. Thoughtful details.",
+      "note": "Prepare. Carry. Set the table.",
+      "image": "/images/stories/catering-counter.webp",
+      "imageAlt": "Illustrative AI-generated catering preparation scene with an aluminium serving platter and a lidded aluminium pot.",
+      "families": ["platters", "pots"],
+      "trade": "Catering",
+      "cta": "Find your catering packaging"
+    }
+  ],
+  "clients": [
+    {
+      "name": "Sample Kitchen",
+      "industry": "restaurants",
+      "logo": "/images/clients/sample-01.svg",
+      "sample": true
+    },
+    {
+      "name": "Sample Catering",
+      "industry": "catering",
+      "logo": "/images/clients/sample-02.svg",
+      "sample": true
+    },
+    {
+      "name": "Sample Bakery",
+      "industry": "bakeries",
+      "logo": "/images/clients/sample-03.svg",
+      "sample": true
+    },
+    {
+      "name": "Sample Hotels",
+      "industry": "hotels",
+      "logo": "/images/clients/sample-04.svg",
+      "sample": true
+    },
+    {
+      "name": "Sample Mart",
+      "industry": "retail",
+      "logo": "/images/clients/sample-05.svg",
+      "sample": true
+    },
+    {
+      "name": "Sample Trading",
+      "industry": "distributors",
+      "logo": "/images/clients/sample-06.svg",
+      "sample": true
+    },
+    {
+      "name": "Sample Grill",
+      "industry": "restaurants",
+      "logo": "/images/clients/sample-07.svg",
+      "sample": true
+    },
+    {
+      "name": "Sample Foods",
+      "industry": "distributors",
+      "logo": "/images/clients/sample-08.svg",
+      "sample": true
+    },
+    {
+      "name": "Sample Café",
+      "industry": "restaurants",
+      "logo": "/images/clients/sample-09.svg",
+      "sample": true
+    },
+    {
+      "name": "Sample Sweets",
+      "industry": "bakeries",
+      "logo": "/images/clients/sample-10.svg",
+      "sample": true
+    },
+    {
+      "name": "Sample Events",
+      "industry": "catering",
+      "logo": "/images/clients/sample-11.svg",
+      "sample": true
+    },
+    {
+      "name": "Sample Market",
+      "industry": "retail",
+      "logo": "/images/clients/sample-12.svg",
+      "sample": true
+    }
+  ]
+}

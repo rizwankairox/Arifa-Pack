@@ -1,0 +1,129 @@
+/*
+  The Arabic site (/ar): <html lang="ar" dir="rtl">.
+
+  Most of the layout mirrors by itself (flex, grid and the logical margin/padding the styles
+  already use). What's here is what doesn't: the Arabic typeface, letter spacing (it would break
+  the joined-up letters), small mono labels that need to be a little larger to read in Arabic,
+  arrows that should point the other way, and the bits that must stay left-to-right (phone
+  numbers, codes, maps, 3D scenes).
+*/
+
+html[lang='ar'] {
+  /* Latin (codes, numbers, the brand) keeps its typeface; Arabic letters use IBM Plex Sans Arabic */
+  --f-sans: 'Archivo', 'IBM Plex Sans Arabic', 'Geeza Pro', Arial, sans-serif;
+  --f-mono: 'IBM Plex Mono', 'IBM Plex Sans Arabic', 'Geeza Pro', 'Segoe UI', Tahoma, ui-monospace, monospace;
+}
+
+/* Arabic letters join up: no tracking, no capitals */
+html[lang='ar'] body *:not([dir='ltr'], [dir='ltr'] *) {
+  letter-spacing: 0 !important;
+}
+html[lang='ar'] body :is(.mono, .eyebrow, [class*='__label'], [class*='__kicker'], [class*='__tag']) {
+  text-transform: none;
+}
+
+/* the small mono captions: set in the Arabic typeface (a monospace would pull the letters apart) */
+html[lang='ar'] :is(.mono, .eyebrow) {
+  font-family: var(--f-ar);
+  font-weight: 500;
+}
+/* …and a little larger: Latin capitals at 9–10px read fine, Arabic at that size doesn't */
+html[lang='ar'] .mono:not(.mono .mono, .eyebrow .mono),
+html[lang='ar'] .eyebrow {
+  zoom: 1.28;
+}
+
+/* headings: Arabic has taller letters, so give the lines room (the reveal masks clip at the line box) */
+html[lang='ar'] :is(h1, h2, h3, [class*='__title'], [class*='__line'], .intro__text, [data-split-lines]) {
+  line-height: 1.28;
+}
+html[lang='ar'] :is([class*='__title'] em, [class*='__title'] i) {
+  font-style: normal;
+}
+
+/* arrows point the way you read */
+html[lang='ar'] :is(.btn__icon svg, .range__arrow svg, .hero__cta-arrow, .story__enquiry svg, .route__more svg, .stories__tab-arrow, .kit svg) {
+  transform: scaleX(-1);
+}
+
+/* numbers that must read left to right */
+html[lang='ar'] :is(a[href^='tel:'], a[href^='mailto:'], .pcard__ref span, .pcard__pending > span, [data-qv-pending-ref], [data-clock], .line__spec) {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+html[lang='ar'] .qv__ref {
+  direction: ltr;
+  text-align: right;
+}
+
+/* sideways-scrolling tracks are moved by their scripts from left to right: they keep that
+   direction (the text inside each card is still right to left) */
+html[lang='ar'] :is(.q-track) {
+  direction: ltr;
+}
+html[lang='ar'] :is(.q-track) > * {
+  direction: rtl;
+}
+
+/* maps, charts and canvases are drawn left to right */
+html[lang='ar'] :is(svg, canvas) {
+  direction: ltr;
+}
+
+/* the assistant's status words, written by the stylesheet */
+html[lang='ar'] .assist__state::after { content: 'متصلة'; }
+html[lang='ar'] .assist[data-voice='speaking'] .assist__state::after { content: 'تتحدث'; }
+html[lang='ar'] .assist[data-voice='listening'] .assist__state::after { content: 'تستمع'; }
+html[lang='ar'] .assist[data-voice='thinking'] .assist__state::after { content: 'تفكّر'; }
+html[lang='ar'] .assist__msg--you::before { content: 'أنت ·  '; }
+html[lang='ar'] .assist__msg--you.is-live::after { margin-left: 0; margin-right: 2px; }
+
+/* the language switch: a small version of the "Request a quote" button (.btn--line in main.css
+   gives it the same hover: green fill rising, label rolling). It stays on phones, where that
+   button is hidden. */
+.nav__right .btn.nav__lang { display: inline-flex; height: 36px; padding: 0 13px; font-size: 0.78rem; }
+.nav__right .nav__lang[lang='ar'] { font-family: var(--f-ar); font-size: 0.85rem; letter-spacing: 0; text-transform: none; }
+
+/* About: the text sits on the right, so the 3D stage moves its subject to the left, and the
+   chapter rail goes to the left edge */
+html[lang='ar'] .ab-stage__gl { transform: translateX(-36%); }
+html[lang='ar'] .ab-rail { right: auto; left: var(--gutter); justify-items: start; transform: translate(-12px, -50%); }
+html[lang='ar'] .ab-rail.is-on { transform: translate(0, -50%); }
+html[lang='ar'] .ab-rail a span { transform: translateX(-6px); }
+html[lang='ar'] .ab-rail a:hover span, html[lang='ar'] .ab-rail a.is-active span { transform: none; }
+
+/* From Ajman to the world: the map is framed around Ajman on the right, so the copy keeps its
+   place on the left (still reading right to left) */
+html[lang='ar'] .ab-reach__copy { direction: ltr; }
+html[lang='ar'] .ab-reach__text { direction: rtl; }
+
+/* Clients: the words and the stop card sit on the right, so the 3D town is framed on the left
+   (clientsPage.ts) and the white washes that keep the words readable flip sides */
+html[lang='ar'] .cl-route.is-live .route__stage::before { background: radial-gradient(ellipse 70% 78% at 36% 56%, rgba(255, 255, 255, 0) 55%, #ffffff 96%); }
+html[lang='ar'] .cl-route.is-live .route__stage::after { background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0.86) 24%, rgba(255, 255, 255, 0) 42%); }
+@media (max-width: 899px) {
+  html[lang='ar'] .cl-route.is-live .route__stage::after { background: linear-gradient(0deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 40%, rgba(255, 255, 255, 0) 60%); }
+  html[lang='ar'] .cl-route.is-live .route__stage::before { background: radial-gradient(ellipse 90% 50% at 50% 32%, rgba(255, 255, 255, 0) 55%, #ffffff 96%); }
+}
+
+/* the assistant's leaf is docked bottom right; in Arabic the footer's last line starts on the
+   right, so it keeps clear of the leaf */
+html[lang='ar'] .foot__base { padding-right: 104px; }
+@media (max-width: 720px) {
+  html[lang='ar'] .foot__base { padding-right: 78px; }
+}
+
+/* the full-screen menu: in Arabic its list runs down the right edge, where the assistant's leaf
+   (and its card) are docked, so they step aside while the menu is open */
+html[lang='ar'] :is(.assist-dock, .assist) { transition: opacity 0.3s, visibility 0.3s; }
+html[lang='ar'] body.menu-open :is(.assist-dock, .assist) { opacity: 0; visibility: hidden; pointer-events: none; }
+
+/* Home, "walk the floor": the chapters run right to left (floor.ts slides the track the other
+   way), the progress bar fills from the right, and each card is only as wide as its footage so
+   the chapter number and time line up under it */
+html[lang='ar'] .floor__progress b { transform-origin: 100% 50%; }
+html[lang='ar'] .chapter { width: min(clamp(260px, 26vw, 460px), 52vh * 4 / 5); }
+html[lang='ar'] .chapter:nth-child(even) { width: min(clamp(300px, 34vw, 600px), 52vh * 16 / 11); }
+@media (max-width: 899px) {
+  html[lang='ar'] .chapter, html[lang='ar'] .chapter:nth-child(even) { width: min(78vw, 52vh * 4 / 5); }
+}
