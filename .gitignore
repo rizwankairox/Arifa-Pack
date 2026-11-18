@@ -12,3 +12,5 @@ next-env.d.ts
 # assets no page uses (kept aside, safe to delete)
 _unused-assets/
 Claude outputs/
+
+.vercel
