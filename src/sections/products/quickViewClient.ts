@@ -47,8 +47,7 @@ export function initQuickView({ data, lenis, tray, getList }: { data: ClientCata
       [tc('Range'), tc(p.range === 'self' ? 'Arifa self range (retail pack)' : 'Trade')],
     ];
     $('[data-qv-spec]').innerHTML = rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('');
-    const live = $('[data-qv-live]') as HTMLAnchorElement;
-    live.href = p.live;
+    ($('[data-qv-page]') as HTMLAnchorElement).href = p.url;
     if (p.img) {
       img.src = p.img;
       img.alt = `${p.ref} ${p.name}`;

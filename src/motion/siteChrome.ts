@@ -7,6 +7,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import type Lenis from 'lenis';
 import { env } from '@/lib/env';
+import { isArPage } from '@/i18n/client';
+import { enquiry } from '@/lib/enquiry';
 
 // ── Nav: colour follows the section under it, hides while reading down ──
 export function initNav(lenis: Lenis) {
@@ -40,7 +42,7 @@ export function initMenu(lenis: Lenis) {
   const toggle = document.querySelector<HTMLElement>('[data-menu-toggle]');
   const panel = menu.querySelector<HTMLElement>('[data-menu-panel]');
   const labels = menu.querySelectorAll<HTMLElement>('.menu__label, .menu__num');
-  const aside = menu.querySelector<HTMLElement>('.menu__aside');
+  const aside = menu.querySelectorAll<HTMLElement>('.menu__aside, .menu__enquiry');
   const video = menu.querySelector<HTMLVideoElement>('[data-menu-video]');
   let open = false;
   let tl;
@@ -68,23 +70,57 @@ export function initMenu(lenis: Lenis) {
   };
   toggle.addEventListener('click', () => set(!open));
   document.addEventListener('keydown', (e) => e.key === 'Escape' && open && set(false));
+
+  // the enquiry list, on every page: a way through to the quote once something is picked
+  const cart = menu.querySelector<HTMLElement>('[data-menu-enquiry]');
+  const cartCount = menu.querySelector<HTMLElement>('[data-menu-enquiry-count]');
+  const showCart = (items) => {
+    if (!cart) return;
+    cart.hidden = items.length === 0;
+    cartCount.textContent = String(items.length);
+  };
+  enquiry.subscribe(showCart);
+  showCart(enquiry.list());
   document.addEventListener('nav:go', () => open && set(false));
+}
+
+// ── "Skip" on the long scroll scenes: glide straight past the rest of the scene ──
+export function initSkipScenes(lenis: Lenis) {
+  document.querySelectorAll<HTMLElement>('[data-skip-scene]').forEach((b) => {
+    const scene = b.closest<HTMLElement>('section');
+    if (!scene) return;
+    b.addEventListener('click', () => {
+      // where the next section starts (it may tuck up under the scene's last screen, as the
+      // product range does under the press on Home)
+      const next = scene.nextElementSibling as HTMLElement | null;
+      const end = (next ? next.getBoundingClientRect().top : scene.getBoundingClientRect().bottom) + window.scrollY;
+      lenis.scrollTo(end, { duration: 1.2, easing: (t) => 1 - Math.pow(1 - t, 3) });
+    });
+  });
 }
 
 // ── Line-masked heading reveals ──
 export function initReveals() {
   document.querySelectorAll<HTMLElement>('[data-split-lines]').forEach((el) => {
     const s = SplitText.create(el, { type: 'lines', mask: 'lines', autoSplit: true,
-      onSplit: (self) => gsap.from(self.lines, {
-        yPercent: 108, duration: 1.3, ease: 'expo.out', stagger: 0.08,
-        scrollTrigger: { trigger: el, start: 'top 86%' },
-      }),
+      onSplit: (self) => {
+        // each line's mask gets room below the baseline (.split-mask), so descenders, and Arabic
+        // letters that reach further down, aren't cut off
+        self.masks?.forEach((m) => m.classList.add('split-mask'));
+        return gsap.from(self.lines, {
+          yPercent: 140, duration: 1.3, ease: 'expo.out', stagger: 0.08, // (fully below the mask's extra room)
+          scrollTrigger: { trigger: el, start: 'top 86%' },
+        });
+      },
     });
     void s;
   });
+  // the labels slide in from the side the line starts on (the right in Arabic), so they never
+  // poke out past the edge of a phone screen
+  const from = isArPage() ? 16 : -16;
   gsap.utils.toArray<HTMLElement>('.eyebrow').forEach((el) => {
     if (el.closest<HTMLElement>('.hero, .line')) return;
-    gsap.from(el, { opacity: 0, x: -16, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 92%' } });
+    gsap.from(el, { opacity: 0, x: from, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 92%' } });
   });
   gsap.utils.toArray<HTMLElement>('.person').forEach((p, i) => {
     const img = p.querySelector<HTMLElement>('.person__img');

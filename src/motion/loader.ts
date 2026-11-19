@@ -129,7 +129,7 @@ type Progress = (minTime: number, onDone: () => void) => void;
 
 function landing({ root, navSvg, navLogo, card, progress, speed }: { root: HTMLElement; navSvg: SVGSVGElement; navLogo: HTMLElement; card: HTMLElement; progress: Progress; speed: { v: number } }): Promise<void> {
   const brief = arrivingInternally();
-  // the dark loader: count and company along the foot, "Skip intro" top right (main.css)
+  // the dark loader: count and company along the foot, "Skip intro" top right (src/styles/site/chrome.css)
   root.classList.add('is-cinematic', 'is-landing');
   const shutter = root.querySelector('[data-shutter]');
   const skip = root.querySelector('[data-intro-skip]');

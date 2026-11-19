@@ -1,6 +1,7 @@
 // Home · the quote form at the foot of the page → a prefilled email (no backend yet).
 import { enquiry, describe } from '@/lib/enquiry';
 import { tc } from '@/i18n/client';
+import { company } from '@/data/site';
 
 // ── Quote form → prefilled email (no backend yet) ──
 export function initQuote() {
@@ -16,7 +17,7 @@ export function initQuote() {
     if (!detail.value) detail.value = describe(picked);
     const fams = new Set(picked.map((i) => i.familyName));
     form.querySelectorAll<HTMLInputElement>('input[name="family"]').forEach((c) => { if (fams.has(c.value)) c.checked = true; });
-    note.textContent = tc('{n} from your enquiry list added above. Opens your email app, addressed to info@arifapack.com.', { n: tc(`${picked.length} product${picked.length > 1 ? 's' : ''}`) });
+    note.textContent = tc('{n} from your enquiry list added above. Opens your email app, addressed to {email}.', { email: company.email, n: tc(`${picked.length} product${picked.length > 1 ? 's' : ''}`) });
   }
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -48,9 +49,9 @@ export function initQuote() {
       `${data.get('message') || ''}`,
     ];
     const subject = `Quote request — ${families[0] || 'Arifa Pack products'}${data.get('company') ? ` — ${data.get('company')}` : ''}`;
-    window.location.href = `mailto:info@arifapack.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+    window.location.href = `mailto:${company.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
     form.classList.add('is-sent');
-    note.textContent = tc('Your email app should open with the request filled in. If it doesn’t, write to info@arifapack.com.');
+    note.textContent = tc('Your email app should open with the request filled in. If it doesn’t, write to {email}.', { email: company.email });
   });
   form.querySelectorAll<HTMLInputElement>('input').forEach((i) => i.addEventListener('input', () => i.closest<HTMLElement>('.field')?.classList.remove('is-invalid')));
 }

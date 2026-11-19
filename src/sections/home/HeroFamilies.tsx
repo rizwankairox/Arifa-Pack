@@ -7,6 +7,7 @@ import { HERO_PHOTOGRAPHY } from '@/data/heroPhotography';
 import { heroSteps } from '@/data/heroSteps';
 import { pad2, plural } from '@/lib/format';
 import { isAr, lh, t } from '@/i18n';
+import { Picture } from '@/components/site/Picture';
 
 /** labels: one per product on the ring, each linking to its family */
 export function HeroSteps() {
@@ -14,7 +15,8 @@ export function HeroSteps() {
     <>
       {heroSteps(getCatalogue()).map(({ shape, f, items, photo }, i) => {
         const p = items.find((x) => x.id === photo && x.img) || items.find((x) => x.img);
-        const src = HERO_PHOTOGRAPHY[shape]?.src || p?.img || '';
+        const studio = HERO_PHOTOGRAPHY[shape];
+        const src = studio?.src || p?.img || '';
         return (
           <li
             key={shape}
@@ -26,7 +28,7 @@ export function HeroSteps() {
             data-count={items.length}
           >
             <a href={lh(`/products?family=${f.id}`)}>
-              <img className="hero__label-photo" src={src} alt="" width={180} height={100} loading="lazy" decoding="async" />
+              <Picture className="hero__label-photo" src={src} widths={studio ? [640] : []} sizes="180px" alt="" width={studio?.width || 720} height={studio?.height || 474} loading="lazy" decoding="async" />
               <b className="mono">{pad2(i + 1)}</b>
               <span className="hero__label-t">{f.name}</span>
               <em className="mono">{t(plural(items.length))} {isAr() ? '←' : '→'}</em>
@@ -45,9 +47,11 @@ export function HeroReel() {
       {heroSteps(getCatalogue()).map(({ shape }) => {
         const p = HERO_PHOTOGRAPHY[shape];
         return p ? (
-          <img
+          <Picture
             key={shape}
             className="hero__photo"
+            widths={[640]}
+            sizes="(max-width: 720px) 40vw, 245px"
             data-photo={shape}
             src={p.src}
             alt={t(p.alt)}

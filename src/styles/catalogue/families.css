@@ -1,0 +1,220 @@
+/* Products page: the page ground and the eight family tiles at the top. (src/styles/catalogue/, loaded in this order) */
+.page-products, .page-products main {
+  background: var(--paper);
+}
+
+.cat-hero {
+  padding-top: var(--nav-h);
+  position: relative;
+  overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ─── Browse by family: one dark band of panels, each on its own factory footage ──────────
+   All eight families at a glance in a single band. Hovering (or focusing) a panel opens it out
+   and plays its film; the others narrow and dim. A click filters the catalogue below
+   (src/sections/products/families.ts). Phones get short dark cards, two to a row. */
+.fams {
+  padding: clamp(20px, 4vh, 40px) 0 0; /* the first thing under the header */
+}
+
+.fams__head {
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 16px;
+  display: flex;
+}
+
+.fams__label {
+  color: var(--on-paper-mute);
+}
+
+.fams__all {
+  color: var(--on-paper);
+  border-bottom: 1px solid var(--rule-paper);
+  padding-bottom: 2px;
+  transition: border-color .3s;
+}
+
+.fams__all:hover {
+  color: var(--hover-ink);
+  border-color: currentColor;
+}
+
+.fams__grid {
+  gap: 8px;
+  height: clamp(300px, 44vh, 440px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.fams__item {
+  flex: 1 1 0;
+  min-width: 0;
+  transition: flex-grow .75s var(--ease);
+}
+
+.fams__grid:hover .fams__item:hover, .fams__item:focus-within {
+  flex-grow: 3.4;
+}
+
+.fam {
+  height: 100%;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: 16px;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.fam__media {
+  z-index: -1;
+  transition: opacity .6s var(--ease);
+  position: absolute;
+  inset: 0;
+}
+
+.fam__media video {
+  object-fit: cover;
+  filter: saturate(.85) brightness(.62);
+  width: 100%;
+  height: 100%;
+  transition: filter .7s var(--ease), transform 1.2s var(--ease);
+  transform: scale(1.04);
+}
+
+.fam:hover .fam__media video, .fam:focus-visible .fam__media video {
+  filter: saturate(1) brightness(.86);
+  transform: scale(1);
+}
+
+/* (no footage for this family: its studio photograph, lit on the dark) */
+.fam.is-cut .fam__media {
+  background: radial-gradient(90% 70% at 50% 42%, #2a2c2f 0%, #121417 62%, var(--ink) 100%);
+}
+
+/* sized by the panel's height, not its width, so a widened panel doesn't shrink the photo */
+.fam__cut {
+  object-fit: contain;
+  filter: brightness(.86) drop-shadow(0 22px 22px #0009);
+  position: absolute;
+  top: 12%;
+  left: 10%;
+  width: 80%;
+  height: 54%;
+  transition: filter .7s var(--ease), transform .9s var(--ease);
+}
+
+.fam:hover .fam__cut, .fam:focus-visible .fam__cut {
+  filter: brightness(1) drop-shadow(0 26px 24px #000a);
+  transform: translateY(-4px) scale(1.04);
+}
+
+/* the words sit on a shade at the foot of the panel */
+.fam:after {
+  content: "";
+  z-index: -1;
+  background: linear-gradient(#0b0e1200 40%, #0b0e12d9);
+  position: absolute;
+  inset: 0;
+}
+
+.fam__n {
+  color: #ecebe6a6;
+  font-size: .62rem;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+}
+
+.fam__go {
+  width: 34px;
+  height: 34px;
+  color: var(--ink);
+  opacity: 0;
+  background: var(--leaf-hi);
+  border-radius: 50%;
+  place-items: center;
+  transition: opacity .4s var(--ease), transform .5s var(--ease);
+  display: grid;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  transform: translate(-6px, 6px) scale(.9);
+}
+
+.fam__go svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2px;
+  width: 15px;
+  height: 15px;
+  transform: rotate(-45deg);
+}
+
+.fam:hover .fam__go, .fam:focus-visible .fam__go {
+  opacity: 1;
+  transform: none;
+}
+
+.fam__body {
+  gap: 6px;
+  display: grid;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+}
+
+.fam__name {
+  letter-spacing: -.015em;
+  font-size: clamp(1rem, 1.25vw, 1.35rem);
+  font-weight: 450;
+  line-height: 1.1;
+}
+
+.fam__count {
+  color: #ecebe6a6;
+  font-size: .62rem;
+}
+
+.fam__count:before {
+  content: "";
+  background: var(--leaf-hi);
+  vertical-align: middle;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2px 7px 0 0;
+  display: inline-block;
+}
+
+.fam:focus-visible {
+  outline: 2px solid var(--leaf-hi);
+  outline-offset: 3px;
+}
+
+/* while one panel is open, the rest step back */
+.fams__grid:hover .fams__item:not(:hover) .fam__media {
+  opacity: .7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fams__item {
+    transition: none;
+  }
+}

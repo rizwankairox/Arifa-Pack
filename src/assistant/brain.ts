@@ -12,6 +12,12 @@
 */
 import type { FamilyInfo, Turn } from './types';
 import { isArPage, tc } from '@/i18n/client';
+import { apiEnabled, sendMessage, ApiError } from '@/lib/arifaApi';
+import { phone } from '@/data/site';
+
+// WhatsApp click-to-chat: the last resort when the assistant is unavailable (API 503)
+const WHATSAPP = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || phone.packaging.tel).replace(/\D/g, '');
+export const whatsappLink = () => `https://wa.me/${WHATSAPP}`;
 
 const KEY = 'arifa-brain';
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
@@ -68,7 +74,9 @@ export function createBrain({ families }: { families: FamilyInfo[] }) {
   const persist = () => { try { sessionStorage.setItem(KEY, JSON.stringify({ history: history.slice(-24), memo })); } catch { /* private mode */ } };
 
   let remote = null; // null = not checked, true = the AI endpoint is configured
+  let voiceConsent = false; // the visitor turned the mic on (sent when a backend session starts)
   const checkRemote = async () => {
+    if (apiEnabled()) return (remote = true); // the Arifa backend answers every turn
     if (remote !== null) return remote;
     try { remote = !!(await (await fetch('/api/assistant')).json()).ready; } catch { remote = false; }
     return remote;
@@ -154,6 +162,22 @@ export function createBrain({ families }: { families: FamilyInfo[] }) {
     };
   }
 
+  // one turn through the backend: its reply as plain text; null = a person has taken over
+  async function backendTurn(text): Promise<{ say: string; action: any }> {
+    const handedOver = tc('Our sales team is preparing your quotation; you’ll receive it on WhatsApp shortly.');
+    try {
+      const r = await sendMessage(text, { language: isArPage() ? 'ar' : 'en', voiceConsent });
+      if (r.handed_over) return { say: r.reply ? `${r.reply}\n\n${handedOver}` : handedOver, action: null };
+      return { say: r.reply || tc('One moment, a member of our team is with you.'), action: null };
+    } catch (e) {
+      const status = e instanceof ApiError ? e.status : 0;
+      if (status === 429) return { say: tc('Please slow down a moment, then try again.'), action: null };
+      if (status === 422) return { say: tc('Sorry, I couldn’t take that message. Could you say it another way?'), action: null };
+      // 503 (the assistant is unavailable) or no connection: WhatsApp is the way through
+      return { say: tc('I’m not available right now. Please message our team on WhatsApp and they’ll help you straight away.'), action: { type: 'whatsapp', href: whatsappLink() } };
+    }
+  }
+
   const describe = (a) => (a?.type === 'family' ? `showed ${fam(a.id)?.name}`
     : a?.type === 'product' ? `opened product ${a.ref}`
       : a?.type === 'quote' ? 'opened the quote form'
@@ -181,6 +205,13 @@ export function createBrain({ families }: { families: FamilyInfo[] }) {
     async reply(text, page) {
       history.push({ role: 'user', content: text });
       let out = null;
+      // the Arifa backend (src/lib/arifaApi.ts): the same AI as on WhatsApp and email
+      if (apiEnabled()) {
+        out = await backendTurn(text);
+        history.push({ role: 'assistant', content: out.say });
+        persist();
+        return out;
+      }
       if (await checkRemote()) {
         try {
           const r = await fetch('/api/assistant', {
@@ -201,5 +232,7 @@ export function createBrain({ families }: { families: FamilyInfo[] }) {
     },
     usingAI: () => remote === true,
     checkRemote,
+    /** the visitor turned the mic on: a new backend session starts with voice consent */
+    setVoiceConsent(v: boolean) { voiceConsent = v; },
   };
 }

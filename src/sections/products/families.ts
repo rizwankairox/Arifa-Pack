@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { env } from '@/lib/env';
+import { clipFor } from '@/lib/clips';
 
 /*
   Browse by family: the eight families as one dark band of panels on their own factory footage.
@@ -37,7 +38,7 @@ export function initFamilies({ lenis }) {
       const v = t.querySelector<HTMLVideoElement>('video');
       if (!v) return;
       const play = () => {
-        if (!v.getAttribute('src') && v.dataset.src) v.src = v.dataset.src;
+        if (!v.getAttribute('src') && v.dataset.src) v.src = clipFor(v);
         v.play().catch(() => {});
       };
       const stop = () => v.pause();

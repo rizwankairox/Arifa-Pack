@@ -1,0 +1,183 @@
+/* The enquiry list button and panel (src/sections/products/EnquiryTray.tsx), and the photo that flies into it. */
+.tray {
+  z-index: 75;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  translate: -50%;
+}
+
+/* the menu is open: the enquiry list button steps aside so it doesn't cover the menu's links */
+body.menu-open .tray {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.tray[hidden] {
+  display: none;
+}
+
+/* over the quick view too, so adding a product from it shows the list straight away
+   (it sits over the photo half, below the product) */
+.qv.is-open ~ .tray {
+  z-index: 90;
+}
+
+.tray__pill {
+  background: var(--ink);
+  height: 58px;
+  color: var(--paper);
+  transition: scale .5s var(--ease-back);
+  border-radius: 999px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 10px;
+  display: flex;
+  position: relative;
+  white-space: nowrap; /* "Enquiry list" on one line, phones too */
+  box-shadow: 0 22px 44px -16px #0b0e1299;
+}
+
+.tray__pill:hover {
+  scale: 1.04;
+}
+
+.tray__pill.is-bump {
+  animation: bump .55s var(--ease-back);
+}
+
+.tray__stack {
+  padding-left: 4px;
+  display: flex;
+}
+
+.tray__stack img, .tray__stack span {
+  object-fit: cover;
+  border: 2px solid var(--ink);
+  background: var(--ink-3);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+}
+
+.tray__stack > * + * {
+  margin-left: -14px;
+}
+
+.tray__label {
+  padding-right: 4px;
+  font-size: .92rem;
+}
+
+.tray__count {
+  background: var(--leaf);
+  min-width: 34px;
+  height: 34px;
+  color: var(--ink);
+  border-radius: 999px;
+  place-items: center;
+  padding: 0 8px;
+  font-size: .8rem;
+  font-weight: 500;
+  display: grid;
+}
+
+.tray__panel {
+  width: min(440px, 100vw - 24px);
+  color: var(--ink);
+  visibility: hidden;
+  clip-path: inset(100% 0 0 round 8px);
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  translate: -50%;
+  box-shadow: 0 40px 80px -30px #0b0e128c;
+}
+
+.tray.is-open .tray__panel {
+  visibility: visible;
+}
+
+.tray__head {
+  border-bottom: 1px solid var(--rule-paper);
+  color: var(--on-paper-mute);
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  display: flex;
+}
+
+.tray__list {
+  overscroll-behavior: contain;
+  max-height: min(44vh, 360px);
+  overflow-y: auto;
+}
+
+.tray__list li {
+  border-bottom: 1px solid var(--rule-paper);
+  grid-template-columns: 62px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  display: grid;
+}
+
+.tray__list img, .tray__list .tray__ph {
+  aspect-ratio: 720 / 474;
+  object-fit: cover;
+  background: #d9d9d3;
+  border-radius: 3px;
+  width: 62px;
+}
+
+.tray__list strong {
+  font-variation-settings: "wdth" 80;
+  letter-spacing: -.005em;
+  font-size: 1.05rem;
+  font-weight: 500;
+  display: block;
+}
+
+.tray__list small {
+  color: var(--on-paper-mute);
+  font-size: .8rem;
+}
+
+.tray__list button {
+  width: 32px;
+  height: 32px;
+  color: var(--on-paper-mute);
+  border-radius: 50%;
+}
+
+.tray__list button:hover {
+  color: var(--leaf-ink);
+  background: #3672191a;
+}
+
+.tray__cta {
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.tray__note {
+  color: var(--on-paper-mute);
+  text-align: center;
+  margin-top: 10px;
+}
+
+.fly {
+  z-index: 95;
+  pointer-events: none;
+  object-fit: cover;
+  border-radius: 6px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 0 20px 40px -12px #0b0e1280;
+}

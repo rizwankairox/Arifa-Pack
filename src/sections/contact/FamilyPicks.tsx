@@ -7,6 +7,7 @@ import { FAMILY_PHOTO } from '@/data/heroSteps';
 import { pad2, plural } from '@/lib/format';
 import type { Family } from '@/data/types';
 import { t } from '@/i18n';
+import { Picture } from '@/components/site/Picture';
 
 function Pick({ f, index, count }: { f: Family; index: number; count: number }) {
   const ph = FAMILY_PHOTO[f.id];
@@ -21,11 +22,11 @@ function Pick({ f, index, count }: { f: Family; index: number; count: number }) 
               loop
               playsInline
               preload="none"
-              poster={`/media/posters/${f.clip}.jpg`}
+              poster={`/media/posters/${f.clip}.webp`}
               data-src={`/media/clips/${f.clip}.mp4`}
             ></video>
           ) : ph ? (
-            <img className="pick__cut" src={ph.src} alt="" width={ph.width} height={ph.height} loading="lazy" decoding="async" />
+            <Picture className="pick__cut" src={ph.src} widths={[640]} sizes="(max-width: 900px) 45vw, 20vw" alt="" width={ph.width} height={ph.height} loading="lazy" decoding="async" />
           ) : null}
         </span>
         <span className="pick__n mono" aria-hidden="true">

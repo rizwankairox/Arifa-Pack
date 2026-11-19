@@ -8,6 +8,7 @@ import { getCatalogue, productsIn } from '@/data/catalogue';
 import { FAMILY_PHOTO } from '@/data/heroSteps';
 import { pad2, plural } from '@/lib/format';
 import { lh, t } from '@/i18n';
+import { Picture } from '@/components/site/Picture';
 
 export function FamilyBand() {
   const cat = getCatalogue();
@@ -32,11 +33,11 @@ export function FamilyBand() {
                     loop
                     playsInline
                     preload="none"
-                    poster={`/media/posters/${f.clip}.jpg`}
+                    poster={`/media/posters/${f.clip}.webp`}
                     data-src={`/media/clips/${f.clip}.mp4`}
                   ></video>
                 ) : ph ? (
-                  <img className="fam__cut" src={ph.src} alt="" width={ph.width} height={ph.height} loading="lazy" decoding="async" />
+                  <Picture className="fam__cut" src={ph.src} widths={[640]} sizes="(max-width: 900px) 70vw, 25vw" alt="" width={ph.width} height={ph.height} loading="lazy" decoding="async" />
                 ) : null}
               </span>
               <span className="fam__n mono">{pad2(i + 1)}</span>

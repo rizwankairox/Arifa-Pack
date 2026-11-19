@@ -1,11 +1,14 @@
 import gsap from 'gsap';
 import { env } from '@/lib/env';
-import { tc } from '@/i18n/client';
+import { isArPage, tc } from '@/i18n/client';
 import { enquiry, describe } from '@/lib/enquiry';
+import { apiEnabled, currentSession, identify } from '@/lib/arifaApi';
 import type Lenis from 'lenis';
 import type { ClientProduct } from '@/data/types';
 import type { EnquiryItem } from '@/lib/enquiry';
 import type { QuoteFill } from '@/assistant/types';
+import { clipFor } from '@/lib/clips';
+import { company } from '@/data/site';
 
 /*
   The enquiry desk (contact page). Six quick questions, one at a time, and beside them a carton
@@ -56,6 +59,9 @@ export function initDesk({ lenis }: { lenis?: Lenis } = {}) {
   /** a named field of the form */
   const field = (name: string) => form.elements.namedItem(name) as HTMLInputElement | null;
   const done = document.querySelector<HTMLElement>('[data-done]');
+  const stepNow = $('[data-desk-step]');
+  // phones show the label only to review it, on the last question and once it's sent (contact.css)
+  const desk = form.closest<HTMLElement>('.ct-desk');
   const barcode = label.querySelector<HTMLElement>('[data-barcode]');
   const cell = (k) => label.querySelector<HTMLElement>(`[data-v="${k}"]`);
 
@@ -76,7 +82,7 @@ export function initDesk({ lenis }: { lenis?: Lenis } = {}) {
       const v = pk.querySelector<HTMLVideoElement>('video');
       if (!v) return;
       const play = () => {
-        if (!v.getAttribute('src') && v.dataset.src) v.src = v.dataset.src;
+        if (!v.getAttribute('src') && v.dataset.src) v.src = clipFor(v);
         v.play().catch(() => {});
       };
       const stop = () => v.pause();
@@ -254,10 +260,18 @@ export function initDesk({ lenis }: { lenis?: Lenis } = {}) {
   let at = 0;
   const stepIndex = (name) => steps.findIndex((s) => s.dataset.step === name);
   function show(i, { focus = true } = {}) {
+    const was = at;
     at = Math.max(0, Math.min(steps.length - 1, i));
+    // phones: a new question starts at the top of the form, so nobody has to hunt for it
+    const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 76;
+    if (focus && at !== was && window.innerWidth < 900 && Math.abs(form.getBoundingClientRect().top - (navH + 8)) > 24) {
+      lenis?.scrollTo(form, { offset: -(navH + 8), duration: 0.8 });
+    }
     const cur = steps[at];
     steps.forEach((s, k) => s.classList.toggle('is-active', k === at));
     count.textContent = `${String(at + 1).padStart(2, '0')} / ${String(steps.length).padStart(2, '0')}`;
+    if (stepNow) stepNow.textContent = count.textContent;
+    desk?.classList.toggle('is-review', at === steps.length - 1);
     stepName.textContent = cur.dataset.name;
     prog.style.transform = `scaleX(${(at + 1) / steps.length})`;
     back.hidden = at === 0;
@@ -349,13 +363,19 @@ export function initDesk({ lenis }: { lenis?: Lenis } = {}) {
     }
     const s = snap();
     lastText = compose(s);
+    // they've told us who they are: if they've been talking to the assistant, the Arifa backend
+    // links that conversation to them now (never before: no silent recognition)
+    if (apiEnabled() && currentSession()) {
+      identify({ phone: s.phone, email: s.email, name: s.name }, { language: isArPage() ? 'ar' : 'en' }).catch(() => { /* the email still goes */ });
+    }
     const subject = `Enquiry ${ref} — ${s.families[0] || s.items[0]?.familyName || 'Arifa Pack products'}${s.company ? ` — ${s.company}` : ''}`;
-    const mail = `mailto:info@arifapack.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lastText)}`;
+    const mail = `mailto:${company.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lastText)}`;
     label.classList.add('is-sealed');
     const finish = () => {
       window.location.href = mail;
       form.hidden = true;
       done.hidden = false;
+      desk?.classList.add('is-review');
       done.querySelector<HTMLElement>('[data-done-ref]').textContent = ref;
       if (!env.reduced) gsap.from(done.children, { y: 20, opacity: 0, duration: 0.8, ease: 'expo.out', stagger: 0.06 });
       done.querySelector<HTMLElement>('.desk__done-title')?.setAttribute('tabindex', '-1');
@@ -368,7 +388,7 @@ export function initDesk({ lenis }: { lenis?: Lenis } = {}) {
   async function copy(text, out) {
     try {
       await navigator.clipboard.writeText(text);
-      out.textContent = tc('Copied. Paste it into an email to info@arifapack.com.');
+      out.textContent = tc('Copied. Paste it into an email to {email}.', { email: company.email });
     } catch {
       const ta = document.createElement('textarea');
       ta.value = text;
@@ -379,7 +399,7 @@ export function initDesk({ lenis }: { lenis?: Lenis } = {}) {
       let ok = false;
       try { ok = document.execCommand('copy'); } catch {}
       ta.remove();
-      out.textContent = tc(ok ? 'Copied. Paste it into an email to info@arifapack.com.' : 'Couldn’t copy here. Write to info@arifapack.com and mention your enquiry number.');
+      out.textContent = tc(ok ? 'Copied. Paste it into an email to {email}.' : 'Couldn’t copy here. Write to {email} and mention your enquiry number.', { email: company.email });
     }
   }
   done.querySelector<HTMLElement>('[data-copy-enquiry]').addEventListener('click', () => copy(lastText, done.querySelector<HTMLElement>('[data-done-msg]')));
@@ -420,7 +440,7 @@ export function initDesk({ lenis }: { lenis?: Lenis } = {}) {
   const titleLines = document.querySelectorAll<HTMLElement>('.ct-title .ct-line > span');
   const rest = document.querySelectorAll<HTMLElement>('.ct-desk__head .eyebrow, .ct-lede, .desk');
   if (!env.reduced) {
-    gsap.set(titleLines, { yPercent: 110 });
+    gsap.set(titleLines, { yPercent: 140 });
     gsap.set(rest, { opacity: 0, y: 16 });
     gsap.set(label, { opacity: 0, y: -60, rotate: -9 });
   }

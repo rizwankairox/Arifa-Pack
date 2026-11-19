@@ -6,7 +6,7 @@ import { autoVideo } from '@/lib/env';
 export function initIntro() {
   const text = document.querySelector<HTMLElement>('[data-words]');
   if (!text) return;
-  const split = SplitText.create(text, { type: 'words', wordsClass: 'word' });
+  const split = SplitText.create(text, { type: 'words', wordsClass: 'word', aria: 'none' });
   const seq = [...text.querySelectorAll<HTMLElement>('.word, .pill')];
   const pills = seq.filter((el) => el.classList.contains('pill'));
   pills.forEach((p) => autoVideo(p.querySelector<HTMLVideoElement>('video')));

@@ -68,7 +68,7 @@ export function initHero(lenis) {
 
   // the headline, word by word, each line lit from white on the left to stone grey on the right
   const words = [...lines].flatMap((line) => {
-    const split = SplitText.create(line, { type: 'words', wordsClass: 'hero__word' });
+    const split = SplitText.create(line, { type: 'words', wordsClass: 'hero__word', aria: 'none' }); // (aria none: screen readers read the words themselves; a label isn't allowed on a plain span)
     (split.words as HTMLElement[]).forEach((w, i, all) => {
       const t = all.length > 1 ? i / (all.length - 1) : 0;
       const v = Math.round(244 - t * 96);

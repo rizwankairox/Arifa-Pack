@@ -2,6 +2,7 @@
   06 · Contact / quote
 */
 import { t, lh } from '@/i18n';
+import { company, phone } from '@/data/site';
 export function QuoteSection() {
   return (
     <section className="contact" id="contact" data-theme="dark">
@@ -26,7 +27,7 @@ export function QuoteSection() {
                 <br />
                 <a
                   className="link"
-                  href="https://maps.google.com/?q=Arifa+Packing+%26+Packaging+LLC+Al+Jurf+Industrial+Area+2+Ajman"
+                  href={company.maps}
                   target="_blank"
                   rel="noopener"
                 >
@@ -37,31 +38,31 @@ export function QuoteSection() {
             <div>
               <dt className="mono">{t("Office")}</dt>
               <dd>
-                <a className="link" href="tel:+97167477061">
-                  +971 6 747 7061
+                <a className="link" href={`tel:${phone.office.tel}`}>
+                  {phone.office.label}
                 </a>
               </dd>
             </div>
             <div>
               <dt className="mono">{t("Packaging division")}</dt>
               <dd>
-                <a className="link" href="tel:+97167485384">
-                  +971 6 748 5384
+                <a className="link" href={`tel:${phone.packaging.tel}`}>
+                  {phone.packaging.label}
                 </a>
               </dd>
             </div>
             <div>
               <dt className="mono">{t("Email")}</dt>
               <dd>
-                <a className="link" href="mailto:info@arifapack.com">
-                  {t("info@arifapack.com")}
+                <a className="link" href={`mailto:${company.email}`}>
+                  {company.email}
                 </a>
               </dd>
             </div>
             <div>
               <dt className="mono">{t("Hours")}</dt>
               <dd>
-                {t("Monday – Saturday, 08:00 – 20:00")}
+                {t(company.hoursLong)}
                 <br />
                 {t("Sunday closed")}
                 <br />

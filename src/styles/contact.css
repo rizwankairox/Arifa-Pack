@@ -6,7 +6,7 @@
 .page-contact [hidden] { display: none !important; }
 
 /* ── the desk ── */
-.ct-desk { position: relative; min-height: 100vh; min-height: 100svh; padding: calc(var(--nav-h) + 36px) 0 110px; background: var(--ink); color: var(--on-ink); overflow: hidden; }
+.ct-desk { position: relative; min-height: 100vh; min-height: 100svh; padding: calc(var(--nav-h) + 36px) 0 110px; background: var(--ink); color: var(--on-ink); overflow: clip; } /* (clip, not hidden: the form's Back / Next bar can stick on phones) */
 .ct-desk__glow {
   position: absolute; inset: 0; pointer-events: none;
   background:
@@ -162,6 +162,7 @@
 .desk__nav { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 26px; margin-top: 40px; }
 .desk__back { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: #a7a097; transition: color 0.3s; }
 .desk__back:hover { color: #ffffff; }
+.desk__nav-step { display: none; }
 .desk__hint { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6b6760; }
 .desk__msg { min-height: 1.4em; margin-top: 16px; font-size: 0.7rem; letter-spacing: 0.04em; color: #f2a690; }
 html.no-js .desk__bar, html.no-js [data-next], html.no-js [data-back], html.no-js .desk__hint { display: none; }
@@ -232,9 +233,9 @@ html.no-js .desk__step + .desk__step { margin-top: 60px; }
 /* ── a person, or the assistant ── */
 .ct-people { padding: clamp(90px, 14vh, 160px) 0; }
 .ct-people__head { margin-bottom: clamp(36px, 6vh, 64px); }
-.ct-people .eyebrow { color: #6f6a63; margin-bottom: 22px; }
+.ct-people .eyebrow { color: #67625b; margin-bottom: 22px; }
 .ct-h2 { font-size: clamp(2.2rem, 4.2vw, 4.6rem); font-weight: 300; line-height: 1; letter-spacing: -0.045em; }
-.ct-people .ct-h2 .is-dim { color: #8a8780; }
+.ct-people .ct-h2 .is-dim { color: #6f6c66; }
 .ct-people__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
 .ct-hours, .ct-line-card, .ct-talk { display: flex; flex-direction: column; min-height: 380px; padding: 24px; border-radius: 20px; background: #ffffff; }
 
@@ -245,17 +246,17 @@ html.no-js .desk__step + .desk__step { margin-top: 60px; }
 .dial__open.is-off { stroke: #d3d0c8; }
 .dial__ticks line { stroke: #c9c5bd; stroke-width: 1; }
 .dial__ticks line.is-major { stroke: #57534d; stroke-width: 1.6; }
-.dial__nums text { font-family: var(--f-mono); font-size: 10px; fill: #8a8780; text-anchor: middle; }
+.dial__nums text { font-family: var(--f-mono); font-size: 10px; fill: #6f6c66; text-anchor: middle; }
 .dial__hand line { stroke: #0b0a09; stroke-width: 2.4; stroke-linecap: round; }
 .dial__hand circle { fill: #0b0a09; }
 .ct-hours__dial.is-open .dial__hand circle { fill: var(--leaf); }
 .dial__hub { fill: #0b0a09; }
 .ct-hours__text { margin-top: auto; padding-top: 18px; }
 .ct-hours__state { font-size: 1.12rem; font-weight: 500; letter-spacing: -0.01em; }
-.ct-hours__text .mono { margin-top: 6px; font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: #6f6a63; }
-.ct-hours__plain { margin-top: 14px; font-size: 0.85rem; line-height: 1.5; color: #8a8780; }
+.ct-hours__text .mono { margin-top: 6px; font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: #67625b; }
+.ct-hours__plain { margin-top: 14px; font-size: 0.85rem; line-height: 1.5; color: #6f6c66; }
 
-.ct-line-card__tag { display: flex; align-items: center; gap: 8px; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: #6f6a63; }
+.ct-line-card__tag { display: flex; align-items: center; gap: 8px; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: #67625b; }
 .ct-line-card__tag i { width: 6px; height: 6px; border-radius: 50%; background: var(--leaf); }
 .ct-line-card__num { display: block; margin: 34px 0 22px; font-size: clamp(1.5rem, 2.1vw, 2.2rem); font-weight: 300; letter-spacing: -0.03em; white-space: nowrap; transition: color 0.3s; }
 .ct-line-card__num:hover { color: var(--leaf-ink); }
@@ -263,7 +264,7 @@ html.no-js .desk__step + .desk__step { margin-top: 60px; }
 .ct-copy { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: #57534d; border-bottom: 1px solid currentColor; padding-bottom: 1px; transition: color 0.3s; }
 .ct-copy:hover, .ct-copy.is-copied { color: var(--leaf-ink); }
 .ct-line-card__mail { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 12px; margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(11, 10, 9, 0.1); font-size: 0.78rem; }
-.ct-line-card__who { margin-top: 12px; font-size: 0.85rem; color: #8a8780; }
+.ct-line-card__who { margin-top: 12px; font-size: 0.85rem; color: #6f6c66; }
 
 .ct-talk { position: relative; overflow: hidden; background: #0b0a09; color: var(--on-ink); }
 .ct-talk::before { content: ""; position: absolute; inset: 0; background: radial-gradient(70% 60% at 20% 0%, rgba(126, 186, 64, 0.24), transparent 70%); pointer-events: none; }
@@ -290,7 +291,7 @@ html.no-js .desk__step + .desk__step { margin-top: 60px; }
   transition: opacity 0.35s var(--ease), transform 0.45s var(--ease);
 }
 .ct-where__map:hover .ct-where__open, .ct-where__map:focus-visible .ct-where__open { opacity: 1; transform: translate(-50%, 0); }
-@media (hover: none) { .ct-where__open { opacity: 1; transform: translate(-50%, 0); } }
+@media (hover: none) { .ct-where__open { opacity: 1; transform: translate(-50%, 0); } .desk__hint { display: none; } }
 .where__dot { fill: rgba(240, 238, 233, 0.24); }
 .where__coast { fill: none; stroke: rgba(140, 194, 30, 0.8); stroke-width: 2.2; stroke-linejoin: round; stroke-dasharray: 1; }
 .where__cities circle { fill: rgba(240, 238, 233, 0.6); }
@@ -315,6 +316,21 @@ html.no-js .desk__step + .desk__step { margin-top: 60px; }
   .desk__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 899px) {
+  /* phones: Back / Next stays in reach at the foot of the screen while you're in the form */
+  .desk__nav {
+    position: sticky; bottom: 0; z-index: 5; margin-top: 28px; gap: 12px 14px;
+    margin-inline: calc(-1 * var(--gutter)); /* the shade runs edge to edge, so it has no visible sides */
+    padding: 22px var(--gutter) calc(14px + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, rgba(8, 9, 11, 0.94) 55%, rgba(8, 9, 11, 0));
+    flex-wrap: nowrap;
+    padding-right: calc(var(--gutter) + 62px); /* clear of the assistant's button in the corner */
+  }
+  /* the bar reads: ← Back · 02 / 06 · Next →, with Next under the right thumb */
+  .desk__nav-step { display: inline; color: var(--on-ink-mute); font-size: 0.75rem; letter-spacing: 0.06em; white-space: nowrap; direction: ltr; }
+  .desk__nav .btn { margin-inline-start: auto; flex: none; padding: 0 18px; gap: 10px; }
+  .desk__back { min-height: 44px; white-space: nowrap; }
+  /* the label is the review: it shows on the last question (and once sent), not under every step */
+  .ct-desk:not(.is-review) .ct-label { display: none; }
   .ct-desk { padding-top: calc(var(--nav-h) + 30px); }
   .ct-desk__grid { grid-template-columns: minmax(0, 1fr); }
   .ct-label { position: relative; top: 0; max-width: 520px; transform: rotate(-1deg); }
@@ -327,7 +343,7 @@ html.no-js .desk__step + .desk__step { margin-top: 60px; }
 @media (max-width: 600px) {
   /* phones: the panels sit two by two, no widening */
   .picks__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); height: auto; }
-  .picks__item { height: 124px; }
+  .picks__item { height: 108px; }
   .picks__row:hover .picks__item:not(:hover) .pick__media { opacity: 1; }
   .pick__n { top: 10px; left: 10px; }
   .pick__body { left: 10px; right: 10px; bottom: 10px; }

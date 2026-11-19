@@ -2,6 +2,7 @@
   04 · from the President / CEO
 */
 import { t } from '@/i18n';
+import { Picture } from '@/components/site/Picture';
 export function Chairman() {
   return (
     <section className="ab-ceo" id="chairman" data-theme="dark" aria-labelledby="chairman-quote">
@@ -28,8 +29,10 @@ export function Chairman() {
             </div>
           </div>
           <figure className="ab-ceo__portrait">
-            <img
+            <Picture
               src="/images/team/sulthanul-arifeen-portrait.webp"
+              widths={[560]}
+              sizes="(max-width: 900px) 90vw, 45vw"
               alt={t("Black-and-white portrait of Sulthanul Arifeen, President and CEO of Arifa Group")}
               loading="lazy"
               decoding="async"

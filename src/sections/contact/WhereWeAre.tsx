@@ -2,6 +2,7 @@
   02 · where we are: the UAE in line, with Ajman lit
 */
 import { t } from '@/i18n';
+import { company } from '@/data/site';
 export function WhereWeAre() {
   return (
     <section className="ct-where" id="where" data-theme="dark">
@@ -9,7 +10,7 @@ export function WhereWeAre() {
         {/* the map itself is the way to directions: click or tap it to open the location in Maps */}
         <a
           className="ct-where__map"
-          href="https://maps.google.com/?q=Arifa+Packing+%26+Packaging+LLC+Al+Jurf+Industrial+Area+2+Ajman"
+          href={company.maps}
           target="_blank"
           rel="noopener"
           aria-label={t("Open Arifa Packing & Packaging LLC, Al Jurf Industrial Area 2, Ajman, in Maps (opens in a new tab)")}
@@ -49,7 +50,7 @@ export function WhereWeAre() {
             </div>
             <div>
               <dt className="mono">{t("Visiting")}</dt>
-              <dd>{t("Monday – Saturday, 08:00 – 20:00")}</dd>
+              <dd>{t(company.hoursLong)}</dd>
             </div>
           </dl>
           <button

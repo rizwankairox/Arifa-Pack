@@ -34,7 +34,41 @@ Other commands:
 3. Optional: **Settings → Environment Variables** → add `ANTHROPIC_API_KEY` for the live AI assistant.
 4. Every push gets its own preview link; the main branch is the live site.
 
-The prototype's old addresses (`/products.html`, `/about.html` …) forward automatically to the new ones (`/products`, `/about` …).
+The prototype's old addresses (`/products.html`, `/about.html` …) forward automatically to the new ones (`/products`, `/about` …). So do the previous arifapack.com site's pages: `/8325.php` → `/products/ac-8325`, `/foil.php` → `/products?family=foil` and so on (`next.config.ts`, using `legacyPage` in `catalogue.json`). Nothing on this site links to the old site.
+
+## Product pages
+
+Every product has its own page, in English and Arabic: `/products/<id>` and `/ar/products/<id>` (for example `/products/ac-8325`). They are built at deploy time from `catalogue.json` (`src/app/(en)/products/[id]`, `src/views/product.tsx`, `src/sections/product/`), listed in `/sitemap.xml`, and carry Product data for Google. A product card in the catalogue is a link to its page; a plain click opens the quick view, which has a "View full details" link to the page.
+
+## Error page and security headers
+
+If a page ever crashes while loading, visitors get a branded "Something went wrong" page in their language, with Try again and links to Home and Products (`src/views/error.tsx`, with `error.tsx` in `src/app/(en)` and `src/app/(ar)/ar`). Every response also carries standard security headers (`next.config.ts` → `headers()`): no framing by other sites, no file-type guessing, a short referrer, https only, and camera, location and payment blocked (the microphone stays allowed for the assistant).
+
+## Images
+
+Photos are served as AVIF (smallest), with WebP for older browsers, and phones get smaller copies where it matters. After adding or replacing a photo in `public/images/…` or a poster in `public/media/posters/`, run:
+
+```
+npm run images
+```
+
+It makes the AVIF and smaller copies beside each file (`scripts/optimize-images.mjs`), and is safe to run again. In the pages, `<Picture>` (`src/components/site/Picture.tsx`) picks the right file for the browser and screen. Video posters are WebP; share images (what WhatsApp and LinkedIn show) are 1200 × 630 JPEGs in `public/images/og/`.
+
+## Fonts
+
+Archivo, IBM Plex Mono and IBM Plex Sans Arabic are served from the site itself (`public/fonts/`, declared in `src/styles/fonts.css`), not from Google, so text appears without waiting on a second connection. The family names are the same as before, so the CSS and the 3D scenes' painted text did not change. The files come from the open-source Fontsource packages (SIL Open Font License, `public/fonts/OFL.txt`).
+
+## Video
+
+Each factory clip in `public/media/clips/` has two sizes: `<name>.mp4` (1280 px) and `<name>-640.mp4` (640 px, about a third of the size). The page picks one by how wide the clip shows on the visitor's screen (`src/lib/clips.ts`), so small tiles and phones get the 640 px copy. Clips only download when they come near the screen. To add a clip, add both sizes; make the small one with:
+
+```
+ffmpeg -i <name>.mp4 -c:v libx264 -preset slow -crf 27 -vf scale=640:-2 -pix_fmt yuv420p -an -movflags +faststart <name>-640.mp4
+```
+
+## Page not found (404)
+
+Any address the site doesn't have shows a branded 404 page with the header, footer and assistant, links back to Home, Products and Contact, and a link to each product family. It answers with a real 404 status and isn't indexed. Arabic addresses (`/ar/…`) get the Arabic version. Files: `src/views/notfound.tsx`, `src/styles/notfound.css`, `src/sections/notfound/start.ts`, `src/app/(en)/not-found.tsx` and `src/app/(ar)/ar/not-found.tsx`, with the `[...missing]` catch-alls beside them that send unknown addresses there.
 
 ---
 
@@ -66,7 +100,8 @@ arifa-pack-website/
 │   ├── assistant/           THE VOICE ASSISTANT — what it says, hears and does
 │   ├── data/                CONTENT — catalogue.json, clients.json, company details
 │   ├── lib/                 Small helpers (browser checks, enquiry list, Ajman clock)
-│   └── styles/              The stylesheets (plain CSS, one file per page — see "Why plain CSS")
+│   └── styles/              The stylesheets (plain CSS, one file per page — see "Why plain CSS");
+│                            site/ = on every page, catalogue/ = Products and product pages, each split by part
 └── README.md                you are here
 ```
 
@@ -89,7 +124,7 @@ React builds every page **on the server**, so pages open fast and Google can rea
 
 | I want to change… | Edit this |
 | --- | --- |
-| A product, a code or a pack size | `src/data/catalogue.json` |
+| A product, a code or a pack size | `src/data/catalogue.json` (its page at `/products/<id>` updates on the next deploy) |
 | A product photo | Put `public/images/catalogue/<product id>.webp` in place — it's picked up automatically |
 | Phone numbers, email, address, opening hours | `src/data/site.ts` |
 | The menu, header or footer links | `src/data/site.ts` |
@@ -98,7 +133,7 @@ React builds every page **on the server**, so pages open fast and Google can rea
 | Any Arabic wording | `src/i18n/ar.ts` (pages) or `src/i18n/ar-client.ts` (counters, buttons, the assistant) |
 | The words in a section | `src/sections/<page>/<Section>.tsx` |
 | How a section animates | `src/sections/<page>/<section>.ts` (lower-case file next to it) |
-| Colours, spacing, fonts | `src/styles/main.css` (the `:root` variables at the top) |
+| Colours, spacing, fonts | `src/styles/site/base.css` (the `:root` variables at the top); fonts in `src/styles/fonts.css` |
 | 3D quality on weak phones | `src/three/quality.ts` |
 | What the AI assistant knows | `src/assistant/server/prompt.ts` |
 
@@ -141,7 +176,6 @@ Each 3D area on a page is a `<SceneCanvas name="…" />` (React Three Fiber). It
 | --- | --- | --- |
 | Dots that become products | Home hero, About | `three/scenes/DotField.ts` |
 | The press forming a container | Home · The line | `three/scenes/PressScene.ts` |
-| Media plate following the cursor | Home · Product range | `three/scenes/RangeReveal.ts` |
 | Factory folding into the world map | About · Reach | `three/scenes/ReachScene.ts` |
 | The delivery town | Clients | `three/scenes/DeliveryScene.ts` |
 
@@ -170,5 +204,4 @@ The styles are the approved prototype's own hand-tuned CSS (about 3,700 lines, o
 ## Before launch
 
 * `src/data/clients.json` is **sample content** (logos, industries, stories) and shows "Sample" tags until replaced with approved material.
-* The product film (`public/media/arifa-film.mp4`, 33 MB) is served as a plain file. The agreed plan is a streaming service (for example Mux) so it plays at the right quality for each visitor's connection — swap the `src` in `src/sections/home/FilmPlayer.tsx` when that is set up.
 * TypeScript runs in standard mode (`tsconfig.json`). Turning on `"strict": true` later will ask for more detailed types in the animation and 3D code.

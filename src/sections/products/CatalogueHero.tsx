@@ -1,5 +1,5 @@
 /*
-  Hero: the catalogue, and its families
+  The top of the Products page: straight into the eight families (the tiles), then the catalogue below.
 */
 import { FamilyBand } from './FamilyBand';
 import { getStats } from '@/data/catalogue';
@@ -10,36 +10,8 @@ export function CatalogueHero() {
   const stats = getStats();
   return (
     <section className="cat-hero" id="top" data-theme="light" data-cat-hero="">
-      <div className="wrap cat-hero__head">
-        <p className="eyebrow cat-hero__eyebrow">
-          <span className="mono">{t("(P)")}</span>{' '}{t("Products — the catalogue")}
-        </p>
-        <h1 className="cat-hero__title" data-hero-title="">
-          <span className="cat-hero__row">{t("Every code,")}</span>
-          <span className="cat-hero__row">
-            {t("every")}{' '}<em>{t("carton")}</em>.
-          </span>
-        </h1>
-        <div className="cat-hero__meta">
-          <p className="cat-hero__lede">
-            {t("The full Arifa Pack range, from the 8325 container to 30 cm cling film. Search by product code, filter by family, and build an enquiry list as you go.")}
-          </p>
-          <dl className="cat-stats">
-            <div>
-              <dt className="mono">{t("Products")}</dt>
-              <dd data-count-to={pad2(stats.products)}>{pad2(stats.products)}</dd>
-            </div>
-            <div>
-              <dt className="mono">{t("Families")}</dt>
-              <dd data-count-to={pad2(stats.families)}>{pad2(stats.families)}</dd>
-            </div>
-            <div>
-              <dt className="mono">{t("Self range")}</dt>
-              <dd data-count-to={pad2(stats.self)}>{pad2(stats.self)}</dd>
-            </div>
-          </dl>
-        </div>
-      </div>
+      {/* the page's heading, for search engines and screen readers: the family tiles are the first thing people see */}
+      <h1 className="sr-only">{t("Arifa Pack products: every code, every carton")}</h1>
 
       {/* the families as quiet tiles: a tile filters the catalogue below and glides down to it (src/sections/products/families.ts) */}
       <nav className="fams" aria-label={t("Browse by family")} data-fams="">

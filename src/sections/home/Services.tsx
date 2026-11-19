@@ -36,7 +36,7 @@ export function Services() {
                     loop
                     playsInline
                     preload="none"
-                    poster="/media/posters/line-conveyor.jpg"
+                    poster="/media/posters/line-conveyor.webp"
                     data-src="/media/clips/line-conveyor.mp4"
                   ></video>
                 </div>
@@ -60,7 +60,7 @@ export function Services() {
                     loop
                     playsInline
                     preload="none"
-                    poster="/media/posters/pack-sleeve.jpg"
+                    poster="/media/posters/pack-sleeve.webp"
                     data-src="/media/clips/pack-sleeve.mp4"
                   ></video>
                 </div>
@@ -87,7 +87,7 @@ export function Services() {
                     loop
                     playsInline
                     preload="none"
-                    poster="/media/posters/inspect.jpg"
+                    poster="/media/posters/inspect.webp"
                     data-src="/media/clips/inspect.mp4"
                   ></video>
                 </div>
@@ -111,7 +111,7 @@ export function Services() {
                     loop
                     playsInline
                     preload="none"
-                    poster="/media/posters/warehouse-forklift.jpg"
+                    poster="/media/posters/warehouse-forklift.webp"
                     data-src="/media/clips/warehouse-forklift.mp4"
                   ></video>
                 </div>

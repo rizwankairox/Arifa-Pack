@@ -5,6 +5,7 @@ import { pad2 } from '@/lib/format';
 import type { Family } from '@/data/types';
 import { ProductCard } from './ProductCard';
 import { t } from '@/i18n';
+import { Picture } from '@/components/site/Picture';
 
 function FamilyHeader({ f, n, total, index, cover }: { f: Family; n: number; total: number; index: number; cover?: string | null }) {
   return (
@@ -16,11 +17,11 @@ function FamilyHeader({ f, n, total, index, cover }: { f: Family; n: number; tot
             loop
             playsInline
             preload="none"
-            poster={`/media/posters/${f.clip}.jpg`}
+            poster={`/media/posters/${f.clip}.webp`}
             data-src={`/media/clips/${f.clip}.mp4`}
           ></video>
         ) : cover ? (
-          <img src={cover} alt="" loading="lazy" width={720} height={474} />
+          <Picture src={cover} alt="" loading="lazy" decoding="async" width={720} height={474} />
         ) : null}
       </div>
       <div className="fhead__body">

@@ -38,7 +38,10 @@ function initRoute(lenis) {
   // faded on the first scroll (main CSS: .cl-route.is-crowded), so the one never sits over the other.
   // (offsetTop: layout positions, which the entrance animations' transforms don't change)
   const card = sec.querySelector<HTMLElement>('[data-route-card]');
-  const fit = () => sec.classList.toggle('is-crowded', card.offsetTop < head.offsetTop + head.offsetHeight + 16);
+  // Phones and narrow tablets have no room for the heading, the town and the card at once, so
+  // there the card always waits for the heading to fade, and the town sits in the space between.
+  const narrow = () => window.innerWidth < 900;
+  const fit = () => sec.classList.toggle('is-crowded', narrow() || card.offsetTop < head.offsetTop + head.offsetHeight + 16);
 
   // pins over the buildings
   const pins = stops.map((s) => {
@@ -74,11 +77,32 @@ function initRoute(lenis) {
     const wide = window.innerWidth >= 900;
     const r = stage.getBoundingClientRect();
     // the town is framed away from the words: right of them in English, left of them on /ar (right to left)
-    return wide ? [r.width * (isArPage() ? 0.34 : 0.66), r.height * 0.54] : [r.width * 0.5, r.height * 0.3];
+    return wide ? [r.width * (isArPage() ? 0.34 : 0.66), r.height * 0.54] : [r.width * 0.5, narrowY ?? freeMiddle()];
+  };
+  // narrow screens: the middle of the free space, below the heading at first, then above the stop
+  // card once the heading has faded and the card has come up
+  let narrowY = null;
+  const freeMiddle = () => {
+    const r = stage.getBoundingClientRect();
+    const past = sec.classList.contains('is-past-head');
+    const top = past ? (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 64) : head.getBoundingClientRect().bottom - r.top;
+    const bottom = past ? card.getBoundingClientRect().top - r.top : r.height;
+    return (top + bottom) / 2;
+  };
+  const followSpace = () => {
+    if (!scene || !narrow()) { narrowY = null; return; }
+    const want = freeMiddle();
+    const y = narrowY == null ? want : narrowY + (want - narrowY) * 0.12;
+    if (narrowY == null || Math.abs(y - narrowY) > 0.3) {
+      narrowY = y;
+      scene.setAnchor(...anchor());
+      sec.style.setProperty('--town-y', `${Math.round((y / stage.getBoundingClientRect().height) * 100)}%`);
+    }
   };
 
   function draw() {
     if (!scene) return;
+    followSpace();
     scene.setProgress(p);
     if (scene.frame()) {
       const pos = scene.pins();

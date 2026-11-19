@@ -1,12 +1,12 @@
 /*
   Quick view
 */
-import { t } from '@/i18n';
+import { lh, t } from '@/i18n';
 export function QuickView() {
   return (
     <div className="qv" data-qv="" role="dialog" aria-modal="true" aria-labelledby="qv-title" aria-hidden="true">
       <div className="qv__backdrop" data-qv-close=""></div>
-      <div className="qv__panel" data-qv-panel="">
+      <div className="qv__panel" data-qv-panel="" data-lenis-prevent="">
         <div className="qv__stage" data-qv-stage="">
           <img className="qv__img" data-qv-img="" alt="" />
           <div className="qv__pending" data-qv-pending="" hidden>
@@ -48,8 +48,9 @@ export function QuickView() {
                 {t("Add to enquiry list")}
               </span>
             </button>
-            <a className="link mono" data-qv-live="" target="_blank" rel="noopener">
-              {t("Current listing on arifapack.com ↗")}
+            {/* this product's own page on the site (src/views/product.tsx) */}
+            <a className="link mono" data-qv-page="" href={lh("/products")}>
+              {t("View full details →")}
             </a>
           </div>
           <p className="qv__note mono">{t("Specifications and lead times are confirmed by the packaging team with your quote.")}</p>

@@ -16,7 +16,7 @@ import { initClock } from '@/lib/clock';
 import { initScroll } from './smoothScroll';
 import { initMagnetic } from './magnetic';
 import { runLoader, type LoaderOptions } from './loader';
-import { initNav, initMenu, initReveals, initFooter } from './siteChrome';
+import { initNav, initMenu, initReveals, initFooter, initSkipScenes } from './siteChrome';
 
 gsap.registerPlugin(ScrollTrigger, SplitText, Flip);
 gsap.config({ nullTargetWarn: false });
@@ -64,6 +64,7 @@ export async function boot({ init, loader = {}, keepScroll = false }: BootOption
   initMagnetic();
   initClock();
   initMenu(lenis);
+  initSkipScenes(lenis);
 
   const loaded = runLoader(loader);
 

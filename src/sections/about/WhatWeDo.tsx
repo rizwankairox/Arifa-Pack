@@ -20,7 +20,7 @@ export function WhatWeDo() {
                 loop
                 playsInline
                 preload="none"
-                poster="/media/posters/line-conveyor.jpg"
+                poster="/media/posters/line-conveyor.webp"
                 data-src="/media/clips/line-conveyor.mp4"
               ></video>
             </div>
@@ -37,7 +37,7 @@ export function WhatWeDo() {
                 loop
                 playsInline
                 preload="none"
-                poster="/media/posters/pack-sleeve.jpg"
+                poster="/media/posters/pack-sleeve.webp"
                 data-src="/media/clips/pack-sleeve.mp4"
               ></video>
             </div>
@@ -49,7 +49,7 @@ export function WhatWeDo() {
           </article>
           <article className="ab-card">
             <div className="ab-card__media">
-              <video muted loop playsInline preload="none" poster="/media/posters/inspect.jpg" data-src="/media/clips/inspect.mp4"></video>
+              <video muted loop playsInline preload="none" poster="/media/posters/inspect.webp" data-src="/media/clips/inspect.mp4"></video>
             </div>
             <span className="mono">03</span>
             <h3>{t("Quality assurance")}</h3>
@@ -67,7 +67,7 @@ export function WhatWeDo() {
                 loop
                 playsInline
                 preload="none"
-                poster="/media/posters/warehouse-forklift.jpg"
+                poster="/media/posters/warehouse-forklift.webp"
                 data-src="/media/clips/warehouse-forklift.mp4"
               ></video>
             </div>

@@ -78,7 +78,7 @@ html[lang='ar'] .assist[data-voice='thinking'] .assist__state::after { content: 
 html[lang='ar'] .assist__msg--you::before { content: 'أنت ·  '; }
 html[lang='ar'] .assist__msg--you.is-live::after { margin-left: 0; margin-right: 2px; }
 
-/* the language switch: a small version of the "Request a quote" button (.btn--line in main.css
+/* the language switch: a small version of the "Request a quote" button (.btn--line in site/base.css
    gives it the same hover: green fill rising, label rolling). It stays on phones, where that
    button is hidden. */
 .nav__right .btn.nav__lang { display: inline-flex; height: 36px; padding: 0 13px; font-size: 0.78rem; }

@@ -14,10 +14,12 @@ import type { PageName } from '@/assistant/types';
 const scripts: Record<PageName, () => Promise<{ start: () => unknown }>> = {
   home: () => import('@/sections/home/start'),
   products: () => import('@/sections/products/start'),
+  product: () => import('@/sections/product/start'),
   about: () => import('@/sections/about/start'),
   quality: () => import('@/sections/quality/start'),
   clients: () => import('@/sections/clients/start'),
   contact: () => import('@/sections/contact/start'),
+  notfound: () => import('@/sections/notfound/start'),
 };
 
 // once per page load: moving between pages is a full page load (so the loader's curtain and the

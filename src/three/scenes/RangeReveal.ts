@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { mouse } from '@/lib/env';
+import { smallClip } from '@/lib/clips';
 
 /*
   Cursor-following media plate for the product index.
@@ -121,8 +122,10 @@ export class RangeReveal {
     if (this.cache.has(src)) return this.cache.get(src);
     let entry;
     if (item.dataset.kind === 'video') {
+      // the plate is at most 340 px wide, so the 640 px copy of the clip is plenty; it only
+      // downloads when its row is first hovered (preload "metadata": just its size and length)
       const v = document.createElement('video');
-      Object.assign(v, { src, muted: true, loop: true, playsInline: true, preload: 'auto', crossOrigin: 'anonymous' });
+      Object.assign(v, { src: smallClip(src), muted: true, loop: true, playsInline: true, preload: 'metadata' });
       v.setAttribute('muted', '');
       const t = new THREE.VideoTexture(v);
       t.minFilter = THREE.LinearFilter; t.generateMipmaps = false;

@@ -19,7 +19,7 @@ export const metadataFor = (locale: Locale) =>
     path: '/quality',
     ogTitle: 'Quality & Sustainability · Arifa Pack',
     ogDescription: 'Checked from coil to carton, in Al Jurf, Ajman.',
-    ogImage: '/media/posters/inspect.jpg',
+    ogImage: '/images/og/quality.jpg',
   });
 
 export const viewport: Viewport = { themeColor: '#08090b' };

@@ -3,79 +3,27 @@
 }
 
 .cat-hero {
-  padding-top: calc(var(--nav-h) + clamp(28px, 6vh, 72px));
+  padding-top: var(--nav-h);
   position: relative;
   overflow: hidden;
 }
 
-.cat-hero__eyebrow {
-  color: var(--on-paper-mute);
-  margin-bottom: clamp(18px, 3vh, 34px);
-}
 
-.cat-hero__title {
-  letter-spacing: -.03em;
-  font-variation-settings: "wdth" 90;
-  font-size: clamp(3rem, 7.4vw, 8.4rem);
-  font-weight: 420;
-  line-height: .88;
-}
 
-.cat-hero__row {
-  display: block;
-}
 
-.cat-hero__title em {
-  color: var(--navy);
-  font-variation-settings: "wdth" 64;
-  letter-spacing: -.01em;
-  font-style: normal;
-}
 
-.cat-hero__meta {
-  gap: 24px var(--gutter);
-  border-top: 1px solid var(--rule-paper);
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  margin-top: clamp(28px, 5vh, 56px);
-  padding-top: 22px;
-  display: grid;
-}
 
-.cat-hero__lede {
-  max-width: 44ch;
-  color: var(--on-paper-mute);
-}
 
-.cat-stats {
-  gap: clamp(24px, 4vw, 64px);
-  display: flex;
-}
 
-.cat-stats div {
-  gap: 4px;
-  display: grid;
-}
 
-.cat-stats dt {
-  color: var(--on-paper-mute);
-}
 
-.cat-stats dd {
-  letter-spacing: -.01em;
-  font-variation-settings: "wdth" 70;
-  font-variant-numeric: tabular-nums;
-  margin: 0;
-  font-size: clamp(2.2rem, 4vw, 4rem);
-  line-height: .9;
-}
 
 /* ─── Browse by family: one dark band of panels, each on its own factory footage ──────────
    All eight families at a glance in a single band. Hovering (or focusing) a panel opens it out
    and plays its film; the others narrow and dim. A click filters the catalogue below
    (src/sections/products/families.ts). Phones get short dark cards, two to a row. */
 .fams {
-  padding: clamp(40px, 7vh, 72px) 0 0;
+  padding: clamp(20px, 4vh, 40px) 0 0; /* the first thing under the header */
 }
 
 .fams__head {
@@ -378,7 +326,7 @@
   z-index: 1;
   white-space: nowrap;
   height: 38px;
-  color: var(--on-paper-mute);
+  color: #4a5058; /* a shade darker than the usual muted grey: the bar's backdrop darkens as it sticks, and the names must stay readable on it */
   transition: color .45s var(--ease);
   border-radius: 999px;
   flex: none;
@@ -397,7 +345,6 @@
 
 .cat-chip sup {
   font-family: var(--f-mono);
-  opacity: .6;
   vertical-align: .5em;
   margin-left: 5px;
   font-size: .6rem;
@@ -467,7 +414,7 @@
 .cat-view button {
   width: 40px;
   height: 38px;
-  color: var(--on-paper-mute);
+  color: #4a5058; /* a shade darker than the usual muted grey: the bar's backdrop darkens as it sticks, and the names must stay readable on it */
   border-radius: 999px;
   place-items: center;
   transition: background-color .4s, color .4s;
@@ -1247,6 +1194,12 @@
   display: none;
 }
 
+/* over the quick view too, so adding a product from it shows the list straight away
+   (it sits over the photo half, below the product) */
+.qv.is-open ~ .tray {
+  z-index: 90;
+}
+
 .tray__pill {
   background: var(--ink);
   height: 58px;
@@ -1258,6 +1211,7 @@
   padding: 0 10px;
   display: flex;
   position: relative;
+  white-space: nowrap; /* "Enquiry list" on one line, phones too */
   box-shadow: 0 22px 44px -16px #0b0e1299;
 }
 
@@ -1445,9 +1399,6 @@
     display: none;
   }
 
-  .cat-hero__meta {
-    grid-template-columns: 1fr;
-  }
 
   .cat-grid[data-view="index"] .pcard__body {
     grid-template-columns: 1fr;
@@ -1463,6 +1414,11 @@
     display: none;
   }
 
+  /* room under the details for the enquiry list button, which floats over the bottom */
+  .qv__info {
+    padding-bottom: 96px;
+  }
+
   .qv__panel {
     grid-template-rows: 42vh 1fr;
     grid-template-columns: 1fr;
@@ -1474,14 +1430,6 @@
 }
 
 @media (width <= 600px) {
-  .cat-hero__title {
-    font-size: clamp(3rem, 15vw, 4.6rem);
-  }
-
-  .cat-stats dd {
-    font-size: 2.2rem;
-  }
-
   .fams__grid {
     gap: 8px;
   }

@@ -12,7 +12,7 @@ export function EnquiryTray() {
           0
         </span>
       </button>
-      <div className="tray__panel" data-tray-panel="">
+      <div className="tray__panel" data-tray-panel="" data-lenis-prevent="">
         <div className="tray__head">
           <p className="mono">{t("Your enquiry list")}</p>
           <button className="link mono" type="button" data-tray-clear="">

@@ -7,7 +7,7 @@
 */
 import type { WebGLRendererParameters } from 'three';
 
-export type SceneName = 'hero' | 'aboutStage' | 'line' | 'range' | 'reach' | 'delivery';
+export type SceneName = 'hero' | 'aboutStage' | 'line' | 'reach' | 'delivery';
 
 export type Tier = 'high' | 'low';
 
@@ -32,7 +32,6 @@ export const SCENES: Record<SceneName, SceneSettings> = {
   // the press forming a container (home, "The line")
   line: { gl: { antialias: false, alpha: false }, maxDpr: { high: 1.75, low: 1.25 } },
   // the media plate that follows the cursor over the product list (home)
-  range: { gl: { alpha: true, antialias: true, premultipliedAlpha: false }, maxDpr: { high: 1.75, low: 1.75 } },
   // the factory folding into the map (About)
   reach: { gl: { alpha: true, antialias: true }, maxDpr: { high: 1.75, low: 1.25 } },
   // the delivery town (Clients)

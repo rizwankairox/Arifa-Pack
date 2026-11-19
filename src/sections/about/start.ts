@@ -23,7 +23,7 @@ export function start() {
       if (!env.reduced) {
         // words that light up as you read them
         document.querySelectorAll<HTMLElement>('[data-ab-scrub]').forEach((el) => {
-          const { words } = SplitText.create(el, { type: 'words' });
+          const { words } = SplitText.create(el, { type: 'words', aria: 'none' }); // (screen readers read the words themselves)
           gsap.fromTo(words, { opacity: 0.16 }, {
             opacity: 1, ease: 'none', stagger: 0.12,
             scrollTrigger: { trigger: el, start: 'top 82%', end: 'bottom 48%', scrub: true },

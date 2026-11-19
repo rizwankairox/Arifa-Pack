@@ -1,0 +1,236 @@
+/* The quick view: the side panel a product card opens (src/sections/products/QuickView.tsx). */
+.qv {
+  z-index: 85;
+  visibility: hidden;
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+}
+
+.qv.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.qv__backdrop {
+  opacity: 0;
+  background: #0b0e1280;
+  position: absolute;
+  inset: 0;
+}
+
+.qv__panel {
+  background: var(--paper);
+  width: min(1180px, 100vw - 24px);
+  color: var(--on-paper);
+  clip-path: inset(0 0 0 100% round 6px);
+  border-radius: 6px;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  display: grid;
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  right: 12px;
+  overflow: hidden;
+}
+
+/* the whole photograph, never cropped, crisp, across the full width of the stage, on a ground of
+   its own background colour (src/sections/products/quickView.ts reads it off the photo's border) */
+.qv__stage {
+  background-color: #d9d9d4;
+  transition: background-color .6s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.qv__img {
+  object-fit: contain;
+  border-radius: 6px;
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  margin: auto;
+  position: absolute;
+  inset: 0;
+}
+
+.qv__pending {
+  color: var(--on-paper-mute);
+  background: repeating-linear-gradient(135deg, #d9d9d3 0 14px, #d2d2cb 14px 28px);
+  place-content: center;
+  justify-items: center;
+  gap: 8px;
+  display: grid;
+  position: absolute;
+  inset: 0;
+}
+
+.qv__pending span {
+  letter-spacing: -.01em;
+  font-variation-settings: "wdth" 70;
+  color: var(--on-paper);
+  font-size: clamp(3rem, 6vw, 6rem);
+}
+
+.qv__info {
+  flex-direction: column;
+  gap: clamp(20px, 3.4vh, 34px);
+  padding: clamp(20px, 2.4vw, 34px);
+  display: flex;
+  overflow-y: auto;
+  min-height: 0;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.qv__top {
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  display: flex;
+}
+
+.qv__family {
+  color: var(--on-paper-mute);
+}
+
+.qv__nav {
+  align-items: center;
+  gap: 8px;
+  display: flex;
+}
+
+.qv__nav > span {
+  text-align: center;
+  min-width: 6ch;
+  color: var(--on-paper-mute);
+}
+
+.qv__arrow {
+  border: 1px solid var(--rule-paper);
+  border-radius: 50%;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  transition: background-color .3s, color .3s;
+  display: grid;
+}
+
+.qv__arrow:hover {
+  background: var(--leaf-hi);
+  color: var(--ink);
+}
+
+.qv__arrow svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6px;
+  width: 16px;
+}
+
+.qv__close {
+  border: 1px solid var(--rule-paper);
+  border-radius: 999px;
+  height: 40px;
+  margin-left: 6px;
+  padding: 0 14px;
+  transition: background-color .3s, color .3s;
+}
+
+.qv__close:hover {
+  background: var(--leaf-hi);
+  color: var(--ink);
+}
+
+.qv__headline {
+  gap: 8px;
+  margin-top: auto;
+  display: grid;
+}
+
+.qv__ref {
+  letter-spacing: -.015em;
+  font-variation-settings: "wdth" 72;
+  font-size: clamp(3rem, 6.4vw, 7rem);
+  font-weight: 420;
+  line-height: .84;
+}
+
+.qv__title {
+  letter-spacing: -.01em;
+  font-size: clamp(1.25rem, 1.8vw, 1.75rem);
+  font-weight: 420;
+}
+
+.qv__tag {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 999px;
+  justify-self: start;
+  padding: 5px 10px;
+  font-size: .62rem;
+}
+
+.qv__spec {
+  border-top: 1px solid var(--on-paper);
+}
+
+.qv__spec div {
+  border-bottom: 1px solid var(--rule-paper);
+  grid-template-columns: 10rem 1fr;
+  gap: 12px;
+  padding: 13px 0;
+  display: grid;
+}
+
+.qv__spec dt {
+  color: var(--on-paper-mute);
+  font-family: var(--f-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  padding-top: .25em;
+}
+
+.qv__spec dd {
+  margin: 0;
+}
+
+.qv__actions {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 24px;
+  display: flex;
+}
+
+.qv__note {
+  color: var(--on-paper-mute);
+}
+
+.qv [data-qv-anim] {
+  will-change: transform, opacity;
+}
+
+.btn--ink {
+  background: var(--ink);
+  color: var(--paper);
+  --h: 54px;
+  padding: 0 26px;
+}
+
+.btn--ink:before {
+  background: var(--leaf);
+}
+
+.btn--ink:hover {
+  color: var(--ink);
+}
+
+.btn--ink[aria-pressed="true"] {
+  background: var(--leaf);
+  color: var(--ink);
+}
+
+.btn--ink[aria-pressed="true"]:before {
+  background: var(--paper);
+}

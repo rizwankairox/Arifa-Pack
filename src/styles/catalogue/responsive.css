@@ -1,0 +1,207 @@
+/* Smaller screens, for everything above. Keep it last. */
+@media (width <= 1280px) {
+  .cat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cat-bar__inner {
+    grid-template-columns: minmax(200px, 1fr) auto;
+  }
+
+  .cat-chips {
+    grid-area: 2 / 1 / auto / -1;
+  }
+}
+
+@media (width <= 900px) {
+  .cat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fams__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    height: auto;
+    display: grid;
+  }
+
+  .fams__item {
+    height: 150px;
+  }
+
+  .fams__grid:hover .fams__item:not(:hover) .fam__media {
+    opacity: 1;
+  }
+
+  .fam__media video {
+    filter: saturate(.9) brightness(.7);
+  }
+
+  .fam__go {
+    display: none;
+  }
+
+
+  .cat-grid[data-view="index"] .pcard__body {
+    grid-template-columns: 1fr;
+    gap: 2px;
+    padding-right: 60px;
+  }
+
+  .cat-grid[data-view="index"] .pcard__spec {
+    padding-right: 0;
+  }
+
+  .cat-grid[data-view="index"] .pcard__tag, .cat-grid[data-view="index"] .fhead__blurb {
+    display: none;
+  }
+
+  /* room under the details for the enquiry list button, which floats over the bottom */
+  .qv__info {
+    padding-bottom: 96px;
+  }
+
+  .qv__panel {
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-columns: 1fr;
+  }
+
+  /* phones and small tablets: the photo fills the full width at its own shape, with no
+     coloured band above or below it */
+  .qv__stage {
+    max-height: 48svh;
+  }
+
+  .qv__img {
+    object-fit: cover;
+    border-radius: 0;
+    width: 100%;
+    height: auto;
+    max-height: 48svh;
+    display: block;
+    position: relative;
+  }
+
+  .qv__stage:has(.qv__pending:not([hidden])) {
+    min-height: 36svh;
+  }
+
+  .cat-cta__title, .cat-cta__actions {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (width <= 600px) {
+  .fams__grid {
+    gap: 8px;
+  }
+
+  .fams__item {
+    height: 128px;
+  }
+
+  .fam {
+    border-radius: 14px;
+  }
+
+  .fam__n {
+    top: 12px;
+    left: 12px;
+  }
+
+  .fam__body {
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .fam__name {
+    font-size: .92rem;
+  }
+
+  .cat-bar__inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+
+  .cat-search {
+    min-width: 0;
+    padding-left: 12px;
+    gap: 8px;
+  }
+
+  .cat-search input {
+    min-width: 0;
+  }
+
+  .cat-search kbd {
+    display: none;
+  }
+
+  .cat-switch {
+    gap: 8px;
+    padding: 0 10px 0 8px;
+    font-size: .78rem;
+  }
+
+  .cat-switch i {
+    width: 28px;
+  }
+
+  .cat-switch[aria-pressed="true"] i:after {
+    transform: translate(10px);
+  }
+
+  .cat-view {
+    display: none;
+  }
+
+  .cat-grid {
+    gap: 14px 10px;
+  }
+
+  .fhead {
+    grid-template-columns: 1fr;
+  }
+
+  .fhead__media {
+    min-height: 120px;
+  }
+
+  .pcard__body {
+    padding: 10px 11px 12px;
+  }
+
+  .pcard__ref {
+    font-size: 1.3rem;
+  }
+
+  .pcard__name {
+    font-size: .8rem;
+  }
+
+  .pcard__spec {
+    font-size: .62rem;
+  }
+
+  .pcard__add {
+    width: 34px;
+    height: 34px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .qv__panel {
+    clip-path: inset(100% 0 0);
+    border-radius: 0;
+    width: 100vw;
+    inset: 0;
+  }
+
+  .qv__spec div {
+    grid-template-columns: 7.5rem 1fr;
+  }
+
+  .tray {
+    bottom: 12px;
+  }
+}

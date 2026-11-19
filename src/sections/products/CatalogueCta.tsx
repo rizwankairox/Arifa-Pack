@@ -2,6 +2,7 @@
   CTA
 */
 import { t, lh } from '@/i18n';
+import { phone } from '@/data/site';
 export function CatalogueCta() {
   return (
     <section className="cat-cta" data-theme="dark">
@@ -24,8 +25,8 @@ export function CatalogueCta() {
               </svg>
             </span>
           </a>
-          <a className="link mono" href="tel:+97167485384">
-            {t("Packaging division · +971 6 748 5384")}
+          <a className="link mono" href={`tel:${phone.packaging.tel}`}>
+            {t("Packaging division · {phone}", { phone: phone.packaging.label })}
           </a>
         </div>
       </div>

@@ -18,7 +18,7 @@ export const metadataFor = (locale: Locale) =>
     path: '/clients',
     ogTitle: 'Clients, Industries & Customer Stories · Arifa Pack',
     ogDescription: 'Explore the industries Arifa Pack packs for, customer story previews and packaging selections.',
-    ogImage: '/media/posters/pack-box.jpg',
+    ogImage: '/images/og/clients.jpg',
   });
 
 export const viewport: Viewport = { themeColor: '#08090b' };

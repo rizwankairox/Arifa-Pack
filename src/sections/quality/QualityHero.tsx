@@ -44,7 +44,7 @@ export function QualityHero() {
             loop
             playsInline
             preload="none"
-            poster="/media/posters/inspect.jpg"
+            poster="/media/posters/inspect.webp"
             data-src="/media/clips/inspect.mp4"
             data-finder=""
           ></video>

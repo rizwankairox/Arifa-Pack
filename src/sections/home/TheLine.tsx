@@ -2,6 +2,7 @@
   02 · The line (3D)
 */
 import { SceneCanvas } from '@/three/SceneCanvas';
+import { SkipScene } from '@/components/site/SkipScene';
 import { t } from '@/i18n';
 
 export function TheLine() {
@@ -9,6 +10,7 @@ export function TheLine() {
     <section className="line" id="factory" data-theme="dark" data-line="">
       {/* One press, one shot, scrubbed by scroll (src/three/scenes/PressScene.ts); it melts away into the range below. */}
       <div className="line__sticky">
+        <SkipScene />
         <SceneCanvas name="line" className="line__gl" dataAttr="data-line-gl" />
         <video
           className="line__film"

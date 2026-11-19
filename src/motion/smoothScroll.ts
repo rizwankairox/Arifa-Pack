@@ -12,6 +12,7 @@ export function initScroll(): Lenis {
     smoothWheel: !env.reduced,
     wheelMultiplier: 0.95,
     touchMultiplier: 1.4,
+    allowNestedScroll: true,
   });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((t) => lenis.raf(t * 1000));

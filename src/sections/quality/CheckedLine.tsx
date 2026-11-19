@@ -25,7 +25,7 @@ export function CheckedLine() {
           <ol className="q-stations">
             <li className="q-station" data-station="" data-name={t("Material in")}>
               <div className="q-station__media">
-                <video muted loop playsInline preload="none" poster="/media/posters/coil.jpg" data-src="/media/clips/coil.mp4"></video>
+                <video muted loop playsInline preload="none" poster="/media/posters/coil.webp" data-src="/media/clips/coil.mp4"></video>
               </div>
               <span className="q-station__n mono">01</span>
               <span className="q-station__ok mono" aria-hidden="true">
@@ -43,7 +43,7 @@ export function CheckedLine() {
                   loop
                   playsInline
                   preload="none"
-                  poster="/media/posters/line-stack.jpg"
+                  poster="/media/posters/line-stack.webp"
                   data-src="/media/clips/line-stack.mp4"
                 ></video>
               </div>
@@ -63,7 +63,7 @@ export function CheckedLine() {
                   loop
                   playsInline
                   preload="none"
-                  poster="/media/posters/control-panel.jpg"
+                  poster="/media/posters/control-panel.webp"
                   data-src="/media/clips/control-panel.mp4"
                 ></video>
               </div>
@@ -83,7 +83,7 @@ export function CheckedLine() {
                   loop
                   playsInline
                   preload="none"
-                  poster="/media/posters/lid-sheets.jpg"
+                  poster="/media/posters/lid-sheets.webp"
                   data-src="/media/clips/lid-sheets.mp4"
                 ></video>
               </div>
@@ -103,7 +103,7 @@ export function CheckedLine() {
                   loop
                   playsInline
                   preload="none"
-                  poster="/media/posters/inspect.jpg"
+                  poster="/media/posters/inspect.webp"
                   data-src="/media/clips/inspect.mp4"
                 ></video>
               </div>
@@ -123,7 +123,7 @@ export function CheckedLine() {
                   loop
                   playsInline
                   preload="none"
-                  poster="/media/posters/pack-sleeve.jpg"
+                  poster="/media/posters/pack-sleeve.webp"
                   data-src="/media/clips/pack-sleeve.mp4"
                 ></video>
               </div>
@@ -143,7 +143,7 @@ export function CheckedLine() {
                   loop
                   playsInline
                   preload="none"
-                  poster="/media/posters/warehouse-forklift.jpg"
+                  poster="/media/posters/warehouse-forklift.webp"
                   data-src="/media/clips/warehouse-forklift.mp4"
                 ></video>
               </div>

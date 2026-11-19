@@ -147,7 +147,7 @@ export function initQuality() {
   const rest = document.querySelectorAll<HTMLElement>('.q-hero .eyebrow, .q-lede, .q-proofs li');
   const finder = document.querySelector<HTMLElement>('.q-finder');
   if (!env.reduced) {
-    gsap.set(lines, { yPercent: 110 });
+    gsap.set(lines, { yPercent: 140 });
     gsap.set(rest, { opacity: 0, y: 16 });
     gsap.set(finder, { opacity: 0, scale: 0.94 });
   }

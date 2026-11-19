@@ -23,10 +23,12 @@ export type ProductEntry = {
   qty: string;
   /** "trade" (default) or "self" (Arifa self-range retail packs) */
   range?: 'trade' | 'self';
-  /** where the photo came from on the old site */
-  src?: string;
-  /** the product's page on the old site */
-  href: string;
+  /**
+   * the product's address on the previous arifapack.com site (e.g. "8325.php").
+   * Never linked to: next.config.ts only uses it to redirect those old addresses to this
+   * product's own page here, so existing Google results and bookmarks keep working.
+   */
+  legacyPage?: string;
 };
 
 /** a product ready for the page: with its photo (if there is one) and its family's name */
@@ -34,8 +36,8 @@ export type Product = ProductEntry & {
   range: 'trade' | 'self';
   /** /images/catalogue/<id>.webp when that file exists, otherwise null ("Photo to follow") */
   img: string | null;
-  /** link to the product on the current live site */
-  live: string;
+  /** this product's own page on the site, e.g. /products/ac-8325 (/ar/products/… on Arabic pages) */
+  url: string;
   familyName: string;
   /** the English name, kept alongside the Arabic one on /ar pages (so searching in English still works) */
   nameEn?: string;
@@ -44,7 +46,7 @@ export type Product = ProductEntry & {
 export type Catalogue = { families: Family[]; products: Product[] };
 
 /** the slimmer copy of the catalogue sent to the browser */
-export type ClientProduct = Pick<Product, 'id' | 'family' | 'range' | 'ref' | 'name' | 'code' | 'qty' | 'img' | 'live' | 'familyName' | 'nameEn'>;
+export type ClientProduct = Pick<Product, 'id' | 'family' | 'range' | 'ref' | 'name' | 'code' | 'qty' | 'img' | 'url' | 'familyName' | 'nameEn'>;
 export type ClientCatalogue = { families: Family[]; products: ClientProduct[] };
 
 // ── Clients & Industries (clients.json) ──

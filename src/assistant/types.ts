@@ -9,7 +9,8 @@ export type QuoteFill = { family?: string; quantity?: string; city?: string; not
 
 /** something the assistant does on the page after it speaks */
 export type AssistantAction =
-  { type: 'family'; id: string } | { type: 'product'; ref: string } | { type: 'quote'; fill: QuoteFill } | { type: 'factory' };
+  { type: 'family'; id: string } | { type: 'product'; ref: string } | { type: 'quote'; fill: QuoteFill } | { type: 'factory' }
+  | { type: 'whatsapp'; href: string };
 
 /** one turn of the assistant: a line to say, and maybe one action */
 export type AssistantReply = { say: string; action: AssistantAction | null };
@@ -18,4 +19,4 @@ export type AssistantReply = { say: string; action: AssistantAction | null };
 export type Turn = { role: 'user' | 'assistant'; content: string };
 
 /** the page the assistant is on */
-export type PageName = 'home' | 'products' | 'about' | 'quality' | 'clients' | 'contact';
+export type PageName = 'home' | 'products' | 'product' | 'about' | 'quality' | 'clients' | 'contact' | 'notfound';

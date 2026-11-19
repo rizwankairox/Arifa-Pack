@@ -26,9 +26,11 @@ type Props = {
   withCatalogue?: boolean;
   /** the "skip" link keyboard users get first: where it jumps to, and what it says */
   skip?: { href: string; label: string };
+  /** this page's English address, when it isn't /<page> (e.g. a product page: /products/ac-8325) */
+  path?: string;
 };
 
-export function PageShell({ page, children, overlays, withCatalogue = false, skip = { href: '#main', label: t('Skip to content') } }: Props) {
+export function PageShell({ page, children, overlays, withCatalogue = false, skip = { href: '#main', label: t('Skip to content') }, path }: Props) {
   // each page's own background and styles hang off a class on <body> (e.g. .page-about)
   const bodyClass = page === 'home' ? null : `page-${page}`;
   return (
@@ -39,7 +41,7 @@ export function PageShell({ page, children, overlays, withCatalogue = false, ski
       </a>
       {page === 'home' && <div className="grain" aria-hidden="true"></div>}
       <Loader />
-      <Nav path={page === 'home' ? '/' : `/${page}`} />
+      <Nav path={path ?? (page === 'home' ? '/' : `/${page}`)} />
       <Menu />
       <AssistantPanel />
       <FamilyData />

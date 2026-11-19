@@ -2,12 +2,14 @@
   03 · from Ajman to the world: the factory folds into a pin on the UAE map, the map widens to the world
 */
 import { SceneCanvas } from '@/three/SceneCanvas';
+import { SkipScene } from '@/components/site/SkipScene';
 import { t } from '@/i18n';
 
 export function Reach() {
   return (
     <section className="ab-reach" id="reach" data-theme="light" aria-labelledby="reach-title" data-reach="">
       <div className="ab-reach__stage" data-reach-stage="">
+        <SkipScene />
         <svg className="ab-reach__map" data-reach-map="" aria-hidden="true" />
         <SceneCanvas name="reach" className="ab-reach__gl" dataAttr="data-reach-gl" />
         <span className="ab-reach__uae mono" data-reach-uae="" aria-hidden="true">

@@ -1,7 +1,6 @@
 /*
   03 · Product range
 */
-import { SceneCanvas } from '@/three/SceneCanvas';
 import { t, lh } from '@/i18n';
 
 export function ProductRange() {
@@ -24,7 +23,7 @@ export function ProductRange() {
         </header>
 
         <ul className="range__list" data-range-list="">
-          <li className="range__item" data-media="/media/clips/line-stack.mp4" data-kind="video">
+          <li className="range__item">
             <a href={lh("/products?family=containers")} data-cursor-text={t("View")}>
               <span className="range__n mono">01</span>
               <span className="range__name">{t("Aluminium Containers")}</span>
@@ -35,10 +34,10 @@ export function ProductRange() {
                   <path d="M5 12h13M13 6l6 6-6 6" />
                 </svg>
               </span>
-              <img className="range__thumb" src="/media/posters/line-stack.jpg" alt="" loading="lazy" />
+              <img className="range__thumb" src="/media/posters/line-stack.webp" alt="" loading="lazy" decoding="async" width={64} height={64} />
             </a>
           </li>
-          <li className="range__item" data-media="/media/clips/foil-roll.mp4" data-kind="video">
+          <li className="range__item">
             <a href={lh("/products?family=foil")} data-cursor-text={t("View")}>
               <span className="range__n mono">02</span>
               <span className="range__name">{t("Aluminium Foil")}</span>
@@ -49,10 +48,10 @@ export function ProductRange() {
                   <path d="M5 12h13M13 6l6 6-6 6" />
                 </svg>
               </span>
-              <img className="range__thumb" src="/media/posters/foil-roll.jpg" alt="" loading="lazy" />
+              <img className="range__thumb" src="/media/posters/foil-roll.webp" alt="" loading="lazy" decoding="async" width={64} height={64} />
             </a>
           </li>
-          <li className="range__item" data-media="/images/products/sr-6550.png" data-kind="image">
+          <li className="range__item">
             <a href={lh("/products?family=platters")} data-cursor-text={t("View")}>
               <span className="range__n mono">03</span>
               <span className="range__name">{t("Aluminium Platters")}</span>
@@ -63,10 +62,10 @@ export function ProductRange() {
                   <path d="M5 12h13M13 6l6 6-6 6" />
                 </svg>
               </span>
-              <img className="range__thumb" src="/images/products/sr-6550.png" alt="" loading="lazy" />
+              <img className="range__thumb" src="/images/products/sr-6550.webp" alt="" loading="lazy" decoding="async" width={64} height={64} />
             </a>
           </li>
-          <li className="range__item" data-media="/media/clips/showroom-shelf.mp4" data-kind="video">
+          <li className="range__item">
             <a href={lh("/products?family=cups-trays")} data-cursor-text={t("View")}>
               <span className="range__n mono">04</span>
               <span className="range__name">{t("Cups & Trays")}</span>
@@ -77,10 +76,10 @@ export function ProductRange() {
                   <path d="M5 12h13M13 6l6 6-6 6" />
                 </svg>
               </span>
-              <img className="range__thumb" src="/media/posters/showroom-shelf.jpg" alt="" loading="lazy" />
+              <img className="range__thumb" src="/media/posters/showroom-shelf.webp" alt="" loading="lazy" decoding="async" width={64} height={64} />
             </a>
           </li>
-          <li className="range__item" data-media="/images/products/sr-pot22.png" data-kind="image">
+          <li className="range__item">
             <a href={lh("/products?family=pots")} data-cursor-text={t("View")}>
               <span className="range__n mono">05</span>
               <span className="range__name">{t("Aluminium Pots")}</span>
@@ -91,10 +90,10 @@ export function ProductRange() {
                   <path d="M5 12h13M13 6l6 6-6 6" />
                 </svg>
               </span>
-              <img className="range__thumb" src="/images/products/sr-pot22.png" alt="" loading="lazy" />
+              <img className="range__thumb" src="/images/products/sr-pot22.webp" alt="" loading="lazy" decoding="async" width={64} height={64} />
             </a>
           </li>
-          <li className="range__item" data-media="/media/clips/moulding-plastic.mp4" data-kind="video">
+          <li className="range__item">
             <a href={lh("/products?family=microwave")} data-cursor-text={t("View")}>
               <span className="range__n mono">06</span>
               <span className="range__name">{t("Microwave Products")}</span>
@@ -105,10 +104,10 @@ export function ProductRange() {
                   <path d="M5 12h13M13 6l6 6-6 6" />
                 </svg>
               </span>
-              <img className="range__thumb" src="/media/posters/moulding-plastic.jpg" alt="" loading="lazy" />
+              <img className="range__thumb" src="/media/posters/moulding-plastic.webp" alt="" loading="lazy" decoding="async" width={64} height={64} />
             </a>
           </li>
-          <li className="range__item" data-media="/media/clips/moulding-cutlery.mp4" data-kind="video">
+          <li className="range__item">
             <a href={lh("/products?family=cutlery")} data-cursor-text={t("View")}>
               <span className="range__n mono">07</span>
               <span className="range__name">{t("Cutlery")}</span>
@@ -119,10 +118,10 @@ export function ProductRange() {
                   <path d="M5 12h13M13 6l6 6-6 6" />
                 </svg>
               </span>
-              <img className="range__thumb" src="/media/posters/moulding-cutlery.jpg" alt="" loading="lazy" />
+              <img className="range__thumb" src="/media/posters/moulding-cutlery.webp" alt="" loading="lazy" decoding="async" width={64} height={64} />
             </a>
           </li>
-          <li className="range__item" data-media="/images/products/clingfilm.png" data-kind="image">
+          <li className="range__item">
             <a href={lh("/products?family=cling-film")} data-cursor-text={t("View")}>
               <span className="range__n mono">08</span>
               <span className="range__name">{t("Cling Film")}</span>
@@ -133,12 +132,11 @@ export function ProductRange() {
                   <path d="M5 12h13M13 6l6 6-6 6" />
                 </svg>
               </span>
-              <img className="range__thumb" src="/images/products/clingfilm.png" alt="" loading="lazy" />
+              <img className="range__thumb" src="/images/products/clingfilm.webp" alt="" loading="lazy" decoding="async" width={64} height={64} />
             </a>
           </li>
         </ul>
       </div>
-      <SceneCanvas name="range" className="range__gl" dataAttr="data-range-gl" />
     </section>
   );
 }

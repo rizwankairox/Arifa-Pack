@@ -2,6 +2,7 @@
   01 · a person, or the assistant
 */
 import { t } from '@/i18n';
+import { company, phone } from '@/data/site';
 export function TalkToUs() {
   return (
     <section className="ct-people" id="call" data-theme="light">
@@ -27,7 +28,7 @@ export function TalkToUs() {
                 {t("— GST")}
               </p>
               <p className="ct-hours__plain">
-                {t("Monday – Saturday, 08:00 – 20:00")}
+                {t(company.hoursLong)}
                 <br />
                 {t("Sunday closed")}
               </p>
@@ -38,52 +39,52 @@ export function TalkToUs() {
             <p className="ct-line-card__tag mono">
               <i></i>{t("Packaging division · orders & quotes")}
             </p>
-            <a className="ct-line-card__num" href="tel:+97167485384">
-              +971 6 748 5384
+            <a className="ct-line-card__num" href={`tel:${phone.packaging.tel}`}>
+              {phone.packaging.label}
             </a>
             <div className="ct-line-card__actions">
-              <a className="btn btn--line" href="tel:+97167485384">
+              <a className="btn btn--line" href={`tel:${phone.packaging.tel}`}>
                 <span className="btn__text" data-text={t("Call")}>
                   {t("Call")}
                 </span>
               </a>
-              <button type="button" className="ct-copy mono" data-copy="+971 6 748 5384">
+              <button type="button" className="ct-copy mono" data-copy={phone.packaging.label}>
                 {t("Copy number")}
               </button>
             </div>
             <div className="ct-line-card__mail">
-              <span className="mono">{t("info@arifapack.com")}</span>
-              <button type="button" className="ct-copy mono" data-copy="info@arifapack.com">
+              <span className="mono">{company.email}</span>
+              <button type="button" className="ct-copy mono" data-copy={company.email}>
                 {t("Copy email")}
               </button>
             </div>
-            <p className="ct-line-card__who">{t("Arifa Packing & Packaging LLC")}</p>
+            <p className="ct-line-card__who">{t(company.name)}</p>
           </article>
 
           <article className="ct-line-card">
             <p className="ct-line-card__tag mono">
               <i></i>{t("Head office · Arifa Group")}
             </p>
-            <a className="ct-line-card__num" href="tel:+97167477061">
-              +971 6 747 7061
+            <a className="ct-line-card__num" href={`tel:${phone.office.tel}`}>
+              {phone.office.label}
             </a>
             <div className="ct-line-card__actions">
-              <a className="btn btn--line" href="tel:+97167477061">
+              <a className="btn btn--line" href={`tel:${phone.office.tel}`}>
                 <span className="btn__text" data-text={t("Call")}>
                   {t("Call")}
                 </span>
               </a>
-              <button type="button" className="ct-copy mono" data-copy="+971 6 747 7061">
+              <button type="button" className="ct-copy mono" data-copy={phone.office.label}>
                 {t("Copy number")}
               </button>
             </div>
             <div className="ct-line-card__mail">
-              <span className="mono">{t("info@arifagroup.com")}</span>
-              <button type="button" className="ct-copy mono" data-copy="info@arifagroup.com">
+              <span className="mono">{company.group.email}</span>
+              <button type="button" className="ct-copy mono" data-copy={company.group.email}>
                 {t("Copy email")}
               </button>
             </div>
-            <p className="ct-line-card__who">{t("Arifa Group")}</p>
+            <p className="ct-line-card__who">{t(company.group.name)}</p>
           </article>
 
           <article className="ct-talk">

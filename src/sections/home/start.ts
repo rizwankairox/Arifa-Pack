@@ -6,7 +6,6 @@ import { initIntro } from '@/sections/home/introClient';
 import { initLine } from '@/sections/home/line';
 import { initRange } from '@/sections/home/range';
 import { initFloor } from '@/sections/home/floor';
-import { initFilm } from '@/sections/home/film';
 import { initServices } from './servicesClient';
 import { initQuote } from './quote';
 import { whenRenderer } from '@/three/renderers';
@@ -15,8 +14,7 @@ export function start() {
   return boot({
     async init(lenis) {
       // the 3D canvases React has put on the page (src/three/SceneCanvas.tsx)
-      await Promise.all([whenRenderer('hero'), whenRenderer('range')]);
-      initFilm(lenis);
+      await whenRenderer('hero');
       const hero = initHero(lenis);
       await hero.ready;
       // the assistant waits in its dock, bottom right (src/assistant/assistant.ts)

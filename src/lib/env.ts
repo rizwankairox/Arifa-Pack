@@ -3,6 +3,7 @@
   Read every frame by the 3D scenes and by the page scripts. Browser-only: imported after the page
   has loaded (see src/motion/PageScripts.tsx), never on the server.
 */
+import { clipFor } from './clips';
 
 const mq = (q: string) => window.matchMedia(q).matches;
 
@@ -58,7 +59,7 @@ const vio = new IntersectionObserver(
     entries.forEach(({ target, isIntersecting }) => {
       const v = target as HTMLVideoElement;
       if (isIntersecting) {
-        if (v.dataset.src && !v.src) v.src = v.dataset.src;
+        if (v.dataset.src && !v.src) v.src = clipFor(v);
         if (!v.dataset.manual) v.play().catch(() => {});
       } else if (!v.paused) {
         v.pause();

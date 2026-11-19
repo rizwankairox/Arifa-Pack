@@ -7,7 +7,7 @@ export function FilmPlayer() {
     <div className="film" data-film="" role="dialog" aria-modal="true" aria-label={t("Arifa Pack factory film")} aria-hidden="true">
       <div className="film__backdrop" data-film-close=""></div>
       <div className="film__frame" data-film-frame="">
-        <video data-film-video="" playsInline preload="none" poster="/media/posters/film.jpg" src="/media/arifa-film.mp4"></video>
+        <video data-film-video="" playsInline preload="none" poster="/media/posters/film.webp" src="/media/arifa-film.mp4"></video>
         <div className="film__bar">
           <button className="film__btn" type="button" data-film-toggle="" aria-label={t("Pause")}>
             <svg className="i-pause" viewBox="0 0 24 24">

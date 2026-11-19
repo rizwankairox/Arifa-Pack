@@ -21,7 +21,7 @@ export const metadataFor = (locale: Locale) =>
     path: '/about',
     ogTitle: 'About Arifa Pack',
     ogDescription: 'Disposable packaging made in Ajman, UAE: aluminium containers, plastic containers and disposable cutlery.',
-    ogImage: '/media/posters/hero-exterior.jpg',
+    ogImage: '/images/og/factory.jpg',
   });
 
 export const viewport: Viewport = { themeColor: '#080706' };
@@ -35,9 +35,9 @@ const organization = {
   logo: `${company.siteUrl}/images/brand/logo-light.png`,
   email: company.email,
   telephone: company.phones[1].label,
-  address: { '@type': 'PostalAddress', streetAddress: 'Al Jurf Industrial Area 2', addressLocality: 'Ajman', addressCountry: 'AE' },
-  parentOrganization: { '@type': 'Organization', name: 'Arifa Group', email: 'info@arifagroup.com', telephone: company.phones[0].label },
-  openingHours: 'Mo-Sa 08:00-20:00',
+  address: { '@type': 'PostalAddress', ...company.postal },
+  parentOrganization: { '@type': 'Organization', name: company.group.name, email: company.group.email, telephone: company.phones[0].label },
+  openingHours: company.hoursSchema,
 };
 
 export function AboutView() {

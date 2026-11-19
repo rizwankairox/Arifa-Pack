@@ -11,7 +11,12 @@ import { CatalogueCta } from '@/sections/products/CatalogueCta';
 import { CatalogueHero } from '@/sections/products/CatalogueHero';
 import { EnquiryTray } from '@/sections/products/EnquiryTray';
 import { QuickView } from '@/sections/products/QuickView';
-import '@/styles/catalogue.css';
+// the catalogue's styles, in this order (src/styles/catalogue/)
+import '@/styles/catalogue/families.css';
+import '@/styles/catalogue/grid.css';
+import '@/styles/catalogue/quickview.css';
+import '@/styles/catalogue/tray.css';
+import '@/styles/catalogue/responsive.css';
 
 const stats = getStats();
 

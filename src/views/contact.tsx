@@ -20,7 +20,7 @@ export const metadataFor = (locale: Locale) =>
     path: '/contact',
     ogTitle: 'Contact Arifa Pack',
     ogDescription: 'Request a quote, call the packaging team, or visit us in Al Jurf Industrial Area 2, Ajman, UAE.',
-    ogImage: '/media/posters/signage.jpg',
+    ogImage: '/images/og/contact.jpg',
   });
 
 export const viewport: Viewport = { themeColor: '#08090b' };
@@ -37,7 +37,7 @@ const contactPage = {
     url: `${company.siteUrl}/`,
     email: company.email,
     telephone: company.phones[1].label,
-    address: { '@type': 'PostalAddress', streetAddress: 'Al Jurf Industrial Area 2', addressLocality: 'Ajman', addressCountry: 'AE' },
+    address: { '@type': 'PostalAddress', ...company.postal },
     contactPoint: [
       {
         '@type': 'ContactPoint',
@@ -47,10 +47,10 @@ const contactPage = {
         areaServed: 'AE',
         availableLanguage: ['English', 'Arabic'],
       },
-      { '@type': 'ContactPoint', contactType: 'customer service', telephone: company.phones[0].label, email: 'info@arifagroup.com' },
+      { '@type': 'ContactPoint', contactType: 'customer service', telephone: company.phones[0].label, email: company.group.email },
     ],
-    parentOrganization: { '@type': 'Organization', name: 'Arifa Group', email: 'info@arifagroup.com', telephone: company.phones[0].label },
-    openingHours: 'Mo-Sa 08:00-20:00',
+    parentOrganization: { '@type': 'Organization', name: company.group.name, email: company.group.email, telephone: company.phones[0].label },
+    openingHours: company.hoursSchema,
   },
 };
 

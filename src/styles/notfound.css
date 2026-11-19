@@ -1,0 +1,102 @@
+/* "Page not found" (src/views/notfound.tsx) — dark, like the rest of the site's ink sections. */
+
+.page-notfound, .page-notfound main {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+.nf {
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  padding: calc(var(--nav-h) + clamp(40px, 8vh, 96px)) 0 clamp(64px, 12vh, 140px);
+}
+
+.nf__inner {
+  display: grid;
+  gap: clamp(20px, 3vh, 32px);
+  justify-items: start;
+}
+
+.nf__inner .eyebrow {
+  color: var(--on-ink-mute);
+}
+
+.nf__title {
+  font-size: var(--fs-xl);
+  font-weight: 420;
+  letter-spacing: -.03em;
+  line-height: .95;
+  max-width: 14ch;
+}
+
+.nf__lede {
+  max-width: 52ch;
+  color: var(--on-ink-mute);
+  font-size: var(--fs-body);
+}
+
+.nf__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+
+.nf__families {
+  width: 100%;
+  margin-top: clamp(24px, 5vh, 56px);
+  border-top: 1px solid var(--rule-ink);
+  padding-top: 20px;
+}
+
+.nf__label {
+  color: var(--on-ink-mute);
+  font-size: var(--fs-mono, 0.75rem);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.nf__families ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 var(--gutter);
+}
+
+.nf__families a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule-ink);
+  color: inherit;
+  text-decoration: none;
+  transition: color .3s;
+}
+
+.nf__families a:hover,
+.nf__families a:focus-visible {
+  color: var(--hover-ink);
+}
+
+.nf__families .mono {
+  color: var(--on-ink-mute);
+}
+
+@media (max-width: 900px) {
+  .nf__families ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 520px) {
+  .nf__families ul { grid-template-columns: 1fr; }
+  .nf__actions .btn { width: 100%; justify-content: space-between; }
+}
+
+/* the error page has no header, so it carries the logo itself (src/views/error.tsx) */
+.nf__logo { display: inline-block; width: 120px; color: var(--on-ink); margin-bottom: clamp(8px, 2vh, 24px); }
+.nf__logo svg { width: 100%; height: auto; }

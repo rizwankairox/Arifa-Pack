@@ -228,7 +228,13 @@ export function initCatalogue({ data, lenis, qv, tray }: { data: ClientCatalogue
       if (added) tray.fly(card.querySelector<HTMLElement>('.pcard__media'), p.img);
       return;
     }
-    if ((e.target as Element).closest<HTMLElement>('[data-qv-open]')) qv.open(p.id, card.querySelector<HTMLImageElement>('.pcard__media img'));
+    if ((e.target as Element).closest<HTMLElement>('[data-qv-open]')) {
+      // ctrl / cmd / shift / middle click: let the link open the product's own page in a new tab
+      const me = e as MouseEvent;
+      if (me.ctrlKey || me.metaKey || me.shiftKey || me.altKey || me.button > 0) return;
+      e.preventDefault();
+      qv.open(p.id, card.querySelector<HTMLImageElement>('.pcard__media img'));
+    }
   });
   const syncAdds = () => cards.forEach((c) => {
     const on = enquiry.has(c.dataset.product);

@@ -12,7 +12,7 @@ export function Intro() {
         <p className="intro__text" data-words="">
           {t("We press aluminium coil")}
           <span className="pill" aria-hidden="true">
-            <video muted loop playsInline preload="none" poster="/media/posters/coil.jpg" data-src="/media/clips/coil.mp4"></video>
+            <video muted loop playsInline preload="none" poster="/media/posters/coil.webp" data-clip="small" data-src="/media/clips/coil.mp4"></video>
           </span>
           {t("into food containers, rewind foil")}
           <span className="pill" aria-hidden="true">
@@ -21,8 +21,8 @@ export function Intro() {
               loop
               playsInline
               preload="none"
-              poster="/media/posters/foil-roll.jpg"
-              data-src="/media/clips/foil-roll.mp4"
+              poster="/media/posters/foil-roll.webp"
+              data-clip="small" data-src="/media/clips/foil-roll.mp4"
             ></video>
           </span>
           {t("into kitchen rolls, mould cutlery")}
@@ -32,8 +32,8 @@ export function Intro() {
               loop
               playsInline
               preload="none"
-              poster="/media/posters/moulding-cutlery.jpg"
-              data-src="/media/clips/moulding-cutlery.mp4"
+              poster="/media/posters/moulding-cutlery.webp"
+              data-clip="small" data-src="/media/clips/moulding-cutlery.mp4"
             ></video>
           </span>
           {t("and pack every carton")}
@@ -43,8 +43,8 @@ export function Intro() {
               loop
               playsInline
               preload="none"
-              poster="/media/posters/pack-tape.jpg"
-              data-src="/media/clips/pack-tape.mp4"
+              poster="/media/posters/pack-tape.webp"
+              data-clip="small" data-src="/media/clips/pack-tape.mp4"
             ></video>
           </span>
           {t("— under one roof in Ajman.")}

@@ -6,7 +6,6 @@ import { company } from '@/data/site';
 import { pageMetadata } from '@/lib/seo';
 import type { Locale } from '@/i18n';
 import { FactoryFloor } from '@/sections/home/FactoryFloor';
-import { FilmPlayer } from '@/sections/home/FilmPlayer';
 import { Hero } from '@/sections/home/Hero';
 import { Intro } from '@/sections/home/Intro';
 import { ProductRange } from '@/sections/home/ProductRange';
@@ -22,7 +21,7 @@ export const metadataFor = (locale: Locale) =>
     path: '/',
     ogTitle: 'Arifa Pack — Packaging that protects, presents & performs',
     ogDescription: 'Aluminium containers, foil, platters, pots, microwave ware, cutlery and cling film from Al Jurf, Ajman.',
-    ogImage: '/media/posters/hero-exterior.jpg',
+    ogImage: '/images/og/factory.jpg',
   });
 
 export const viewport: Viewport = { themeColor: '#050607' };
@@ -36,12 +35,12 @@ const organization = {
   logo: `${company.siteUrl}/images/brand/logo.png`,
   email: company.email,
   telephone: company.phones[0].label,
-  address: { '@type': 'PostalAddress', streetAddress: 'Al Jurf Industrial Area 2', addressLocality: 'Ajman', addressCountry: 'AE' },
+  address: { '@type': 'PostalAddress', ...company.postal },
 };
 
 export function HomeView() {
   return (
-    <PageShell page="home" overlays={<FilmPlayer />}>
+    <PageShell page="home">
       <JsonLd data={organization} />
       <Hero />
       <Intro />

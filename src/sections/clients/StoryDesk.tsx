@@ -9,6 +9,7 @@ import { getClients } from '@/data/clients';
 import { pad2 } from '@/lib/format';
 import { quoteLink } from './RouteStops';
 import { lh, t } from '@/i18n';
+import { Picture } from '@/components/site/Picture';
 
 function Arrow() {
   return (
@@ -35,7 +36,7 @@ export function StoryDesk() {
         {stories.map((s, i) => (
           <article key={s.id} className="story" id={`story-${s.id}`} data-story="" aria-labelledby={`story-title-${s.id}`}>
             <figure className="story__visual">
-              <img className="story__photo" src={s.image} alt={s.imageAlt} width={1536} height={1024} loading="lazy" decoding="async" />
+              <Picture className="story__photo" src={s.image} widths={[768]} sizes="(max-width: 900px) 100vw, 50vw" alt={s.imageAlt} width={1536} height={1024} loading="lazy" decoding="async" />
               <span className="story__image-label mono">
                 {pad2(i + 1)} / {s.scene}
               </span>

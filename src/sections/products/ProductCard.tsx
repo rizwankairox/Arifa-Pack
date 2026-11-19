@@ -1,10 +1,11 @@
 /*
   One product in the catalogue grid. Every product is in the page's HTML (so search engines see
-  them all); the page's script only decides which are visible (catalogue.ts) and opens the
-  quick view (quickView.ts) or adds it to the enquiry list (tray.ts).
+  them all) and links to its own page (/products/<id>); the page's script only decides which are
+  visible (catalogue.ts) and opens the quick view (quickView.ts) or adds it to the enquiry list (tray.ts).
 */
 import type { Product } from '@/data/types';
 import { isAr, t } from '@/i18n';
+import { Picture } from '@/components/site/Picture';
 
 export function ProductCard({ p, index }: { p: Product; index: number }) {
   const self = p.range === 'self';
@@ -22,7 +23,7 @@ export function ProductCard({ p, index }: { p: Product; index: number }) {
       <div className="pcard__tilt">
         <div className="pcard__media">
           {p.img ? (
-            <img src={p.img} alt={title} loading="lazy" decoding="async" width={720} height={474} />
+            <Picture src={p.img} alt={title} loading="lazy" decoding="async" width={720} height={474} />
           ) : (
             <div className="pcard__pending">
               <span>{p.ref}</span>
@@ -52,7 +53,9 @@ export function ProductCard({ p, index }: { p: Product; index: number }) {
         </div>
         {self && <span className="pcard__tag mono">{t("Self range")}</span>}
       </div>
-      <button className="pcard__hit" type="button" data-qv-open="" aria-label={t('Open {title}', { title })} data-cursor-text={isAr() ? 'افتح' : 'Open'}></button>
+      {/* a real link to the product's own page (for search engines, new tabs and no-script visitors);
+          a plain click opens the quick view instead (catalogueClient.ts) */}
+      <a className="pcard__hit" href={p.url} data-qv-open="" aria-label={t('Open {title}', { title })} data-cursor-text={isAr() ? 'افتح' : 'Open'}></a>
       <button className="pcard__add" type="button" data-enquire="" aria-pressed="false" aria-label={t('Add {title} to enquiry list', { title })}>
         <i></i>
         <i></i>

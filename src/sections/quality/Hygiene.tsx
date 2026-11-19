@@ -18,7 +18,7 @@ export function Hygiene() {
           <li className="q-lens" style={{ '--x': '59%', '--y': '52%' } as CSSVars}>
             <div className="q-lens__img">
               <img
-                src="/media/posters/inspect.jpg"
+                src="/media/posters/inspect.webp"
                 alt={t("An inspector in a hairnet holds a product up to the light")}
                 loading="lazy"
                 width={1280}
@@ -34,7 +34,7 @@ export function Hygiene() {
           <li className="q-lens" style={{ '--x': '42%', '--y': '70%' } as CSSVars}>
             <div className="q-lens__img">
               <img
-                src="/media/posters/lid-sheets.jpg"
+                src="/media/posters/lid-sheets.webp"
                 alt={t("Gloved hands matching lids to containers")}
                 loading="lazy"
                 width={1280}
@@ -50,7 +50,7 @@ export function Hygiene() {
           <li className="q-lens" style={{ '--x': '29%', '--y': '56%' } as CSSVars}>
             <div className="q-lens__img">
               <img
-                src="/media/posters/pack-box.jpg"
+                src="/media/posters/pack-box.webp"
                 alt={t("A packer in an apron fills an Arifa Pack carton")}
                 loading="lazy"
                 width={1280}

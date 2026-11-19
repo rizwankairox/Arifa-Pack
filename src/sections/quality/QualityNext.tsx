@@ -21,9 +21,6 @@ export function QualityNext() {
           <a className="link mono" href={lh("/products")}>
             {t("Explore the range →")}
           </a>
-          <a className="link mono" href={lh("/#floor")}>
-            {t("Watch the factory film →")}
-          </a>
         </div>
       </div>
     </section>

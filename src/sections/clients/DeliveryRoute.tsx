@@ -2,6 +2,7 @@
   00 · the delivery route: the factory in a white town, cartons sent down the streets to every industry, driven by scroll
 */
 import { RouteStops } from './RouteStops';
+import { SkipScene } from '@/components/site/SkipScene';
 import { SceneCanvas } from '@/three/SceneCanvas';
 import { t } from '@/i18n';
 
@@ -9,6 +10,7 @@ export function DeliveryRoute() {
   return (
     <section className="cl-route" id="industries" data-theme="light" data-route="" aria-labelledby="route-title">
       <div className="route__stage" data-route-stage="">
+        <SkipScene />
         <SceneCanvas name="delivery" className="route__gl" dataAttr="data-route-gl" />
         <div className="route__pins" data-route-pins="" aria-hidden="true"></div>
         <div className="wrap route__ui">

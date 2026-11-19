@@ -3,6 +3,7 @@
 */
 import { FamilyPicks } from './FamilyPicks';
 import { t } from '@/i18n';
+import { company } from '@/data/site';
 
 export function EnquiryDesk() {
   return (
@@ -25,7 +26,7 @@ export function EnquiryDesk() {
             <p className="ct-lede">{t("Six quick answers. We write your enquiry up as you go, on a label ready for the packaging team.")}</p>
           </header>
 
-          <form className="desk" id="contact" data-desk="" action="mailto:info@arifapack.com" method="post" encType="text/plain" noValidate>
+          <form className="desk" id="contact" data-desk="" action={`mailto:${company.email}`} method="post" encType="text/plain" noValidate>
             <div className="desk__bar" aria-hidden="true">
               <span className="mono" data-desk-count="">
                 01 / 06
@@ -285,6 +286,10 @@ export function EnquiryDesk() {
               <button type="button" className="desk__back mono" data-back="" hidden>
                 {t("← Back")}
               </button>
+              {/* phones: where you are, in the bar that stays at the foot of the screen */}
+              <span className="desk__nav-step mono" data-desk-step="" aria-hidden="true">
+                01 / 06
+              </span>
               <button type="button" className="btn btn--leaf" data-next="">
                 <span className="btn__text" data-text={t("Next")}>
                   {t("Next")}
@@ -318,7 +323,7 @@ export function EnquiryDesk() {
             </p>
             <h2 className="desk__done-title">{t("Sealed and ready.")}</h2>
             <p>
-              {t("Your email app has opened with the enquiry written up and addressed to")}{' '}<span className="mono">{t("info@arifapack.com")}</span>{t(". Press send there, and the packaging team will reply during working hours.")}
+              {t("Your email app has opened with the enquiry written up and addressed to")}{' '}<span className="mono">{company.email}</span>{t(". Press send there, and the packaging team will reply during working hours.")}
             </p>
             <div className="desk__done-actions">
               <button type="button" className="btn btn--line" data-copy-enquiry="">

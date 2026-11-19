@@ -71,6 +71,27 @@ export function initAboutStage() {
     onToggle: (s) => railEl?.classList.toggle('is-on', s.isActive),
   });
 
+  // phones and narrow tablets: the shape stands above its chapter's words. Long chapters (the
+  // heritage text, the six values) would scroll up through it, so once the words reach the
+  // shape it travels up with them, staying just above the heading, and leaves with the chapter.
+  // The next chapter's shape then appears in the space above its own words.
+  const canvas = root.querySelector<HTMLElement>('[data-ab-gl]');
+  const texts = [...root.querySelectorAll<HTMLElement>('.ab-hero__inner, .ab-chapter__inner')];
+  let lastY = 1;
+  const keepAboveWords = () => {
+    if (!field || !canvas) return;
+    let y = 0;
+    if (!wide()) {
+      const h = window.innerHeight;
+      const limit = h * 0.47; // the shape's lower edge, with a little air under it
+      const words = texts.find((el) => el.getBoundingClientRect().bottom > 0);
+      if (words) y = Math.min(0, words.getBoundingClientRect().top - limit);
+    }
+    if (Math.abs(y - lastY) > 0.5) { canvas.style.transform = y ? `translate3d(0, ${y}px, 0)` : ''; lastY = y; }
+  };
+  ScrollTrigger.create({ trigger: root, start: 'top bottom', end: 'bottom top', onUpdate: keepAboveWords, onRefresh: keepAboveWords });
+  window.addEventListener('resize', keepAboveWords, { passive: true });
+
   // a resize re-forms the current shape where it now belongs
   if (field) field.onResize = () => { if (ready && current >= 0) field.set(shapes[current]()); };
 
@@ -78,7 +99,7 @@ export function initAboutStage() {
   const lines = root.querySelectorAll<HTMLElement>('.ab-hero .ab-line > span');
   const reveals = root.querySelectorAll<HTMLElement>('.ab-hero .ab-reveal, .ab-hero .ab-cue');
   if (!env.reduced) {
-    gsap.set(lines, { yPercent: 112 });
+    gsap.set(lines, { yPercent: 140 });
     gsap.set(reveals, { opacity: 0, y: 14 });
   }
   function intro() {

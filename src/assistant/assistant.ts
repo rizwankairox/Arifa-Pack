@@ -4,6 +4,8 @@ import type { AssistantAction, FamilyInfo, PageName, QuoteFill } from './types';
 import { env } from '@/lib/env';
 import { createVoice } from '@/assistant/voice';
 import { createBrain } from '@/assistant/brain';
+import { apiEnabled, currentSession } from '@/lib/arifaApi';
+import type { LiveVoice } from '@/assistant/liveVoice';
 import { isArPage, lhc, tc } from '@/i18n/client';
 
 /*
@@ -169,11 +171,14 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
     else gsap.fromTo(leafBox, { scale: 1 }, { scale: 1.07, duration: 0.12, yoyo: true, repeat: 1, ease: 'power2.out', overwrite: 'auto' });
   };
 
+  // live voice through the Arifa backend (LiveKit), when the site is connected to it (src/assistant/liveVoice.ts)
+  let liveVoice: LiveVoice | null = null;
+  const micOn = () => voice?.on || !!liveVoice;
   const setVoiceState = (s) => {
     card.dataset.voice = s;
-    if (voice?.on) card.classList.remove('is-invite');
-    mic.setAttribute('aria-pressed', String(voice.on));
-    mic.setAttribute('aria-label', tc(voice.on ? 'Turn the microphone off' : 'Talk to Arifa'));
+    if (micOn()) card.classList.remove('is-invite');
+    mic.setAttribute('aria-pressed', String(micOn()));
+    mic.setAttribute('aria-label', tc(micOn() ? 'Turn the microphone off' : 'Talk to Arifa'));
     voiceEl.textContent = VOICE_LABEL[s] || '';
   };
   const voice = createVoice({
@@ -642,12 +647,28 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
     else if (action?.type === 'product' && action.ref) await showProduct(String(action.ref));
     else if (action?.type === 'quote') await goQuote(action.fill || {});
     else if (action?.type === 'factory') await goFactory();
+    else if (action?.type === 'whatsapp') {
+      // the backend is unavailable: WhatsApp click-to-chat is the way through
+      const li = document.createElement('li');
+      li.className = 'assist__msg assist__msg--bot';
+      const a = document.createElement('a');
+      a.className = 'assist__wa';
+      a.href = action.href;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = tc('Chat on WhatsApp');
+      li.appendChild(a);
+      log.appendChild(li);
+      trim();
+      log.scrollTop = log.scrollHeight;
+    }
   }
 
   // what the page is showing, so the AI knows where the visitor is
   const where = () => {
     if (page === 'home') return 'home page';
     if (page === 'contact') return 'contact page, at the enquiry desk';
+    if (page === 'notfound') return 'a page that does not exist (404); help them find the right page';
     if (page !== 'products') return `${page} page`;
     const chip = document.querySelector<HTMLElement>('.cat-chip.is-active');
     const open = document.querySelector<HTMLElement>('.qv.is-open h2')?.textContent;
@@ -691,7 +712,41 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
     }
     return ok;
   }
-  mic.addEventListener('click', () => {
+  // the agent's lines arrive as captions (its voice comes from the room, not from speak())
+  const shown = (text) => {
+    const li = bubble('bot', '');
+    const cap = caption(li, text, pace(text));
+    cap.tween.then(() => cap.finish());
+  };
+  // live voice: the mic tap is the visitor's consent to talk (the backend's "Enter the factory").
+  // Returns false when live voice isn't on offer (no backend, a text-only language, or it failed),
+  // and the browser's own speech takes over, still answered by the backend.
+  async function toggleLiveVoice() {
+    if (!apiEnabled()) return false;
+    if (liveVoice) { const v = liveVoice; liveVoice = null; await v.stop(); setVoiceState('off'); return true; }
+    if (currentSession()?.voice_available === false) return false;
+    setVoiceState('thinking');
+    try {
+      const { startLiveVoice } = await import('@/assistant/liveVoice');
+      liveVoice = await startLiveVoice(isArPage() ? 'ar' : 'en', {
+        onState: (st) => { if (st === 'off') { liveVoice = null; setVoiceState('off'); } else setVoiceState(st); },
+        onLine: (text, me) => { endOpening(); if (me) heard(text); else shown(text); },
+        onLevel: (v) => { const x = v.toFixed(3); card.style.setProperty('--lvl', x); dock.style.setProperty('--lvl', x); },
+      });
+      return true;
+    } catch (e) {
+      console.warn('Live voice unavailable, using the browser’s speech.', e);
+      liveVoice = null;
+      setVoiceState('off');
+      return false;
+    }
+  }
+  mic.addEventListener('click', async () => {
+    if (liveVoice) { await toggleLiveVoice(); state.voice = false; state.wantsVoice = false; save(state); return; }
+    if (apiEnabled() && !voice.on && !voice.speaking) {
+      brain.setVoiceConsent(true);
+      if (await toggleLiveVoice()) return;
+    }
     if (voice.speaking) { voice.hush(); return; }       // interrupt her
     if (voice.on) { voice.stop(); state.voice = false; state.wantsVoice = false; save(state); return; }
     state.wantsVoice = true;                            // remembered: if the mic is blocked, start once it's allowed

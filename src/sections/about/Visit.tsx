@@ -2,6 +2,7 @@
   07 · visit
 */
 import { t, lh } from '@/i18n';
+import { company, phone } from '@/data/site';
 export function Visit() {
   return (
     <section className="ab-visit" id="visit" data-theme="dark">
@@ -11,7 +12,7 @@ export function Visit() {
         loop
         playsInline
         preload="none"
-        poster="/media/posters/hero-exterior.jpg"
+        poster="/media/posters/hero-exterior.webp"
         data-src="/media/clips/hero-exterior.mp4"
         aria-hidden="true"
       ></video>
@@ -34,9 +35,9 @@ export function Visit() {
               {t("Al Jurf Industrial Area 2, Ajman, UAE")}
             </p>
             <p className="mono">
-              <a href="tel:+97167477061">+971 6 747 7061</a>
+              <a href={`tel:${phone.office.tel}`}>{phone.office.label}</a>
               <br />
-              <a href="mailto:info@arifagroup.com">{t("info@arifagroup.com")}</a>
+              <a href={`mailto:${company.group.email}`}>{company.group.email}</a>
             </p>
           </div>
           <div className="ab-glass ab-glass--info">
@@ -47,9 +48,9 @@ export function Visit() {
               {t("Al Jurf Industrial Area 2, Ajman, UAE")}
             </p>
             <p className="mono">
-              <a href="tel:+97167485384">+971 6 748 5384</a>
+              <a href={`tel:${phone.packaging.tel}`}>{phone.packaging.label}</a>
               <br />
-              <a href="mailto:info@arifapack.com">{t("info@arifapack.com")}</a>
+              <a href={`mailto:${company.email}`}>{company.email}</a>
             </p>
           </div>
           <div className="ab-glass ab-glass--info">
