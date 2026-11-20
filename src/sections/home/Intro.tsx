@@ -7,7 +7,7 @@ export function Intro() {
     <section className="intro" data-theme="light" aria-labelledby="intro-label">
       <div className="wrap">
         <p className="eyebrow" id="intro-label">
-          <span className="mono">(01)</span>{' '}{t("The company")}
+          {t("The company")}
         </p>
         <p className="intro__text" data-words="">
           {t("We press aluminium coil")}

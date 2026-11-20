@@ -16,7 +16,7 @@ export function DeliveryRoute() {
         <div className="wrap route__ui">
           <header className="route__head">
             <p className="eyebrow">
-              <span className="mono">{t("(Clients)")}</span>{' '}{t("Clients & Industries")}
+              {t("Clients & Industries")}
             </p>
             <h1 className="route__title" id="route-title">
               <span className="cl-line">

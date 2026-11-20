@@ -9,7 +9,7 @@ export function QuoteSection() {
       <div className="wrap contact__grid">
         <div className="contact__intro">
           <p className="eyebrow">
-            <span className="mono">(07)</span>{' '}{t("Request a quote")}
+            {t("Request a quote")}
           </p>
           <h2 className="contact__title" data-split-lines="">
             {t("Tell us what you need packed.")}

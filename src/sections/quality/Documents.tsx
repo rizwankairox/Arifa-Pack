@@ -8,7 +8,7 @@ export function Documents() {
       <div className="wrap q-docs__grid">
         <div>
           <p className="eyebrow">
-            <span className="mono">(03)</span>{' '}{t("Certificates & documents")}
+            {t("Certificates & documents")}
           </p>
           <h2 className="q-h2">
             {t("Need paperwork")}{' '}<span className="is-dim">{t("for a tender or an audit?")}</span>

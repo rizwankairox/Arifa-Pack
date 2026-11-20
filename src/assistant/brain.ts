@@ -12,7 +12,7 @@
 */
 import type { FamilyInfo, Turn } from './types';
 import { isArPage, tc } from '@/i18n/client';
-import { apiEnabled, sendMessage, ApiError } from '@/lib/arifaApi';
+import { apiEnabled, sendMessage, siteContext, ApiError, type SiteAction } from '@/lib/arifaApi';
 import { phone } from '@/data/site';
 
 // WhatsApp click-to-chat: the last resort when the assistant is unavailable (API 503)
@@ -65,6 +65,23 @@ const productIn = (text) => {
 
 type Memo = { need: string | null; use: string | null; qty: string | null; city: string | null; stage: string | null };
 
+// The Arifa backend is used whenever it's set up (NEXT_PUBLIC_ARIFA_API_URL) and reachable. When a
+// turn can't reach it, the built-in assistant answers instead, and the backend is left alone for a
+// minute (remembered across pages of the visit) before it's tried again.
+/** a turn's options: how the visitor spoke, and where the backend's site actions go */
+type TurnOpts = { input?: 'text' | 'voice'; onAction?: (a: SiteAction) => void };
+
+const DOWN_KEY = 'arifa-backend-down';
+const DOWN_FOR = 60_000;
+const backendDown = () => {
+  try { return Date.now() < Number(sessionStorage.getItem(DOWN_KEY) || 0); } catch { return false; }
+};
+const markBackendDown = (e: unknown) => {
+  console.warn('[Arifa] backend unreachable, using the built-in assistant for a minute:', e instanceof ApiError ? `${e.status} ${e.reason || ''}` : e);
+  try { sessionStorage.setItem(DOWN_KEY, String(Date.now() + DOWN_FOR)); } catch { /* private mode */ }
+};
+export const backendAvailable = () => apiEnabled() && !backendDown();
+
 export function createBrain({ families }: { families: FamilyInfo[] }) {
   const fam = (id) => families.find((f) => f.id === id);
   let saved: { history?: Turn[]; memo?: Memo } = {};
@@ -74,9 +91,11 @@ export function createBrain({ families }: { families: FamilyInfo[] }) {
   const persist = () => { try { sessionStorage.setItem(KEY, JSON.stringify({ history: history.slice(-24), memo })); } catch { /* private mode */ } };
 
   let remote = null; // null = not checked, true = the AI endpoint is configured
+  // which brain answered the last turn: 'backend' (the Arifa API) or 'builtin' (this site's own)
+  let source: 'backend' | 'builtin' | null = null;
   let voiceConsent = false; // the visitor turned the mic on (sent when a backend session starts)
   const checkRemote = async () => {
-    if (apiEnabled()) return (remote = true); // the Arifa backend answers every turn
+    if (apiEnabled() && !backendDown()) return (remote = true); // the Arifa backend answers every turn
     if (remote !== null) return remote;
     try { remote = !!(await (await fetch('/api/assistant')).json()).ready; } catch { remote = false; }
     return remote;
@@ -162,19 +181,29 @@ export function createBrain({ families }: { families: FamilyInfo[] }) {
     };
   }
 
-  // one turn through the backend: its reply as plain text; null = a person has taken over
-  async function backendTurn(text): Promise<{ say: string; action: any }> {
+  // one turn through the backend: its reply as plain text
+  // (`actions`: what the backend asks the page to do; assistant.ts acts on the contact card).
+  // null = the backend can't be reached or can't take the turn: the built-in assistant answers.
+  async function backendTurn(text, opts: TurnOpts = {}): Promise<{ say: string; action: any } | null> {
     const handedOver = tc('Our sales team is preparing your quotation; you’ll receive it on WhatsApp shortly.');
     try {
-      const r = await sendMessage(text, { language: isArPage() ? 'ar' : 'en', voiceConsent });
+      const r = await sendMessage(text, {
+        language: isArPage() ? 'ar' : 'en', voiceConsent,
+        context: siteContext({ input: opts.input || 'text' }),
+        onAction: opts.onAction, // (each site action as soon as it's known: assistant.ts runs them)
+      });
       if (r.handed_over) return { say: r.reply ? `${r.reply}\n\n${handedOver}` : handedOver, action: null };
       return { say: r.reply || tc('One moment, a member of our team is with you.'), action: null };
     } catch (e) {
       const status = e instanceof ApiError ? e.status : 0;
+      // the backend answered, and said no: its own documented answers (WEBSITE_API.md §4)
       if (status === 429) return { say: tc('Please slow down a moment, then try again.'), action: null };
       if (status === 422) return { say: tc('Sorry, I couldn’t take that message. Could you say it another way?'), action: null };
-      // 503 (the assistant is unavailable) or no connection: WhatsApp is the way through
-      return { say: tc('I’m not available right now. Please message our team on WhatsApp and they’ll help you straight away.'), action: { type: 'whatsapp', href: whatsappLink() } };
+      if (status === 503) return { say: tc('I’m not available right now. Please message our team on WhatsApp and they’ll help you straight away.'), action: { type: 'whatsapp', href: whatsappLink() } };
+      // not reachable (no connection, CORS, wrong address, server error, robot check failed):
+      // the built-in assistant takes over, and the backend is tried again in a minute
+      markBackendDown(e);
+      return null;
     }
   }
 
@@ -202,16 +231,23 @@ export function createBrain({ families }: { families: FamilyInfo[] }) {
       history.push({ role, content });
       persist();
     },
-    async reply(text, page) {
+    async reply(text, page, opts: TurnOpts = {}) {
       history.push({ role: 'user', content: text });
       let out = null;
       // the Arifa backend (src/lib/arifaApi.ts): the same AI as on WhatsApp and email
-      if (apiEnabled()) {
-        out = await backendTurn(text);
-        history.push({ role: 'assistant', content: out.say });
-        persist();
-        return out;
+      if (apiEnabled() && !backendDown()) {
+        out = await backendTurn(text, opts);
+        if (out) {
+          source = 'backend';
+          console.info('[Arifa] answered by the backend');
+          history.push({ role: 'assistant', content: out.say });
+          persist();
+          return out;
+        }
       }
+      source = 'builtin';
+      if (apiEnabled()) remote = null; // (check this site's own AI route afresh)
+      if (apiEnabled()) console.info('[Arifa] backend unreachable: answered by the built-in assistant');
       if (await checkRemote()) {
         try {
           const r = await fetch('/api/assistant', {
@@ -231,6 +267,8 @@ export function createBrain({ families }: { families: FamilyInfo[] }) {
       return out;
     },
     usingAI: () => remote === true,
+    /** which brain answered the last turn: 'backend', 'builtin', or null before the first */
+    source: () => source,
     checkRemote,
     /** the visitor turned the mic on: a new backend session starts with voice consent */
     setVoiceConsent(v: boolean) { voiceConsent = v; },

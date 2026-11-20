@@ -25,7 +25,7 @@ export function TheLine() {
         <div className="line__ui" data-line-ui="">
           <header className="line__head">
             <p className="eyebrow">
-              <span className="mono">(02)</span>{' '}{t("The line")}
+              {t("The line")}
             </p>
             <h2 className="line__title">
               {t("How an")}{' '}<span className="line__code">83185</span>{' '}{t("container is made")}

@@ -8,7 +8,7 @@ export function Leadership() {
       <div className="wrap">
         <header className="ab-people__head">
           <p className="eyebrow">
-            <span className="mono">(05)</span>{' '}{t("Leadership")}
+            {t("Leadership")}
           </p>
           <h2 className="ab-h2" data-split-lines="">
             {t("The directors")}

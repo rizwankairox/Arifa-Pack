@@ -729,3 +729,6 @@
 .cat-cta__actions p {
   color: var(--on-ink-mute);
 }
+
+/* with the Self range switch on, families that have no self-range packs fade back */
+.cat-chip.is-empty { opacity: 0.4; }

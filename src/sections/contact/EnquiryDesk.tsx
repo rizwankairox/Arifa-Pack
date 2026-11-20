@@ -13,7 +13,7 @@ export function EnquiryDesk() {
         <div className="ct-desk__main">
           <header className="ct-desk__head">
             <p className="eyebrow">
-              <span className="mono">{t("(Contact)")}</span>{' '}{t("Arifa Packing & Packaging LLC")}
+              {t("Arifa Packing & Packaging LLC")}
             </p>
             <h1 className="ct-title">
               <span className="ct-line">
@@ -250,6 +250,20 @@ export function EnquiryDesk() {
                   </label>
                 </div>
               </div>
+              {/* with the Arifa backend on: the two consents, separate and never pre-ticked; their exact
+                  words go with the enquiry as the proof of consent (enquiryDeskClient.ts) */}
+              {process.env.NEXT_PUBLIC_ARIFA_API_URL ? (
+                <div className="desk__consent">
+                  <label className="desk__tick">
+                    <input type="checkbox" name="whatsapp_opt_in" />
+                    <span data-consent="">{t("Send my quotation on WhatsApp")}</span>
+                  </label>
+                  <label className="desk__tick">
+                    <input type="checkbox" name="email_opt_in" />
+                    <span data-consent="">{t("Send my quotation by email")}</span>
+                  </label>
+                </div>
+              ) : null}
             </fieldset>
 
             <fieldset className="desk__step" data-step="note" data-name={t("Notes")}>
@@ -321,8 +335,12 @@ export function EnquiryDesk() {
             <p className="eyebrow">
               <span className="mono">{t("Enquiry")}</span> <span data-done-ref=""></span>
             </p>
-            <h2 className="desk__done-title">{t("Sealed and ready.")}</h2>
-            <p>
+            <h2 className="desk__done-title" data-done-title="">{t("Sealed and ready.")}</h2>
+            {/* sent to the Arifa backend: the reference it gave (enquiryDeskClient.ts) */}
+            <p data-done-sent="" hidden>
+              {t("We have your enquiry. The packaging team will reply during working hours, the way you chose.")}
+            </p>
+            <p data-done-mail="">
               {t("Your email app has opened with the enquiry written up and addressed to")}{' '}<span className="mono">{company.email}</span>{t(". Press send there, and the packaging team will reply during working hours.")}
             </p>
             <div className="desk__done-actions">

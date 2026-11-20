@@ -13,7 +13,7 @@ export function Sustainability() {
       <div className="wrap q-sus__grid">
         <div className="q-sus__text">
           <p className="eyebrow">
-            <span className="mono">(04)</span>{' '}{t("Sustainability")}
+            {t("Sustainability")}
           </p>
           <h2 className="q-h2">
             {t("Mostly aluminium.")}

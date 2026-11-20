@@ -19,7 +19,7 @@ export function Visit() {
       <div className="ab-visit__shade" aria-hidden="true"></div>
       <div className="wrap ab-visit__inner">
         <p className="eyebrow">
-          <span className="mono">(07)</span>{' '}{t("Visit")}
+          {t("Visit")}
         </p>
         <h2 className="ab-visit__title">
           {t("Al Jurf Industrial Area 2,")}

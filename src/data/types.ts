@@ -21,8 +21,14 @@ export type ProductEntry = {
   name: string;
   code: string;
   qty: string;
-  /** "trade" (default) or "self" (Arifa self-range retail packs) */
+  /**
+   * "trade" (default): listed in the catalogue. "self": an Arifa packet pack of a trade product
+   * (the old site's sr-… pages, codes ARF-…): it has its own page but is not listed; the trade
+   * product it packs (`packOf`) links to it, and it links back.
+   */
   range?: 'trade' | 'self';
+  /** for a pack: the trade product(s) it is a pack of */
+  packOf?: string[];
   /**
    * the product's address on the previous arifapack.com site (e.g. "8325.php").
    * Never linked to: next.config.ts only uses it to redirect those old addresses to this
@@ -41,12 +47,20 @@ export type Product = ProductEntry & {
   familyName: string;
   /** the English name, kept alongside the Arabic one on /ar pages (so searching in English still works) */
   nameEn?: string;
+  /** a trade product's packet pack (old sr-… page), if it has one */
+  pack?: PackLink | null;
+  /** a pack's trade product(s): the carton version */
+  trade?: PackLink[];
 };
 
-export type Catalogue = { families: Family[]; products: Product[] };
+/** the other version of a product: its page, code and packing */
+export type PackLink = { id: string; ref: string; name: string; code: string; qty: string; url: string };
+
+/** products: the listed (trade) products; packs: the packet packs, each with its own page but not listed */
+export type Catalogue = { families: Family[]; products: Product[]; packs: Product[] };
 
 /** the slimmer copy of the catalogue sent to the browser */
-export type ClientProduct = Pick<Product, 'id' | 'family' | 'range' | 'ref' | 'name' | 'code' | 'qty' | 'img' | 'url' | 'familyName' | 'nameEn'>;
+export type ClientProduct = Pick<Product, 'id' | 'family' | 'range' | 'ref' | 'name' | 'code' | 'qty' | 'img' | 'url' | 'familyName' | 'nameEn' | 'pack'>;
 export type ClientCatalogue = { families: Family[]; products: ClientProduct[] };
 
 // ── Clients & Industries (clients.json) ──

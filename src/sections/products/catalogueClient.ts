@@ -23,12 +23,14 @@ export function initCatalogue({ data, lenis, qv, tray }: { data: ClientCatalogue
   const chips = [...document.querySelectorAll<HTMLElement>('.cat-chip')];
   const pill = document.querySelector<HTMLElement>('[data-chip-pill]');
   const search = document.querySelector<HTMLInputElement>('[data-cat-search]');
-  const selfBtn = document.querySelector<HTMLElement>('[data-cat-self]');
   const viewBtns = [...document.querySelectorAll<HTMLElement>('[data-view]')].filter((b) => b.tagName === 'BUTTON');
   const countEl = document.querySelector<HTMLElement>('[data-cat-count]');
   const nounEl = document.querySelector<HTMLElement>('[data-cat-noun]');
   const scopeEl = document.querySelector<HTMLElement>('[data-cat-scope]');
   const resets = [...document.querySelectorAll<HTMLElement>('[data-cat-reset]')];
+  const selfBtn = document.querySelector<HTMLElement>('[data-cat-self]');
+  // counts that change with the switch: each family header's and each chip's
+  const counted = [...document.querySelectorAll<HTMLElement>('.fhead__count[data-n], .cat-chip sup[data-n]')];
   const empty = document.querySelector<HTMLElement>('[data-cat-empty]');
   const emptyQ = document.querySelector<HTMLElement>('[data-cat-empty-q]');
   const byId = new Map(data.products.map((p) => [p.id, p]));
@@ -39,8 +41,9 @@ export function initCatalogue({ data, lenis, qv, tray }: { data: ClientCatalogue
   const state = {
     family: families.has(params.get('family')) ? params.get('family') : 'all',
     q: params.get('q') || '',
-    self: params.get('range') === 'self',
     view: params.get('view') === 'index' ? 'index' : 'grid',
+    // the Arifa self range is its own collection: the switch shows it instead of the trade range
+    self: params.get('range') === 'self',
   };
   search.value = state.q;
   if (matchMedia('(max-width: 600px)').matches) search.placeholder = tc('Code or name — 83185');
@@ -54,8 +57,8 @@ export function initCatalogue({ data, lenis, qv, tray }: { data: ClientCatalogue
   const visibleIds = () => cards.filter((c) => !c.classList.contains('is-hidden')).map((c) => c.dataset.product);
 
   function matches(c, tokens) {
+    if (state.self !== (c.dataset.range === 'self')) return false;
     if (state.family !== 'all' && c.dataset.family !== state.family) return false;
-    if (state.self && c.dataset.range !== 'self') return false;
     return tokens.every((t) => c.dataset.search.includes(t));
   }
 
@@ -154,11 +157,18 @@ export function initCatalogue({ data, lenis, qv, tray }: { data: ClientCatalogue
     if (state.q) bits.push(tc('· matching “{q}”', { q: state.q }));
     scopeEl.textContent = bits.length ? ` ${bits.join(' ')}` : '';
     const filtered = state.family !== 'all' || state.self || state.q;
+    selfBtn.setAttribute('aria-pressed', String(state.self));
+    counted.forEach((el) => {
+      const v = state.self ? el.dataset.nSelf : el.dataset.n;
+      const b = el.querySelector('b');
+      if (!b) { el.textContent = v; el.closest('.cat-chip')?.classList.toggle('is-empty', v === '0'); return; }
+      b.textContent = v;
+      el.querySelector('span').textContent = tc(v === '1' ? 'product' : 'products');
+    });
     resets[0].hidden = !filtered;
     empty.hidden = n > 0;
     emptyQ.textContent = state.q || families.get(state.family)?.name || '';
 
-    selfBtn.setAttribute('aria-pressed', String(state.self));
     movePill(animate);
     syncUrl();
 
@@ -175,6 +185,13 @@ export function initCatalogue({ data, lenis, qv, tray }: { data: ClientCatalogue
     apply({ scrollToTop: true });
   }));
   selfBtn.addEventListener('click', () => { state.self = !state.self; apply({ scrollToTop: true }); });
+  // the assistant opens a product the filters are hiding: show its own family and range, no search
+  document.addEventListener('arifa:catalogue-show', (e) => {
+    const d = (e as CustomEvent<{ family?: string; self?: boolean }>).detail || {};
+    search.value = '';
+    Object.assign(state, { q: '', family: families.has(d.family) ? d.family : 'all', self: !!d.self });
+    apply();
+  });
   let t;
   search.addEventListener('input', () => {
     clearTimeout(t);

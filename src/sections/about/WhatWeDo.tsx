@@ -8,7 +8,7 @@ export function WhatWeDo() {
       <div className="wrap">
         <header className="ab-do__head">
           <p className="eyebrow">
-            <span className="mono">(06)</span>{' '}{t("What we do")}
+            {t("What we do")}
           </p>
           <h2 className="ab-h2">{t("Made in our own facility. Finished in your brand.")}</h2>
         </header>

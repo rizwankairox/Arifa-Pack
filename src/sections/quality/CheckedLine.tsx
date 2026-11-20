@@ -8,7 +8,7 @@ export function CheckedLine() {
       <div className="q-line-sec__pin" data-qpin="">
         <header className="wrap q-line-sec__head">
           <p className="eyebrow">
-            <span className="mono">(01)</span>{' '}{t("The line, checked")}
+            {t("The line, checked")}
           </p>
           <h2 className="q-h2" id="line-title">
             {t("From coil")}{' '}<span className="is-dim">{t("to carton.")}</span>

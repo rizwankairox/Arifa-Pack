@@ -10,7 +10,6 @@ import { isAr, lh, t } from '@/i18n';
 import { Picture } from '@/components/site/Picture';
 
 export function ProductDetail({ p }: { p: Product }) {
-  const self = p.range === 'self';
   const title = `${p.ref} ${p.name}`;
   const { prev, next } = neighbours(p);
   // arrows follow the reading direction: right to left on /ar
@@ -20,7 +19,7 @@ export function ProductDetail({ p }: { p: Product }) {
     [t('Catalogue code'), p.code && p.code !== '—' ? p.code : t('On request')],
     [t('Packing'), p.qty || t('On request')],
     [t('Family'), p.familyName],
-    [t('Range'), self ? t('Arifa self range (retail pack)') : t('Trade')],
+    [t('Range'), p.range === 'self' ? t('Arifa self range') : t('Trade')],
   ];
   return (
     <section className="pd" id="product" data-theme="light">
@@ -51,11 +50,11 @@ export function ProductDetail({ p }: { p: Product }) {
 
           <div className="pd__info">
             <p className="eyebrow pd__family">
-              <span className="mono">{t('(P)')}</span> {p.familyName}
+              {p.familyName}
             </p>
             <p className="pd__ref">{p.ref}</p>
             <h1 className="pd__title">{p.name}</h1>
-            {self && <span className="pd__tag mono">{t('Arifa self range')}</span>}
+            {p.range === 'self' && <span className="pd__tag mono">{t('Arifa self range')}</span>}
 
             <dl className="qv__spec pd__spec">
               {rows.map(([k, v]) => (
@@ -65,6 +64,20 @@ export function ProductDetail({ p }: { p: Product }) {
                 </div>
               ))}
             </dl>
+
+            {/* the other version of this product: its packet pack (old sr-… page), or the carton it packs */}
+            {(p.pack || p.trade?.length) ? (
+              <div className="pd__pack">
+                <p className="mono pd__pack-k">{p.pack ? t('Also in the Arifa self range') : t('Trade carton')}</p>
+                {(p.pack ? [p.pack] : p.trade!).map((o) => (
+                  <a key={o.id} className="pd__pack-link" href={o.url}>
+                    <span className="mono">{o.code}</span>
+                    <span>{o.ref} {o.name} · {o.qty}</span>
+                    <span aria-hidden="true">{fwd}</span>
+                  </a>
+                ))}
+              </div>
+            ) : null}
 
             <div className="pd__actions">
               <button

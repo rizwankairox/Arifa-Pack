@@ -13,7 +13,7 @@ export function ProductCard({ p, index }: { p: Product; index: number }) {
   const search = [p.ref, p.name, p.nameEn || '', p.code, p.familyName, self ? 'self range arf' : ''].join(' ').toLowerCase();
   return (
     <article
-      className={`pcard${self ? ' is-self' : ''}`}
+      className={`pcard${self ? ' is-self is-hidden' : ''}`}
       data-product={p.id}
       data-family={p.family}
       data-range={p.range}

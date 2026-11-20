@@ -8,7 +8,7 @@ export function ClientsNext() {
       <div className="wrap cl-next__grid">
         <div>
           <p className="eyebrow">
-            <span className="mono">(03)</span>{' '}{t("Your business")}
+            {t("Your business")}
           </p>
           <h2 className="cl-h2">
             {t("Not on the list?")}

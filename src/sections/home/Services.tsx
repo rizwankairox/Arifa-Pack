@@ -8,7 +8,7 @@ export function Services() {
       <div className="wrap services__grid">
         <div className="services__aside">
           <p className="eyebrow">
-            <span className="mono">(05)</span>{' '}{t("What we do")}
+            {t("What we do")}
           </p>
           <h2 className="services__title" data-split-lines="">
             {t("Made in our own facility. Finished in your brand.")}
@@ -124,7 +124,7 @@ export function Services() {
       <div className="wrap people">
         <header className="people__head">
           <p className="eyebrow">
-            <span className="mono">(06)</span>{' '}{t("Leadership")}
+            {t("Leadership")}
           </p>
           <h2 className="people__title" data-split-lines="">
             {t("The directors")}

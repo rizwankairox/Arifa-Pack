@@ -34,7 +34,7 @@ export function AboutStage() {
       <section className="ab-chapter ab-hero" id="top" data-chapter="0">
         <div className="wrap ab-hero__inner">
           <p className="eyebrow ab-reveal">
-            <span className="mono">{t("(About)")}</span>{' '}{t("Arifa Packing & Packaging LLC")}
+            {t("Arifa Packing & Packaging LLC")}
           </p>
           <h1 className="ab-hero__title">
             <span className="ab-line">
@@ -74,7 +74,7 @@ export function AboutStage() {
       <section className="ab-chapter ab-story" id="story" data-chapter="1">
         <div className="wrap ab-chapter__inner">
           <p className="eyebrow">
-            <span className="mono">(01)</span>{' '}{t("Heritage")}
+            {t("Heritage")}
           </p>
           <h2 className="ab-h2">
             {t("Arifa Group,")}
@@ -94,7 +94,7 @@ export function AboutStage() {
       <section className="ab-chapter ab-values" id="values" data-chapter="2">
         <div className="wrap ab-chapter__inner">
           <p className="eyebrow">
-            <span className="mono">(02)</span>{' '}{t("Core values")}
+            {t("Core values")}
           </p>
           <h2 className="ab-h2">{t("Six values, practised every day.")}</h2>
           <ol className="ab-values__list" data-ab-values="">

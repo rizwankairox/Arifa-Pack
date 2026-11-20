@@ -361,3 +361,8 @@ html.no-js .desk__step + .desk__step { margin-top: 60px; }
   .label__v.is-printing::after, .where__ring, .ct-talk__leaf img { animation: none; }
   .label__tape, .label__stamp, .desk__track b, .picks__item { transition: none; }
 }
+
+/* the two consents under "How should we reply?" (only with the Arifa backend on): separate, never pre-ticked */
+.desk__consent { display: grid; gap: 6px; margin-top: 22px; }
+.desk__tick { display: flex; align-items: center; gap: 12px; min-height: 40px; cursor: pointer; font-size: 0.95rem; color: var(--on-ink); }
+.desk__tick input { width: 20px; height: 20px; flex: none; accent-color: var(--leaf); }

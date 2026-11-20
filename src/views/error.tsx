@@ -51,7 +51,7 @@ export function ErrorView({ locale, error, reset }: { locale: 'en' | 'ar'; error
             <LogoMark />
           </a>
           <p className="eyebrow">
-            <span className="mono">(!)</span> {tx.eyebrow}
+            {tx.eyebrow}
           </p>
           <h1 className="nf__title" id="err-title">
             {tx.title}

@@ -44,6 +44,16 @@ export function AssistantPanel() {
         <ol className="assist__log" data-assist-log="" aria-live="polite"></ol>
         <p className="assist__status mono" data-assist-status=""></p>
         <div className="assist__chips" data-assist-chips=""></div>
+        {/* typing, for visitors without a microphone (or who'd rather type): the same turn as speaking */}
+        <form className="assist__type" data-assist-type="" autoComplete="off">
+          <label className="sr-only" htmlFor="assist-text">{t("Message Arifa")}</label>
+          <input id="assist-text" name="text" type="text" maxLength={2000} placeholder={t("Type a message…")} enterKeyHint="send" />
+          <button type="submit" aria-label={t("Send")}>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h13M13 6l6 6-6 6" />
+            </svg>
+          </button>
+        </form>
         <p className="assist__voice mono" data-assist-voice="" aria-live="polite"></p>
       </section>
       {/* the leaf, docked on the right while the assistant works */}

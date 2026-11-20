@@ -7,14 +7,14 @@ import { HERO_PHOTOGRAPHY, type HeroShape } from './heroPhotography';
 import type { Catalogue } from './types';
 
 const HERO_STEPS: { shape: HeroShape; family: string; photo: string }[] = [
-  { shape: 'container', family: 'containers', photo: 'sr-con-83185' },
+  { shape: 'container', family: 'containers', photo: 'ac-83185-r' },
   { shape: 'foil', family: 'foil', photo: 'foil-30' },
-  { shape: 'platter', family: 'platters', photo: 'sr-pla-6550' },
+  { shape: 'platter', family: 'platters', photo: 'ap-6550' },
   { shape: 'cutlery', family: 'cutlery', photo: 'cut-black-fork' },
-  { shape: 'pot', family: 'pots', photo: 'sr-pot-22' },
+  { shape: 'pot', family: 'pots', photo: 'pot-22' },
   { shape: 'film', family: 'cling-film', photo: 'cling-30' },
   { shape: 'cup', family: 'cups-trays', photo: 'cup-14082' },
-  { shape: 'microwave', family: 'microwave', photo: 'sr-mw-500-black' },
+  { shape: 'microwave', family: 'microwave', photo: 'mw-500-black' },
 ];
 
 /** the studio photograph that stands for each family (where there is one) */

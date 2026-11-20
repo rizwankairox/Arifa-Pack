@@ -22,7 +22,7 @@ export function WhereWeAre() {
         </a>
         <div className="ct-where__text">
           <p className="eyebrow">
-            <span className="mono">(02)</span>{' '}{t("Where we are")}
+            {t("Where we are")}
           </p>
           <h2 className="ct-h2">
             {t("Al Jurf,")}

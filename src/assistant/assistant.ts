@@ -3,8 +3,10 @@ import type Lenis from 'lenis';
 import type { AssistantAction, FamilyInfo, PageName, QuoteFill } from './types';
 import { env } from '@/lib/env';
 import { createVoice } from '@/assistant/voice';
-import { createBrain } from '@/assistant/brain';
-import { apiEnabled, currentSession } from '@/lib/arifaApi';
+import { createBrain, backendAvailable } from '@/assistant/brain';
+import { currentSession, sendContact, ApiError, type EventOut, type SiteAction } from '@/lib/arifaApi';
+import { enquiry } from '@/lib/enquiry';
+import { initNudges } from '@/assistant/nudges';
 import type { LiveVoice } from '@/assistant/liveVoice';
 import { isArPage, lhc, tc } from '@/i18n/client';
 
@@ -183,7 +185,7 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
   };
   const voice = createVoice({
     onInterim: (t) => { if (!voice.speaking) live(t); },
-    onFinal: (t) => { heard(t); handle(t); },
+    onFinal: (t) => { heard(t); handle(t, 'voice'); },
     onState: (s) => setVoiceState(busy && s === 'listening' ? 'thinking' : s),
     onWord: pulseLeaf,
     onLevel: (v) => { const x = v.toFixed(3); card.style.setProperty('--lvl', x); dock.style.setProperty('--lvl', x); },
@@ -451,12 +453,20 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
   }
 
   // ── what she does ──
-  async function showFamily(f) {
+  // `quiet`: asked by the backend, which speaks for itself: just show the family (no line of our own,
+  // no product opened on top)
+  async function showFamily(f, { quiet = false } = {}) {
+    if (page !== 'home' && page !== 'products') {
+      state.pending = { kind: 'family', id: f.id, quiet };
+      save(state);
+      window.location.href = lhc(`/products?family=${f.id}`);
+      return;
+    }
     if (page === 'home') {
       await flyToDock();
-      status(`Finding ${f.name}…`);
+      status(tc('Finding {name}…', { name: f.name }));
       showPointer();
-      state.pending = { kind: 'family', id: f.id };
+      state.pending = { kind: 'family', id: f.id, quiet };
       save(state);
       const label = hero?.labelFor(f.id);
       if (label) {
@@ -491,6 +501,7 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
       await press(chip);
       await wait(1.1);
     }
+    if (quiet) { hidePointer(); status(''); return; }
     await openFirst(f);
   }
 
@@ -537,8 +548,8 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
   };
 
   // products page: open one product by its number, then say what it is (and offer the quote)
-  async function openProduct(ref) {
-    const pc = productCard(ref);
+  async function openProduct(ref, { narrate = true, card = null as HTMLElement | null } = {}) {
+    const pc = card || productCard(ref);
     if (!pc) { await say(tc('I can’t find a product numbered {ref}. Could you tell me the number again?', { ref })); return; }
     showPointer();
     const qvClose = document.querySelector<HTMLElement>('.qv.is-open .qv__close');
@@ -548,6 +559,15 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
       await press(qvClose);
       await wait(0.8);
     }
+    // hidden by a search or by the other range (trade / self range): clear those first, so the grid
+    // behind the product shows its own family (not "No match")
+    const search = document.querySelector<HTMLInputElement>('[data-cat-search]');
+    const otherRange = (pc.dataset.range === 'self') !== (document.querySelector('[data-cat-self]')?.getAttribute('aria-pressed') === 'true');
+    if (pc.classList.contains('is-hidden') && (search?.value || otherRange)) {
+      await scrollToGrid();
+      document.dispatchEvent(new CustomEvent('arifa:catalogue-show', { detail: { family: pc.dataset.family, self: pc.dataset.range === 'self' } }));
+      await wait(1.1);
+    }
     // filtered out by another family: switch the filter to its own
     if (pc.classList.contains('is-hidden')) {
       await scrollToGrid();
@@ -555,6 +575,7 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
       if (chip) { status(tc('Filtering to {name}…', { name: fam(pc.dataset.family)?.name || tc('its range') })); await moveTo(() => centre(chip), 1.1); await press(chip); await wait(1.1); }
     }
     await openProductCard(pc, tc('Opening {ref}…', { ref }));
+    if (!narrate) return;
     // what it is, from the card itself: its name, and how many to a carton
     const name = pc.querySelector<HTMLElement>('.pcard__name')?.textContent.trim().replace(/&/g, 'and') || 'product';
     const pack = [...pc.querySelectorAll<HTMLElement>('.pcard__spec div')].find((d) => /pack|تعبئة/i.test(d.querySelector<HTMLElement>('dt')?.textContent || ''))?.querySelector<HTMLElement>('dd')?.textContent || '';
@@ -571,12 +592,18 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
 
   // anywhere: one product by its number. On the home page that means the catalogue, searched to
   // that number, where the next page opens it (arrive())
-  async function showProduct(ref) {
-    if (page === 'products') { await openProduct(ref); return; }
+  // (`id`: one product exactly, as the backend names it; `narrate`: say what it is afterwards)
+  async function showProduct(ref, { id = null as string | null, narrate = true } = {}) {
+    if (page === 'products') {
+      const card = id ? document.querySelector<HTMLElement>(`.pcard[data-product="${CSS.escape(id)}"]`) : null;
+      await openProduct(ref, { narrate, card });
+      return;
+    }
     await flyToDock();
-    state.pending = { kind: 'product', ref };
+    state.pending = { kind: 'product', ref, id, narrate };
     save(state);
-    const go = () => (window.location.href = lhc(`/products?q=${encodeURIComponent(ref)}`));
+    // (the catalogue as it is: no search left in the box, so the grid behind the product isn't "No match")
+    const go = () => (window.location.href = lhc('/products'));
     const nav = [...document.querySelectorAll<HTMLAnchorElement>('.nav__links a')].find((a) => a.getAttribute('href') === lhc('/products'));
     showPointer();
     status(tc('Opening the catalogue…'));
@@ -676,7 +703,7 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
   };
 
   // one turn: think, answer out loud, then act
-  async function handle(text) {
+  async function handle(text, input: 'text' | 'voice' = 'text') {
     text = text.trim();
     if (!text) return;
     endOpening(); // (the visitor has taken over from the scripted opening)
@@ -685,13 +712,169 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
     chips([]);
     if (voice.on) setVoiceState('thinking');
     try {
-      const out = await brain.reply(text, where());
+      // the backend's site actions arrive while the reply is still being written: what stays on this
+      // page runs at once (the page moves straight away); what leaves it waits until she has spoken
+      const later: SiteAction[] = [];
+      const out = await brain.reply(text, where(), { input, onAction: (a) => (leavesPage(a) ? later.push(a) : enqueue(a)) });
+      showSource();
       await say(out.say);
       if (out.action) await act(out.action);
+      await queue;
+      later.forEach(enqueue);
+      await queue;
     } finally {
       release();
     }
   }
+  // ── the backend's site actions (WEBSITE_API.md §2a): what to show, never how ──
+  // Each one is done with the page's own moves (the pointer, the filters, the quick view). They run
+  // one after another; a visitor who scrolls or clicks takes over and the rest are dropped.
+  const doneActions = new Set<string>(); // (an action id is done once, even if it arrives twice)
+  let queue: Promise<void> = Promise.resolve();
+  let queueGen = 0;
+  function enqueue(a: SiteAction) {
+    if (!a?.type) return;
+    if (a.id) { if (doneActions.has(a.id)) return; doneActions.add(a.id); }
+    const gen = queueGen;
+    queue = queue.then(() => (gen === queueGen ? runAction(a) : undefined)).catch((e) => console.warn('[Arifa] action failed:', a.type, e));
+  }
+  function backendActions(list: SiteAction[] = []) { list.forEach(enqueue); }
+  const stopQueue = (e: Event) => { if (!card.contains(e.target as Node) && !(e.target as Element)?.closest?.('.assist-dock')) queueGen++; };
+  ['wheel', 'touchmove', 'pointerdown', 'keydown'].forEach((t) => window.addEventListener(t, stopQueue, { passive: true, capture: true }));
+
+  // where an action lands, in this page's language (the chat's language doesn't matter)
+  const landing = (a: SiteAction) => {
+    const r = a.resolved;
+    const p = r ? (isArPage() ? r.path_ar : r.path_en) : null;
+    return p ? (r.anchor && !p.includes('#') ? `${p}#${r.anchor}` : p) : null;
+  };
+  const samePage = (path: string) => {
+    const u = new URL(path, location.href);
+    return u.pathname.replace(/\/+$/, '') === location.pathname.replace(/\/+$/, '');
+  };
+  const pathOfPage = (name: string, section?: string | null) =>
+    lhc(name === 'home' ? '/' : `/${name}`) + (section ? `#${section}` : '');
+  // (does it take the visitor to another page? then it waits for the reply to be said)
+  function leavesPage(a: SiteAction) {
+    switch (a.type) {
+      case 'show_family': return page !== 'products' && page !== 'home';
+      case 'show_product': return a.view === 'page' || page !== 'products';
+      case 'navigate': return !samePage(landing(a) || pathOfPage(a.page, a.section));
+      case 'factory_tour': return page !== 'home';
+      case 'fill_enquiry': return page !== 'contact';
+      default: return false;
+    }
+  }
+  async function scrollToSection(id: string) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    lenis?.scrollTo(el, { offset: -70, duration: 1.4 });
+    await wait(1.5);
+  }
+  // the enquiry list takes products by id (the catalogue's own details when this page has them)
+  function addToEnquiry(ids: string[] = []) {
+    let products: any[] = [];
+    try { products = JSON.parse(document.getElementById('catalogue-data')?.textContent || '{}').products || []; } catch { /* none */ }
+    ids.forEach((id) => {
+      const p = products.find((x) => x.id === id);
+      enquiry.add(p ? { id, ref: p.ref, name: p.name, code: p.code, img: p.img, familyName: p.familyName } : { id, ref: id, name: '', code: '', img: null, familyName: '' });
+    });
+  }
+  async function runAction(a: SiteAction) {
+    console.info('[Arifa] action:', a.type, a);
+    switch (a.type) {
+      case 'show_family': {
+        const f = fam(a.family);
+        if (f) await showFamily(f, { quiet: true });
+        else if (landing(a)) window.location.href = landing(a);
+        break;
+      }
+      case 'show_product': {
+        if (a.view === 'page') { window.location.href = landing(a) || lhc(`/products/${a.product_id}`); break; }
+        await showProduct(a.product_id, { id: a.product_id, narrate: false });
+        break;
+      }
+      case 'navigate': {
+        const to = landing(a) || pathOfPage(a.page, a.section);
+        if (samePage(to)) { const id = a.section || new URL(to, location.href).hash.slice(1); if (id) await scrollToSection(id); }
+        else window.location.href = to;
+        break;
+      }
+      case 'scroll_to': await scrollToSection(a.section); break;
+      case 'factory_tour': await goFactory(); break;
+      case 'add_to_enquiry': addToEnquiry(a.product_ids); break;
+      case 'fill_enquiry': {
+        const f = a.fill || {};
+        const families: string[] = Array.isArray(f.family) ? f.family : f.family ? [f.family] : [];
+        await goQuote({ ...f, family: families[0], families, notes: f.message || f.detail } as QuoteFill);
+        break;
+      }
+      case 'ask_contact': contactCard(a.fields, a.consents); break;
+    }
+  }
+
+  // the contact card in the chat: name, phone, email and two separate, unticked consents
+  // (POST /v1/public/sessions/{id}/contact). The words next to the ticks go with it as proof.
+  function contactCard(fields: string[] = [], consents: string[] = []) {
+    const want = fields.length ? fields : ['name', 'phone', 'email'];
+    const ticks = consents.length ? consents : ['whatsapp', 'email'];
+    const words = {
+      whatsapp: tc('Send my quotation on WhatsApp'),
+      email: tc('Send my quotation by email'),
+    };
+    const labels = { name: tc('Your name'), company: tc('Company'), phone: tc('Phone / WhatsApp'), email: tc('Email') };
+    const types = { name: 'text', company: 'text', phone: 'tel', email: 'email' };
+    const auto = { name: 'name', company: 'organization', phone: 'tel', email: 'email' };
+    const li = document.createElement('li');
+    li.className = 'assist__msg assist__msg--bot assist__card-msg';
+    const form = document.createElement('form');
+    form.className = 'assist__contact';
+    form.noValidate = true;
+    form.innerHTML = `
+      ${want.filter((f) => labels[f]).map((f) => `<label class="assist__cfield"><span>${labels[f]}</span><input name="${f}" type="${types[f]}" autocomplete="${auto[f]}" /></label>`).join('')}
+      ${ticks.filter((c) => words[c]).map((c) => `<label class="assist__ctick"><input type="checkbox" name="opt_${c}" /><span>${words[c]}</span></label>`).join('')}
+      <div class="assist__crow"><button type="submit" class="assist__csend">${tc('Send')}</button><span class="assist__cmsg" role="status" aria-live="polite"></span></div>`;
+    li.appendChild(form);
+    log.appendChild(li);
+    trim();
+    log.scrollTop = log.scrollHeight;
+    const msg = form.querySelector<HTMLElement>('.assist__cmsg');
+    const v = (n) => (form.querySelector<HTMLInputElement>(`[name="${n}"]`)?.value || '').trim();
+    const on = (n) => !!form.querySelector<HTMLInputElement>(`[name="${n}"]`)?.checked;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!v('phone') && !v('email')) { msg.textContent = tc('Add a phone number or an email.'); return; }
+      const ticked = ticks.filter((c) => on(`opt_${c}`));
+      const btn = form.querySelector<HTMLButtonElement>('button');
+      btn.disabled = true;
+      try {
+        await sendContact({
+          name: v('name'), company: v('company'), phone: v('phone'), email: v('email'),
+          whatsapp_opt_in: on('opt_whatsapp'), email_opt_in: on('opt_email'),
+          consent_wording: ticked.map((c) => words[c]).join(' / ') || undefined,
+        });
+        li.textContent = tc('Thank you. We have your details.');
+      } catch (err) {
+        btn.disabled = false;
+        msg.textContent = err instanceof ApiError && err.status === 422
+          ? tc('That phone number or email doesn’t look right.')
+          : tc('Couldn’t send that just now. Please try again.');
+      }
+    });
+    form.querySelector<HTMLInputElement>('input')?.focus({ preventScroll: true });
+  }
+
+  // a short message from the assistant after a visitor event (src/assistant/nudges.ts)
+  async function nudge(out: EventOut) {
+    if (busy || (opening && !opening.over)) return; // (never over a conversation in progress)
+    if (card.hidden) { openCard(true); if (!isDocked()) { dock.hidden = false; state.docked = true; save(state); } }
+    if (out.reply) await say(out.reply);
+    backendActions(out.actions);
+  }
+  initNudges({ show: nudge });
+  // during a call, the agent hears where the visitor is when they open or close a product
+  ['arifa:product-open', 'arifa:product-close'].forEach((ev) => document.addEventListener(ev, () => liveVoice?.sendContext()));
+
   // done acting: listen again, and answer anything said in the meantime
   function release() {
     busy = false;
@@ -722,7 +905,7 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
   // Returns false when live voice isn't on offer (no backend, a text-only language, or it failed),
   // and the browser's own speech takes over, still answered by the backend.
   async function toggleLiveVoice() {
-    if (!apiEnabled()) return false;
+    if (!backendAvailable()) return false; // (no backend, or not reachable just now: the browser's speech)
     if (liveVoice) { const v = liveVoice; liveVoice = null; await v.stop(); setVoiceState('off'); return true; }
     if (currentSession()?.voice_available === false) return false;
     setVoiceState('thinking');
@@ -732,6 +915,7 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
         onState: (st) => { if (st === 'off') { liveVoice = null; setVoiceState('off'); } else setVoiceState(st); },
         onLine: (text, me) => { endOpening(); if (me) heard(text); else shown(text); },
         onLevel: (v) => { const x = v.toFixed(3); card.style.setProperty('--lvl', x); dock.style.setProperty('--lvl', x); },
+        onAction: (a) => enqueue(a), // (the agent's site actions during the call)
       });
       return true;
     } catch (e) {
@@ -741,9 +925,24 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
       return false;
     }
   }
+  // the text box: what's typed is a turn like what's said. During a live voice call it goes into
+  // the call instead (kx.chat.in), so voice and text stay one conversation.
+  const typeForm = card.querySelector<HTMLFormElement>('[data-assist-type]');
+  typeForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = typeForm.querySelector<HTMLInputElement>('input');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    endOpening();
+    bubble('you', text);
+    if (liveVoice) { liveVoice.sendText(text); return; }
+    handle(text, 'text');
+  });
+
   mic.addEventListener('click', async () => {
     if (liveVoice) { await toggleLiveVoice(); state.voice = false; state.wantsVoice = false; save(state); return; }
-    if (apiEnabled() && !voice.on && !voice.speaking) {
+    if (backendAvailable() && !voice.on && !voice.speaking) {
       brain.setVoiceConsent(true);
       if (await toggleLiveVoice()) return;
     }
@@ -803,7 +1002,14 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
     });
   }
   // the header tag says which brain is answering
-  brain.checkRemote().then((ai) => { card.querySelector<HTMLElement>('.assist__name .mono').textContent = tc(ai ? 'Live AI' : 'Preview'); });
+  // ("Live AI": the Arifa backend, or this site's own AI route; "Preview": the built-in script)
+  const tag = card.querySelector<HTMLElement>('.assist__name .mono');
+  function showSource() {
+    const s = brain.source();
+    tag.textContent = tc(s === 'backend' || (s === 'builtin' && brain.usingAI()) ? 'Live AI' : 'Preview');
+    tag.title = s === 'backend' ? 'Arifa backend' : s === 'builtin' ? 'Built-in assistant' : '';
+  }
+  brain.checkRemote().then((ai) => { tag.textContent = tc(ai ? 'Live AI' : 'Preview'); });
 
   return {
     // the home page's opening conversation takes the visitor to a family:
@@ -920,6 +1126,9 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
           await openProduct(p.pick.ref);
           state.pending = null;
           save(state);
+        } else if (p.kind === 'family' && page === 'products' && fam(p.id) && p.quiet) {
+          state.pending = null; // (the backend's own reply was already said; the filter is on)
+          save(state);
         } else if (p.kind === 'family' && page === 'products' && fam(p.id)) {
           await say(brain.arrived(p.id));
           showPointer();
@@ -928,7 +1137,8 @@ export function initAssistant({ page, lenis, hero = null }: { page: PageName; le
           state.pending = null;
           save(state);
         } else if (p.kind === 'product' && page === 'products') {
-          await openProduct(p.ref);
+          const card = p.id ? document.querySelector<HTMLElement>(`.pcard[data-product="${CSS.escape(p.id)}"]`) : null;
+          await openProduct(p.ref, { narrate: p.narrate !== false, card });
           state.pending = null;
           save(state);
         } else if (p.kind === 'quote' && page === 'contact') {

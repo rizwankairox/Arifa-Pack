@@ -107,6 +107,17 @@
   margin: 8px 0 0;
 }
 
+/* the other version of the product: its packet pack, or the carton it packs */
+.pd__pack { margin-top: 22px; display: grid; gap: 8px; }
+.pd__pack-k { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: #67625b; }
+.pd__pack-link {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap; min-height: 48px; padding: 10px 16px;
+  border-radius: 12px; box-shadow: inset 0 0 0 1px rgba(11, 10, 9, 0.14); transition: box-shadow 0.3s, background-color 0.3s;
+}
+.pd__pack-link .mono { font-size: 0.78rem; color: var(--leaf-ink); }
+.pd__pack-link span:last-child { margin-inline-start: auto; }
+.pd__pack-link:hover { box-shadow: inset 0 0 0 1px var(--leaf-ink); background: rgba(91, 168, 41, 0.06); }
+
 .pd__actions {
   display: flex;
   flex-wrap: wrap;

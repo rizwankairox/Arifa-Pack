@@ -22,7 +22,7 @@ export function Reach() {
         <div className="wrap ab-reach__copy">
           <div className="ab-reach__text">
             <p className="eyebrow">
-              <span className="mono">(03)</span>{' '}{t("From Ajman to the world")}
+              {t("From Ajman to the world")}
             </p>
             <h2 className="ab-reach__title" id="reach-title">
               {t("One factory in Ajman.")}

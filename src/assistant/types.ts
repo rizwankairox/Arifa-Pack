@@ -5,7 +5,12 @@
 export type FamilyInfo = { id: string; name: string; short: string; count: number };
 
 /** what the assistant fills in on the quote form */
-export type QuoteFill = { family?: string; quantity?: string; city?: string; notes?: string };
+export type QuoteFill = {
+  family?: string; quantity?: string; city?: string; notes?: string;
+  /** from the Arifa backend (fill_enquiry): the enquiry desk's own fields */
+  families?: string[]; detail?: string; size?: string; often?: string; region?: string;
+  name?: string; company?: string; trade?: string; channel?: 'email' | 'call' | 'whatsapp' | string; message?: string;
+};
 
 /** something the assistant does on the page after it speaks */
 export type AssistantAction =

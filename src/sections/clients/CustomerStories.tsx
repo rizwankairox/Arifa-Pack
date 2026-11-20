@@ -12,7 +12,7 @@ export function CustomerStories() {
         <header className="stories__head">
           <div>
             <p className="eyebrow">
-              <span className="mono">(02)</span>{' '}{t("Customer stories")}
+              {t("Customer stories")}
             </p>
             <h2 id="stories-title">
               {t("From their side")}

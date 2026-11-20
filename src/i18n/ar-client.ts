@@ -178,5 +178,20 @@ export const arClient: Dict = {
   "Please slow down a moment, then try again.": "تمهّل قليلاً من فضلك، ثم حاول مرة أخرى.",
   "Sorry, I couldn’t take that message. Could you say it another way?": "عذراً، لم أتمكن من استلام هذه الرسالة. هل يمكنك قولها بطريقة أخرى؟",
   "I’m not available right now. Please message our team on WhatsApp and they’ll help you straight away.": "لست متاحة الآن. يُرجى مراسلة فريقنا على واتساب وسيساعدونك فوراً.",
-  "Chat on WhatsApp": "تحدّث معنا على واتساب"
+  "Chat on WhatsApp": "تحدّث معنا على واتساب",
+  "Also in the Arifa self range": "متوفر أيضاً في تشكيلة عارفة الخاصة",
+  "Arifa self range": "تشكيلة عارفة الخاصة",
+  "Send my quotation on WhatsApp": "أرسلوا عرض السعر على واتساب",
+  "Send my quotation by email": "أرسلوا عرض السعر بالبريد الإلكتروني",
+  "Your name": "اسمك",
+  "Company": "الشركة",
+  "Phone / WhatsApp": "الهاتف / واتساب",
+  "Send": "إرسال",
+  "Add a phone number or an email.": "أضف رقم هاتف أو بريداً إلكترونياً.",
+  "Thank you. We have your details.": "شكراً لك. وصلتنا بياناتك.",
+  "That phone number or email doesn’t look right.": "يبدو أن رقم الهاتف أو البريد الإلكتروني غير صحيح.",
+  "Couldn’t send that just now. Please try again.": "تعذر الإرسال الآن. يُرجى المحاولة مرة أخرى.",
+  "Sealed and ready.": "مختوم وجاهز.",
+  "Sent to the packaging team.": "أُرسل إلى فريق التغليف.",
+  "Finding {name}…": "أبحث عن {name}…"
 };

@@ -35,6 +35,7 @@ export function Catalogue() {
             <CategoryChips />
           </div>
           <div className="cat-bar__end">
+            {/* the Arifa self range: its own collection, as on the old site (catalogueClient.ts) */}
             <button className="cat-switch" type="button" data-cat-self="" aria-pressed="false">
               <i aria-hidden="true"></i>{t("Self range")}
             </button>

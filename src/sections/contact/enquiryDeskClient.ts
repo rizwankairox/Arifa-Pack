@@ -2,7 +2,7 @@ import gsap from 'gsap';
 import { env } from '@/lib/env';
 import { isArPage, tc } from '@/i18n/client';
 import { enquiry, describe } from '@/lib/enquiry';
-import { apiEnabled, currentSession, identify } from '@/lib/arifaApi';
+import { apiEnabled, currentSession, identify, sendEnquiry, ApiError } from '@/lib/arifaApi';
 import type Lenis from 'lenis';
 import type { ClientProduct } from '@/data/types';
 import type { EnquiryItem } from '@/lib/enquiry';
@@ -368,15 +368,22 @@ export function initDesk({ lenis }: { lenis?: Lenis } = {}) {
     if (apiEnabled() && currentSession()) {
       identify({ phone: s.phone, email: s.email, name: s.name }, { language: isArPage() ? 'ar' : 'en' }).catch(() => { /* the email still goes */ });
     }
+    // with the Arifa backend on, the enquiry goes straight to the CRM (POST /v1/public/enquiries);
+    // if that fails, the email app takes it as before
+    const sent = apiEnabled() ? toBackend(s) : Promise.resolve(null);
     const subject = `Enquiry ${ref} — ${s.families[0] || s.items[0]?.familyName || 'Arifa Pack products'}${s.company ? ` — ${s.company}` : ''}`;
     const mail = `mailto:${company.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lastText)}`;
     label.classList.add('is-sealed');
-    const finish = () => {
-      window.location.href = mail;
+    const finish = async () => {
+      const reference = await sent;
+      if (!reference) window.location.href = mail;
+      done.querySelector<HTMLElement>('[data-done-sent]').hidden = !reference;
+      done.querySelector<HTMLElement>('[data-done-mail]').hidden = !!reference;
+      done.querySelector<HTMLElement>('[data-done-title]').textContent = tc(reference ? 'Sent to the packaging team.' : 'Sealed and ready.');
       form.hidden = true;
       done.hidden = false;
       desk?.classList.add('is-review');
-      done.querySelector<HTMLElement>('[data-done-ref]').textContent = ref;
+      done.querySelector<HTMLElement>('[data-done-ref]').textContent = reference || ref;
       if (!env.reduced) gsap.from(done.children, { y: 20, opacity: 0, duration: 0.8, ease: 'expo.out', stagger: 0.06 });
       done.querySelector<HTMLElement>('.desk__done-title')?.setAttribute('tabindex', '-1');
       done.querySelector<HTMLElement>('.desk__done-title')?.focus({ preventScroll: true });
@@ -384,6 +391,34 @@ export function initDesk({ lenis }: { lenis?: Lenis } = {}) {
     if (env.reduced) finish();
     else gsap.delayedCall(1.15, finish);
   });
+
+  // the desk's answers, under the backend's own field names (WEBSITE_API.md §3.7)
+  async function toBackend(s): Promise<string | null> {
+    const ids = [...form.querySelectorAll<HTMLInputElement>('input[name="family"]:checked')].map((i) => i.dataset.id || i.value);
+    const channel = s.channel === 'Email' ? 'email' : s.channel === 'WhatsApp' ? 'whatsapp' : 'call';
+    const opt = (n) => !!form.querySelector<HTMLInputElement>(`input[name="${n}"]`)?.checked;
+    const consent = [...form.querySelectorAll<HTMLInputElement>('input[name$="_opt_in"]:checked')]
+      .map((i) => i.closest('label')?.querySelector('[data-consent]')?.textContent?.trim()).filter(Boolean).join(' / ');
+    try {
+      const r = await sendEnquiry({
+        family: ids.slice(0, 8),
+        products: s.items.map((i) => i.id).slice(0, 50),
+        detail: detail.value || null,
+        size: s.size || null, quantity: s.qty || null, often: s.often || null,
+        region: s.region || null, city: s.city || null,
+        name: s.name || null, company: s.company || null, trade: s.trade || null,
+        channel, email: s.email || null, phone: s.phone || null,
+        extra: s.extra.join('; ') || null, message: s.message || null,
+        locale: isArPage() ? 'ar' : 'en',
+        whatsapp_opt_in: opt('whatsapp_opt_in'), email_opt_in: opt('email_opt_in'),
+        consent_wording: consent || null,
+      });
+      return r?.reference || null;
+    } catch (e) {
+      console.warn('Enquiry not sent to the Arifa API; using the email app.', e instanceof ApiError ? `${e.status} ${e.reason || ''}` : e);
+      return null;
+    }
+  }
 
   async function copy(text, out) {
     try {
@@ -420,13 +455,26 @@ export function initDesk({ lenis }: { lenis?: Lenis } = {}) {
   // the assistant can start the enquiry from what the visitor told it
   document.addEventListener('arifa:quote-fill', (e) => {
     const f: QuoteFill = (e as CustomEvent<QuoteFill>).detail || {};
-    if (f.family) {
-      const box = form.querySelector<HTMLInputElement>(`.pick[data-family="${f.family}"] input`) || [...form.querySelectorAll<HTMLInputElement>('input[name="family"]')].find((i) => norm(i.value) === norm(f.family));
+    // families by id (the backend's fill_enquiry) or by name (the built-in assistant)
+    const fams = f.families?.length ? f.families : f.family ? [f.family] : [];
+    fams.forEach((name) => {
+      const box = form.querySelector<HTMLInputElement>(`input[name="family"][data-id="${CSS.escape(name)}"]`)
+        || form.querySelector<HTMLInputElement>(`.pick[data-family="${CSS.escape(name)}"] input`)
+        || [...form.querySelectorAll<HTMLInputElement>('input[name="family"]')].find((i) => norm(i.value) === norm(name));
       if (box) box.checked = true;
-    }
+    });
     if (f.quantity) field('quantity').value = f.quantity;
     if (f.city) field('city').value = f.city;
     if (f.notes) field('message').value = f.notes;
+    if (f.message) field('message').value = f.message;
+    ['name', 'company'].forEach((k) => { if (f[k]) field(k).value = f[k]; });
+    // the one-choice questions, by their value (channel: the backend's email / call / whatsapp)
+    const channel = { email: 'Email', call: 'Phone call', whatsapp: 'WhatsApp' }[String(f.channel || '').toLowerCase()] || f.channel;
+    Object.entries({ size: f.size, often: f.often, region: f.region, trade: f.trade, channel }).forEach(([k, v]) => {
+      if (!v) return;
+      const r = [...form.querySelectorAll<HTMLInputElement>(`input[name="${k}"]`)].find((i) => norm(i.value) === norm(v));
+      if (r) r.checked = true;
+    });
     if (form.hidden) return;
     update();
     show(stepIndex('who'));

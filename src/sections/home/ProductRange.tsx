@@ -2,6 +2,7 @@
   03 · Product range
 */
 import { t, lh } from '@/i18n';
+import { getStats } from '@/data/catalogue';
 
 export function ProductRange() {
   return (
@@ -9,7 +10,7 @@ export function ProductRange() {
       <div className="wrap">
         <header className="range__head">
           <p className="eyebrow">
-            <span className="mono">(03)</span>{' '}{t("Products")}
+            {t("Products")}
           </p>
           <h2 className="range__title" data-split-lines="">
             {t("Eight product families, catalogued by code and carton.")}
@@ -17,7 +18,7 @@ export function ProductRange() {
           <p className="range__sub">
             {t("Each line opens the full listing with product codes and packing quantities.")}{' '}
             <a className="link" href={lh("/products")}>
-              {t("See all 78 products")}
+              {t("See all {n} products", { n: getStats().products })}
             </a>
           </p>
         </header>
@@ -62,7 +63,7 @@ export function ProductRange() {
                   <path d="M5 12h13M13 6l6 6-6 6" />
                 </svg>
               </span>
-              <img className="range__thumb" src="/images/products/sr-6550.webp" alt="" loading="lazy" decoding="async" width={64} height={64} />
+              <img className="range__thumb" src="/images/catalogue/ap-6550.webp" alt="" loading="lazy" decoding="async" width={64} height={64} />
             </a>
           </li>
           <li className="range__item">
@@ -90,7 +91,7 @@ export function ProductRange() {
                   <path d="M5 12h13M13 6l6 6-6 6" />
                 </svg>
               </span>
-              <img className="range__thumb" src="/images/products/sr-pot22.webp" alt="" loading="lazy" decoding="async" width={64} height={64} />
+              <img className="range__thumb" src="/images/catalogue/pot-22.webp" alt="" loading="lazy" decoding="async" width={64} height={64} />
             </a>
           </li>
           <li className="range__item">

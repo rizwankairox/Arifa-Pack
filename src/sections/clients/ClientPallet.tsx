@@ -12,7 +12,7 @@ export function ClientPallet() {
       <div className="wrap">
         <header className="cl-pallet__head">
           <p className="eyebrow">
-            <span className="mono">(01)</span>{' '}{t("Our clients")}
+            {t("Our clients")}
           </p>
           <h2 className="cl-h2">
             {t("Packed and")}

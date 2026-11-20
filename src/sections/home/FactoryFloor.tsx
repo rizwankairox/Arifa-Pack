@@ -8,7 +8,7 @@ export function FactoryFloor() {
       <div className="floor__pin">
         <header className="floor__head">
           <p className="eyebrow">
-            <span className="mono">(04)</span>{' '}{t("Walk the floor")}
+            {t("Walk the floor")}
           </p>
           <h2 className="floor__title" data-split-lines="">
             {t("Seven stops inside Arifa.")}

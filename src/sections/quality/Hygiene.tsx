@@ -8,7 +8,7 @@ export function Hygiene() {
       <div className="wrap">
         <div className="q-hygiene__head">
           <p className="eyebrow">
-            <span className="mono">(02)</span>{' '}{t("Hygiene you can see")}
+            {t("Hygiene you can see")}
           </p>
           <blockquote className="q-quote">
             <p>{t("“Our containers meet strict hygiene and quality standards, ensuring freshness, safety and convenience.”")}</p>

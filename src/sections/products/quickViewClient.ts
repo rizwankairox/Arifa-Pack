@@ -35,6 +35,9 @@ export function initQuickView({ data, lenis, tray, getList }: { data: ClientCata
 
   function fill(p) {
     current = p;
+    // which product is open: read by the assistant's events (src/assistant/nudges.ts)
+    root.dataset.productId = p.id;
+    document.dispatchEvent(new CustomEvent('arifa:product-open', { detail: { id: p.id } }));
     $('[data-qv-family]').textContent = p.familyName;
     $('[data-qv-ref]').textContent = p.ref;
     $('[data-qv-title]').textContent = p.name;
@@ -44,9 +47,11 @@ export function initQuickView({ data, lenis, tray, getList }: { data: ClientCata
       [tc('Catalogue code'), p.code && p.code !== '—' ? p.code : tc('On request')],
       [tc('Packing'), p.qty || tc('On request')],
       [tc('Family'), p.familyName],
-      [tc('Range'), tc(p.range === 'self' ? 'Arifa self range (retail pack)' : 'Trade')],
+      [tc('Range'), tc(p.range === 'self' ? 'Arifa self range' : 'Trade')],
     ];
-    $('[data-qv-spec]').innerHTML = rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('');
+    $('[data-qv-spec]').innerHTML = rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')
+      // its packet pack (old sr-… page), which isn't listed in the grid
+      + (p.pack ? `<div><dt>${tc('Also in the Arifa self range')}</dt><dd><a class="link" href="${esc(p.pack.url)}">${esc(p.pack.code)} · ${esc(p.pack.qty)}</a></dd></div>` : '');
     ($('[data-qv-page]') as HTMLAnchorElement).href = p.url;
     if (p.img) {
       img.src = p.img;
@@ -161,6 +166,8 @@ export function initQuickView({ data, lenis, tray, getList }: { data: ClientCata
   function close() {
     if (!isOpen) return;
     isOpen = false;
+    delete root.dataset.productId;
+    document.dispatchEvent(new CustomEvent('arifa:product-close'));
     const closed = mobile() ? 'inset(100% 0% 0% 0%)' : 'inset(0% 0% 0% 100% round 6px)';
     gsap.timeline({
       onComplete: () => {

@@ -213,3 +213,39 @@
   transition: filter 0.3s;
 }
 .assist__wa:hover { filter: brightness(1.08); }
+
+/* the contact card in the chat (assistant.ts contactCard): details and two separate, unticked consents */
+.assist__contact { display: grid; gap: 8px; margin-top: 2px; text-shadow: none; }
+.assist__cfield { display: grid; gap: 3px; font-size: 0.68rem; color: rgba(236, 232, 225, 0.7); }
+.assist__cfield input {
+  min-height: 38px; padding: 0 12px; border-radius: 10px; border: 1px solid rgba(236, 232, 225, 0.22);
+  background: rgba(0, 0, 0, 0.28); color: var(--a-text); font: inherit; font-size: 0.9rem;
+}
+.assist__cfield input:focus { outline: 2px solid var(--leaf-hi); outline-offset: 1px; }
+.assist__ctick { display: flex; align-items: center; gap: 10px; min-height: 32px; font-size: 0.82rem; cursor: pointer; }
+.assist__ctick input { width: 18px; height: 18px; accent-color: var(--leaf); flex: none; }
+.assist__crow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.assist__csend {
+  min-height: 40px; padding: 0 20px; border-radius: 999px; background: var(--leaf); color: #0b0e12; font-weight: 500;
+  transition: filter 0.3s;
+}
+.assist__csend:hover { filter: brightness(1.08); }
+.assist__csend:disabled { opacity: 0.6; }
+.assist__cmsg { font-size: 0.74rem; color: #f2b8a2; }
+
+/* the text box: type a message instead of speaking (assistant.ts → handle()) */
+.assist__type { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+.assist__type input {
+  flex: 1; min-width: 0; min-height: 40px; padding: 0 14px; border-radius: 999px;
+  border: 1px solid rgba(236, 232, 225, 0.22); background: rgba(0, 0, 0, 0.28); color: var(--a-text);
+  font: inherit; font-size: 0.88rem;
+}
+.assist__type input::placeholder { color: rgba(236, 232, 225, 0.5); }
+.assist__type input:focus { outline: 2px solid var(--leaf-hi); outline-offset: 1px; }
+.assist__type button {
+  flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--leaf); color: #0b0e12; transition: filter 0.3s;
+}
+.assist__type button:hover { filter: brightness(1.08); }
+.assist__type svg { width: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+html[lang='ar'] .assist__type svg { transform: scaleX(-1); }

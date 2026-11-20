@@ -11,7 +11,7 @@ export function Chairman() {
         <article className="ab-ceo__card ab-ticks">
           <div className="ab-ceo__panel">
             <p className="eyebrow">
-              <span className="mono">(04)</span>{' '}{t("From the President / CEO")}
+              {t("From the President / CEO")}
             </p>
             <blockquote className="ab-ceo__quote">
               <p id="chairman-quote" data-ab-scrub="">

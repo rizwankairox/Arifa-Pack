@@ -14,7 +14,7 @@ function Pick({ f, index, count }: { f: Family; index: number; count: number }) 
   return (
     <li className="picks__item">
       <label className={`pick${f.clip ? '' : ' is-cut'}`} data-family={f.id}>
-        <input type="checkbox" name="family" value={f.name} />
+        <input type="checkbox" name="family" value={f.name} data-id={f.id} />
         <span className="pick__media" aria-hidden="true">
           {f.clip ? (
             <video

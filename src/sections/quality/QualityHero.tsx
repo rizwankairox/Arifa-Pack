@@ -9,7 +9,7 @@ export function QualityHero() {
       <div className="wrap q-hero__grid">
         <div className="q-hero__text">
           <p className="eyebrow">
-            <span className="mono">{t("(Quality)")}</span>{' '}{t("Quality & Sustainability")}
+            {t("Quality & Sustainability")}
           </p>
           <h1 className="q-title">
             <span className="q-line">

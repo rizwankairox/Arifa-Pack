@@ -8,7 +8,7 @@ export function CatalogueCta() {
     <section className="cat-cta" data-theme="dark">
       <div className="wrap cat-cta__inner">
         <p className="eyebrow">
-          <span className="mono">(?)</span>{' '}{t("Not listed")}
+          {t("Not listed")}
         </p>
         <h2 className="cat-cta__title" data-split-lines="">
           {t("Need a size or code that isn't here?")}

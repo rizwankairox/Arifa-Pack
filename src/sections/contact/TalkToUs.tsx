@@ -9,7 +9,7 @@ export function TalkToUs() {
       <div className="wrap">
         <div className="ct-people__head">
           <p className="eyebrow">
-            <span className="mono">(01)</span>{' '}{t("Rather talk?")}
+            {t("Rather talk?")}
           </p>
           <h2 className="ct-h2">
             {t("A person in Ajman,")}
