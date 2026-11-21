@@ -3,6 +3,7 @@
 */
 import { t, lh } from '@/i18n';
 import { company, phone } from '@/data/site';
+import { CmsText } from '@/components/site/CmsText';
 export function Visit() {
   return (
     <section className="ab-visit" id="visit" data-theme="dark">
@@ -19,12 +20,14 @@ export function Visit() {
       <div className="ab-visit__shade" aria-hidden="true"></div>
       <div className="wrap ab-visit__inner">
         <p className="eyebrow">
-          {t("Visit")}
+          <CmsText section="visit" field="eyebrow">{t("Visit")}</CmsText>
         </p>
         <h2 className="ab-visit__title">
-          {t("Al Jurf Industrial Area 2,")}
-          <br />
-          {t("Ajman, UAE.")}
+          <CmsText section="visit" field="heading">
+            {t("Al Jurf Industrial Area 2,")}
+            <br />
+            {t("Ajman, UAE.")}
+          </CmsText>
         </h2>
         <div className="ab-visit__grid">
           <div className="ab-glass ab-glass--info">

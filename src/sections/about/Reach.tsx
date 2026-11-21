@@ -4,6 +4,7 @@
 import { SceneCanvas } from '@/three/SceneCanvas';
 import { SkipScene } from '@/components/site/SkipScene';
 import { t } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 
 export function Reach() {
   return (
@@ -22,12 +23,14 @@ export function Reach() {
         <div className="wrap ab-reach__copy">
           <div className="ab-reach__text">
             <p className="eyebrow">
-              {t("From Ajman to the world")}
+              <CmsText section="reach" field="eyebrow">{t("From Ajman to the world")}</CmsText>
             </p>
             <h2 className="ab-reach__title" id="reach-title">
-              {t("One factory in Ajman.")}
-              <br />
-              <span className="is-dim">{t("Businesses worldwide.")}</span>
+              <CmsText section="reach" field="heading">
+                {t("One factory in Ajman.")}
+                <br />
+                <span className="is-dim">{t("Businesses worldwide.")}</span>
+              </CmsText>
             </h2>
             <ol className="ab-reach__steps" data-reach-steps="">
               <li className="is-on">

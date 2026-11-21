@@ -3,15 +3,16 @@
 */
 import { t, lh } from '@/i18n';
 import { phone } from '@/data/site';
+import { CmsText } from '@/components/site/CmsText';
 export function CatalogueCta() {
   return (
-    <section className="cat-cta" data-theme="dark">
+    <section className="cat-cta" id="not-listed" data-theme="dark">
       <div className="wrap cat-cta__inner">
         <p className="eyebrow">
-          {t("Not listed")}
+          <CmsText section="not-listed" field="eyebrow">{t("Not listed")}</CmsText>
         </p>
         <h2 className="cat-cta__title" data-split-lines="">
-          {t("Need a size or code that isn't here?")}
+          <CmsText section="not-listed" field="heading">{t("Need a size or code that isn't here?")}</CmsText>
         </h2>
         <div className="cat-cta__actions">
           <p>{t("Tell the packaging team the shape, capacity and quantity you need. Custom packaging design and branding are also available.")}</p>

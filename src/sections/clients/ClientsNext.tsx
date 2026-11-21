@@ -2,18 +2,21 @@
   03 · your business here
 */
 import { t, lh } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 export function ClientsNext() {
   return (
-    <section className="cl-next" data-theme="dark">
+    <section className="cl-next" id="your-business" data-theme="dark">
       <div className="wrap cl-next__grid">
         <div>
           <p className="eyebrow">
-            {t("Your business")}
+            <CmsText section="your-business" field="eyebrow">{t("Your business")}</CmsText>
           </p>
           <h2 className="cl-h2">
-            {t("Not on the list?")}
-            <br />
-            <span className="is-dim">{t("Tell us what you pack.")}</span>
+            <CmsText section="your-business" field="heading">
+              {t("Not on the list?")}
+              <br />
+              <span className="is-dim">{t("Tell us what you pack.")}</span>
+            </CmsText>
           </h2>
         </div>
         <div className="cl-next__links">

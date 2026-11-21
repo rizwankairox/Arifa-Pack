@@ -2,19 +2,20 @@
   05 · What we do
 */
 import { t, lh } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 export function Services() {
   return (
     <section className="services" id="company" data-theme="light">
       <div className="wrap services__grid">
         <div className="services__aside">
           <p className="eyebrow">
-            {t("What we do")}
+            <CmsText section="company" field="eyebrow">{t("What we do")}</CmsText>
           </p>
           <h2 className="services__title" data-split-lines="">
-            {t("Made in our own facility. Finished in your brand.")}
+            <CmsText section="company" field="heading">{t("Made in our own facility. Finished in your brand.")}</CmsText>
           </h2>
           <p className="services__lede">
-            {t("Arifa Pack specialises in disposable packaging — aluminium containers, plastic containers and disposable cutlery — backed by consistent quality standards and a customer-first way of working.")}
+            <CmsText section="company" field="body">{t("Arifa Pack specialises in disposable packaging — aluminium containers, plastic containers and disposable cutlery — backed by consistent quality standards and a customer-first way of working.")}</CmsText>
           </p>
         </div>
 

@@ -4,6 +4,7 @@
 */
 import { StoryDesk } from './StoryDesk';
 import { t } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 
 export function CustomerStories() {
   return (
@@ -12,12 +13,14 @@ export function CustomerStories() {
         <header className="stories__head">
           <div>
             <p className="eyebrow">
-              {t("Customer stories")}
+              <CmsText section="reviews" field="eyebrow">{t("Customer stories")}</CmsText>
             </p>
             <h2 id="stories-title">
-              {t("From their side")}
-              <br />
-              <span>{t("of the counter.")}</span>
+              <CmsText section="reviews" field="heading">
+                {t("From their side")}
+                <br />
+                <span>{t("of the counter.")}</span>
+              </CmsText>
             </h2>
           </div>
           <div className="stories__intro">

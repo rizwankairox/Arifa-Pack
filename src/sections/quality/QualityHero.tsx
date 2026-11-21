@@ -2,6 +2,7 @@
   00 · hero: the quality check, through a viewfinder
 */
 import { t } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 export function QualityHero() {
   return (
     <section className="q-hero" id="top" data-theme="dark">
@@ -9,15 +10,17 @@ export function QualityHero() {
       <div className="wrap q-hero__grid">
         <div className="q-hero__text">
           <p className="eyebrow">
-            {t("Quality & Sustainability")}
+            <CmsText section="top" field="eyebrow">{t("Quality & Sustainability")}</CmsText>
           </p>
           <h1 className="q-title">
-            <span className="q-line">
-              <span>{t("Shown,")}</span>
-            </span>{' '}
-            <span className="q-line">
-              <span className="is-dim">{t("not claimed.")}</span>
-            </span>
+            <CmsText section="top" field="heading" line="q-line">
+              <span className="q-line">
+                <span>{t("Shown,")}</span>
+              </span>{' '}
+              <span className="q-line">
+                <span className="is-dim">{t("not claimed.")}</span>
+              </span>
+            </CmsText>
           </h1>
           <p className="q-lede">
             {t("Arifa Packing maintains strict quality control standards throughout production, so every client gets packaging that is consistent and reliable. Here is what that looks like on our floor in Al Jurf, Ajman.")}

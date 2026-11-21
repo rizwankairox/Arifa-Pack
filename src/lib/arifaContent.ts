@@ -2,7 +2,8 @@
   The Arifa CMS, read side: GET /v1/content/* (hand-off: CMS_API.md). Server only.
 
   This is the connection to the content the client team edits (text, products, photos, contacts).
-  The pages still read the files in src/data/ today; each reader here is ready to replace one:
+  The pages read it through src/lib/content.ts (loadContent, once per route), falling back to the
+  files in src/data/ for anything the CMS doesn't send. What each reader feeds:
 
     getSite()                   ← src/data/site.ts        contacts, hours, colours, the assistant's texts
     getPage(slug)               ← each page's section text (one block per section id)
@@ -94,6 +95,8 @@ async function previewToken(): Promise<string | null> {
   }
 }
 
+const warned = new Set<string>();
+
 /** one GET on the content API: cached and tagged, or fresh in preview. null when off or failing. */
 async function get<T>(path: string, params: Record<string, string | null | undefined>, tags: string[]): Promise<T | null> {
   if (!BASE) return null;
@@ -107,7 +110,11 @@ async function get<T>(path: string, params: Record<string, string | null | undef
     if (!r.ok) throw new Error(`${r.status}`);
     return (await r.json()) as T;
   } catch (e) {
-    console.warn(`Arifa content: ${path} unavailable (${(e as Error).message}); using the site's own files.`);
+    // (said once per address, not once per page that reads it)
+    if (!warned.has(path)) {
+      warned.add(path);
+      console.warn(`Arifa content: ${path} unavailable (${(e as Error).message}); using the site's own files.`);
+    }
     return null;
   }
 }

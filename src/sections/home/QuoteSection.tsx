@@ -3,19 +3,20 @@
 */
 import { t, lh } from '@/i18n';
 import { company, phone } from '@/data/site';
+import { CmsText } from '@/components/site/CmsText';
 export function QuoteSection() {
   return (
     <section className="contact" id="contact" data-theme="dark">
       <div className="wrap contact__grid">
         <div className="contact__intro">
           <p className="eyebrow">
-            {t("Request a quote")}
+            <CmsText section="contact" field="eyebrow">{t("Request a quote")}</CmsText>
           </p>
           <h2 className="contact__title" data-split-lines="">
-            {t("Tell us what you need packed.")}
+            <CmsText section="contact" field="heading">{t("Tell us what you need packed.")}</CmsText>
           </h2>
           <p className="contact__lede">
-            {t("Share the product, an approximate quantity and where it's going. The packaging team will come back to you during working hours.")}
+            <CmsText section="contact" field="body">{t("Share the product, an approximate quantity and where it's going. The packaging team will come back to you during working hours.")}</CmsText>
           </p>
 
           <dl className="contact__details">

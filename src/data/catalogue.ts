@@ -13,6 +13,10 @@
   a separate collection of packet packs of trade products. As on the old site it is kept apart
   from the main catalogue: the grid shows it behind the "Self range" switch, and it isn't in the
   family counts or totals. Each pack also links to the trade product it packs, and back.
+
+  When the Arifa CMS is connected (src/lib/content.ts), the families and products come from it
+  instead (GET /v1/content/families, /v1/content/products), already in the page's language; a
+  product's photo is its first CMS photo, or the local file above. Without the CMS, catalogue.json.
 */
 import 'server-only';
 import fs from 'node:fs';
@@ -21,6 +25,8 @@ import raw from './catalogue.json';
 import type { Catalogue, ClientCatalogue, Family, PackLink, Product, ProductEntry } from './types';
 import type { FamilyInfo } from '@/assistant/types';
 import { getLocale, lh, t, type Locale } from '@/i18n';
+import { cmsCatalogue } from '@/lib/content';
+import type { ContentDoc } from '@/lib/arifaContent';
 
 
 /** the families made of aluminium, as named in the catalogue itself */
@@ -31,6 +37,8 @@ const cached: Partial<Record<Locale, Catalogue>> = {};
 /** the catalogue in the language of the page being rendered (names, blurbs and pack sizes translated; codes untouched) */
 export function getCatalogue(): Catalogue {
   const locale = getLocale();
+  const cms = cmsCatalogue();
+  if (cms) return fromCms(cms.families, cms.products, cms.productsEn, locale);
   if (cached[locale]) return cached[locale]!;
   if (locale === 'ar') {
     const en = englishCatalogue();
@@ -48,13 +56,20 @@ export function getCatalogue(): Catalogue {
 let english: Catalogue | null = null;
 function englishCatalogue(): Catalogue {
   if (english) return english;
-  const families = raw.families as Family[];
-  const imgDir = path.join(process.cwd(), 'public/images/catalogue');
-  const all: Product[] = (raw.products as ProductEntry[]).map((p) => ({
+  english = build(raw.families as Family[], raw.products as ProductEntry[]);
+  return english;
+}
+
+const imgDir = path.join(process.cwd(), 'public/images/catalogue');
+const localImg = (id: string) => (fs.existsSync(path.join(imgDir, `${id}.webp`)) ? `/images/catalogue/${id}.webp` : null);
+
+/** families + products → the catalogue: photos, pages, family names, and the trade ↔ self-range links */
+function build(families: Family[], entries: (ProductEntry & { img?: string | null; nameEn?: string })[], href: (u: string) => string = (u) => u): Catalogue {
+  const all: Product[] = entries.map((p) => ({
     ...p,
     range: p.range || 'trade',
-    img: fs.existsSync(path.join(imgDir, `${p.id}.webp`)) ? `/images/catalogue/${p.id}.webp` : null,
-    url: productPath(p.id),
+    img: p.img !== undefined ? p.img : localImg(p.id),
+    url: href(productPath(p.id)),
     familyName: families.find((f) => f.id === p.family)?.name || p.family,
   }));
   const link = (p: Product): PackLink => ({ id: p.id, ref: p.ref, name: p.name, code: p.code, qty: p.qty, url: p.url });
@@ -64,8 +79,47 @@ function englishCatalogue(): Catalogue {
     return { ...p, pack: pack ? link(pack) : null };
   });
   packs.forEach((k) => { k.trade = (k.packOf || []).map((id) => products.find((p) => p.id === id)).filter(Boolean).map(link); });
-  english = { families, products, packs };
-  return english;
+  return { families, products, packs };
+}
+
+// ── from the CMS ──
+const s = (v: unknown, d = '') => (typeof v === 'string' ? v : v == null ? d : String(v));
+const mediaSrc = (m: any): string | null => (m && typeof m === 'object' ? m.src || m.url || null : typeof m === 'string' ? m : null);
+
+/** a CMS family / product document → the site's own shape (CMS_API.md §3: the fields are named as in catalogue.json) */
+function cmsFamily(d: ContentDoc): Family {
+  const f = d.data as Record<string, any>;
+  return { id: d.key, name: s(f.name, d.key), short: s(f.short ?? f.short_name, s(f.name, d.key)), clip: f.clip ? s(f.clip) : null, blurb: s(f.blurb) };
+}
+function cmsProduct(d: ContentDoc, en?: ContentDoc): ProductEntry & { img: string | null; nameEn?: string } {
+  const p = d.data as Record<string, any>;
+  const legacy = (p.legacy_paths?.[0] as string | undefined)?.replace(/^\//, '');
+  const photo = mediaSrc(p.photos?.[0]) || mediaSrc(p.photo) || mediaSrc(p.image);
+  const nameEn = en ? s((en.data as Record<string, any>).name) : '';
+  return {
+    id: d.key,
+    family: s(p.family),
+    ref: s(p.ref),
+    name: s(p.name, d.key),
+    code: s(p.code),
+    qty: s(p.qty ?? p.packing),
+    range: p.range === 'self' ? 'self' : 'trade',
+    ...(Array.isArray(p.pack_of ?? p.packOf) ? { packOf: (p.pack_of ?? p.packOf) as string[] } : {}),
+    ...(legacy ? { legacyPage: legacy } : {}),
+    img: photo || localImg(d.key),
+    ...(nameEn && nameEn !== s(p.name) ? { nameEn } : {}),
+  };
+}
+
+// per request (the CMS can change between requests; its reads are cached by Next.js instead)
+const fromCmsCache = new WeakMap<ContentDoc[], Partial<Record<Locale, Catalogue>>>();
+function fromCms(families: ContentDoc[], products: ContentDoc[], productsEn: ContentDoc[], locale: Locale): Catalogue {
+  const hit = fromCmsCache.get(products)?.[locale];
+  if (hit) return hit;
+  const en = new Map(productsEn.map((d) => [d.key, d]));
+  const cat = build(families.map(cmsFamily), products.map((d) => cmsProduct(d, locale === 'ar' ? en.get(d.key) : undefined)), lh);
+  fromCmsCache.set(products, { ...fromCmsCache.get(products), [locale]: cat });
+  return cat;
 }
 
 export const productsIn = (cat: Catalogue, familyId: string) => cat.products.filter((p) => p.family === familyId);

@@ -3,18 +3,21 @@
 */
 import { t } from '@/i18n';
 import { company, phone } from '@/data/site';
+import { CmsText } from '@/components/site/CmsText';
 export function TalkToUs() {
   return (
     <section className="ct-people" id="call" data-theme="light">
       <div className="wrap">
         <div className="ct-people__head">
           <p className="eyebrow">
-            {t("Rather talk?")}
+            <CmsText section="call" field="eyebrow">{t("Rather talk?")}</CmsText>
           </p>
           <h2 className="ct-h2">
-            {t("A person in Ajman,")}
-            <br />
-            <span className="is-dim">{t("or Arifa, right here.")}</span>
+            <CmsText section="call" field="heading">
+              {t("A person in Ajman,")}
+              <br />
+              <span className="is-dim">{t("or Arifa, right here.")}</span>
+            </CmsText>
           </h2>
         </div>
         <div className="ct-people__grid">

@@ -3,6 +3,7 @@
 */
 import { t } from '@/i18n';
 import { Picture } from '@/components/site/Picture';
+import { CmsText } from '@/components/site/CmsText';
 export function Chairman() {
   return (
     <section className="ab-ceo" id="chairman" data-theme="dark" aria-labelledby="chairman-quote">
@@ -11,7 +12,7 @@ export function Chairman() {
         <article className="ab-ceo__card ab-ticks">
           <div className="ab-ceo__panel">
             <p className="eyebrow">
-              {t("From the President / CEO")}
+              <CmsText section="chairman" field="eyebrow">{t("From the President / CEO")}</CmsText>
             </p>
             <blockquote className="ab-ceo__quote">
               <p id="chairman-quote" data-ab-scrub="">

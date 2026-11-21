@@ -5,6 +5,7 @@ import { RouteStops } from './RouteStops';
 import { SkipScene } from '@/components/site/SkipScene';
 import { SceneCanvas } from '@/three/SceneCanvas';
 import { t } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 
 export function DeliveryRoute() {
   return (
@@ -16,18 +17,20 @@ export function DeliveryRoute() {
         <div className="wrap route__ui">
           <header className="route__head">
             <p className="eyebrow">
-              {t("Clients & Industries")}
+              <CmsText section="industries" field="eyebrow">{t("Clients & Industries")}</CmsText>
             </p>
             <h1 className="route__title" id="route-title">
-              <span className="cl-line">
-                <span>{t("Packed in Ajman.")}</span>
-              </span>{' '}
-              <span className="cl-line">
-                <span className="is-dim">{t("Sent to every kitchen.")}</span>
-              </span>
+              <CmsText section="industries" field="heading" line="cl-line">
+                <span className="cl-line">
+                  <span>{t("Packed in Ajman.")}</span>
+                </span>{' '}
+                <span className="cl-line">
+                  <span className="is-dim">{t("Sent to every kitchen.")}</span>
+                </span>
+              </CmsText>
             </h1>
             <p className="route__lede">
-              {t("Bakeries, hotels, restaurants, supermarkets, caterers and distributors. Scroll to follow the cartons from our factory to each of them.")}
+              <CmsText section="industries" field="body">{t("Bakeries, hotels, restaurants, supermarkets, caterers and distributors. Scroll to follow the cartons from our factory to each of them.")}</CmsText>
             </p>
             <nav className="route__jump mono" aria-label={t("Explore this page")}>
               <a href="#clients">

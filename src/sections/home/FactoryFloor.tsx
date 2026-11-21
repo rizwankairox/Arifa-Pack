@@ -2,16 +2,17 @@
   04 · Walk the floor: seven clips from the factory, arrival to warehouse
 */
 import { t } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 export function FactoryFloor() {
   return (
     <section className="floor" id="floor" data-theme="dark" data-floor="">
       <div className="floor__pin">
         <header className="floor__head">
           <p className="eyebrow">
-            {t("Walk the floor")}
+            <CmsText section="floor" field="eyebrow">{t("Walk the floor")}</CmsText>
           </p>
           <h2 className="floor__title" data-split-lines="">
-            {t("Seven stops inside Arifa.")}
+            <CmsText section="floor" field="heading">{t("Seven stops inside Arifa.")}</CmsText>
           </h2>
         </header>
 

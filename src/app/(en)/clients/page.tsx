@@ -1,11 +1,18 @@
 // /clients — the page itself is src/views/clients.tsx, shared by both languages.
 import { setLocale } from '@/i18n';
+import { loadContent, withCmsSeo } from '@/lib/content';
 import { ClientsView, metadataFor, viewport as pageViewport } from '@/views/clients';
 
-export const metadata = metadataFor('en');
+// the page's text and SEO come from the CMS when it is connected (src/lib/content.ts), else from the site's files
+export async function generateMetadata() {
+  setLocale('en');
+  await loadContent('clients');
+  return withCmsSeo(metadataFor('en'));
+}
 export const viewport = pageViewport;
 
-export default function Page() {
+export default async function Page() {
   setLocale('en');
+  await loadContent('clients');
   return <ClientsView />;
 }

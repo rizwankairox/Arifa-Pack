@@ -4,6 +4,7 @@
 import { HeroReel, HeroSteps } from './HeroFamilies';
 import { SceneCanvas } from '@/three/SceneCanvas';
 import { t, lh } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 
 export function Hero() {
   return (
@@ -14,18 +15,20 @@ export function Hero() {
         <div className="hero__beam" data-hero-beam="" aria-hidden="true"></div>
         <div className="hero__heading">
           <p className="mono hero__eyebrow" data-hero-reveal="">
-            <span></span>{' '}{t("The Arifa collection")}
+            <span></span>{' '}<CmsText section="top" field="eyebrow">{t("The Arifa collection")}</CmsText>
           </p>
           <p className="hero__title">
-            <span className="hero__line">
-              <span data-hero-line="">{t("Considered in detail.")}</span>
-            </span>
-            <span className="hero__line hero__line--metal">
-              <span data-hero-line="">{t("Made to perform.")}</span>
-            </span>
+            <CmsText section="top" field="heading" line="hero__line" lineAttr="data-hero-line">
+              <span className="hero__line">
+                <span data-hero-line="">{t("Considered in detail.")}</span>
+              </span>
+              <span className="hero__line hero__line--metal">
+                <span data-hero-line="">{t("Made to perform.")}</span>
+              </span>
+            </CmsText>
           </p>
           <p className="hero__sub" data-hero-sub="">
-            {t("Aluminium containers, foil, platters and food packaging, formed in aluminium and made in Ajman, UAE.")}
+            <CmsText section="top" field="body">{t("Aluminium containers, foil, platters and food packaging, formed in aluminium and made in Ajman, UAE.")}</CmsText>
           </p>
           <a className="hero__cta" href={lh("/products")} data-hero-cta="">
             <span className="hero__cta-label">{t("Explore the range")}</span>

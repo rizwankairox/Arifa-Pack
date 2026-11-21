@@ -2,13 +2,14 @@
   02 · hygiene you can see: three details from the footage, under a lens
 */
 import { t } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 export function Hygiene() {
   return (
     <section className="q-hygiene" id="hygiene" data-theme="light">
       <div className="wrap">
         <div className="q-hygiene__head">
           <p className="eyebrow">
-            {t("Hygiene you can see")}
+            <CmsText section="hygiene" field="eyebrow">{t("Hygiene you can see")}</CmsText>
           </p>
           <blockquote className="q-quote">
             <p>{t("“Our containers meet strict hygiene and quality standards, ensuring freshness, safety and convenience.”")}</p>

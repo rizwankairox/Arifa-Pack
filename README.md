@@ -136,6 +136,26 @@ React builds every page **on the server**, so pages open fast and Google can rea
 | Colours, spacing, fonts | `src/styles/site/base.css` (the `:root` variables at the top); fonts in `src/styles/fonts.css` |
 | 3D quality on weak phones | `src/three/quality.ts` |
 | The assistant's connection to the backend | `src/lib/arifaApi.ts` (the 7 website endpoints), settings in `.env.example` |
+| The site's connection to the CMS | `src/lib/arifaContent.ts` (the 9 reading endpoints) and `src/lib/content.ts` (what each page takes from them) |
+
+### When the CMS is connected
+
+Set `ARIFA_CONTENT_URL` (or `NEXT_PUBLIC_ARIFA_API_URL`, same backend) in `.env.local`. From then on, what the client team publishes in the CMS replaces the files above, and shows on the site within about a minute (`/api/revalidate`):
+
+| On the site | From the CMS | Otherwise |
+| --- | --- | --- |
+| Products, families, product pages, footer categories | `GET /v1/content/products`, `/families` | `catalogue.json` |
+| Phones, email, address, hours | `GET /v1/content/site` | `site.ts` |
+| Section eyebrows, headings and intro lines (every section with a DOM id) | `GET /v1/content/pages/<page>` → block by `section_id` | the text in the section file |
+| Page title and Google description | the page's `seo` | `metadataFor` in the view |
+| Industries, client logos, stories | collections `industries`, `clients`, `stories` | `clients.json` |
+| Directors (About) | collection `leadership` | `Leadership.tsx` |
+| The seven checked stations (Quality) | collection `stations` | `CheckedLine.tsx` |
+| Certificates (Quality) | collection `certificates` | none shown |
+| sitemap.xml | `GET /v1/content/sitemap` | the pages + `catalogue.json` |
+| Old-site addresses (e.g. `/8325.php`) | `GET /v1/content/redirects` (checked before a 404) | `next.config.ts` |
+
+Anything the CMS leaves out, or a CMS that is down, falls back to the column on the right, so the site never goes blank. The section ids are a contract with the CMS and the assistant: never rename one. A product added in the CMS gets its page on its first visit, without a deploy.
 
 ---
 

@@ -3,6 +3,7 @@
 */
 import { t, lh } from '@/i18n';
 import { getStats } from '@/data/catalogue';
+import { CmsText } from '@/components/site/CmsText';
 
 export function ProductRange() {
   return (
@@ -10,16 +11,18 @@ export function ProductRange() {
       <div className="wrap">
         <header className="range__head">
           <p className="eyebrow">
-            {t("Products")}
+            <CmsText section="range" field="eyebrow">{t("Products")}</CmsText>
           </p>
           <h2 className="range__title" data-split-lines="">
-            {t("Eight product families, catalogued by code and carton.")}
+            <CmsText section="range" field="heading">{t("Eight product families, catalogued by code and carton.")}</CmsText>
           </h2>
           <p className="range__sub">
-            {t("Each line opens the full listing with product codes and packing quantities.")}{' '}
-            <a className="link" href={lh("/products")}>
-              {t("See all {n} products", { n: getStats().products })}
-            </a>
+            <CmsText section="range" field="body">
+              {t("Each line opens the full listing with product codes and packing quantities.")}{' '}
+              <a className="link" href={lh("/products")}>
+                {t("See all {n} products", { n: getStats().products })}
+              </a>
+            </CmsText>
           </p>
         </header>
 

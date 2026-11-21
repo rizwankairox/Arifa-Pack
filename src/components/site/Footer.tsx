@@ -1,8 +1,14 @@
 // The footer on every page. (The wordmark's letters swell toward the cursor: initFooter in src/motion/siteChrome.ts.)
 import { company, footerCategories, footerLinks } from '@/data/site';
 import { isAr, lh, t } from '@/i18n';
+import { getCatalogue } from '@/data/catalogue';
+import { cmsCatalogue } from '@/lib/content';
 
 export function Footer() {
+  // the families as the CMS lists them (already in the page's language), else the list in site.ts
+  const categories = cmsCatalogue()
+    ? getCatalogue().families.map((f) => ({ href: `/products?family=${f.id}`, label: f.name }))
+    : footerCategories.map((l) => ({ ...l, label: t(l.label) }));
   return (
     <>
       <footer className="foot" data-theme="dark">
@@ -17,9 +23,9 @@ export function Footer() {
           </div>
           <div className="foot__col">
             <p className="mono foot__label">{t("Categories")}</p>
-            {footerCategories.map((l) => (
+            {categories.map((l) => (
               <a key={l.href} href={lh(l.href)} data-hover-line="">
-                {t(l.label)}
+                {l.label}
               </a>
             ))}
           </div>

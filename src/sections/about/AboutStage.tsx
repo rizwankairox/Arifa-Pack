@@ -3,6 +3,7 @@
 */
 import { SceneCanvas } from '@/three/SceneCanvas';
 import { t } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 
 export function AboutStage() {
   return (
@@ -37,15 +38,17 @@ export function AboutStage() {
             {t("Arifa Packing & Packaging LLC")}
           </p>
           <h1 className="ab-hero__title">
-            <span className="ab-line">
-              <span>{t("Packaging that")}</span>
-            </span>
-            <span className="ab-line">
-              <span>{t("protects, presents")}</span>
-            </span>
-            <span className="ab-line">
-              <span className="is-dim">{t("and performs.")}</span>
-            </span>
+            <CmsText section="top" field="heading" line="ab-line">
+              <span className="ab-line">
+                <span>{t("Packaging that")}</span>
+              </span>
+              <span className="ab-line">
+                <span>{t("protects, presents")}</span>
+              </span>
+              <span className="ab-line">
+                <span className="is-dim">{t("and performs.")}</span>
+              </span>
+            </CmsText>
           </h1>
           <p className="ab-hero__lede ab-reveal">
             {t("High-quality disposable packaging — aluminium containers, plastic containers and disposable cutlery — made in Al Jurf Industrial Area 2, Ajman. The packaging division of Arifa Group.")}
@@ -74,12 +77,14 @@ export function AboutStage() {
       <section className="ab-chapter ab-story" id="story" data-chapter="1">
         <div className="wrap ab-chapter__inner">
           <p className="eyebrow">
-            {t("Heritage")}
+            <CmsText section="story" field="eyebrow">{t("Heritage")}</CmsText>
           </p>
           <h2 className="ab-h2">
-            {t("Arifa Group,")}
-            <br />
-            {t("since 1997.")}
+            <CmsText section="story" field="heading">
+              {t("Arifa Group,")}
+              <br />
+              {t("since 1997.")}
+            </CmsText>
           </h2>
           <p className="ab-scrub" data-ab-scrub="">
             {t("Arifa Group was established in 1997 and has grown into an international group with involvement in various industries, in pursuit of providing its products and services with excellence. Arifa Pack is its packaging division.")}
@@ -94,9 +99,9 @@ export function AboutStage() {
       <section className="ab-chapter ab-values" id="values" data-chapter="2">
         <div className="wrap ab-chapter__inner">
           <p className="eyebrow">
-            {t("Core values")}
+            <CmsText section="values" field="eyebrow">{t("Core values")}</CmsText>
           </p>
-          <h2 className="ab-h2">{t("Six values, practised every day.")}</h2>
+          <h2 className="ab-h2"><CmsText section="values" field="heading">{t("Six values, practised every day.")}</CmsText></h2>
           <ol className="ab-values__list" data-ab-values="">
             <li>
               <span className="mono">01</span>{t("Trustworthy")}

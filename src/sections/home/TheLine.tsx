@@ -4,6 +4,7 @@
 import { SceneCanvas } from '@/three/SceneCanvas';
 import { SkipScene } from '@/components/site/SkipScene';
 import { t } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 
 export function TheLine() {
   return (
@@ -25,10 +26,10 @@ export function TheLine() {
         <div className="line__ui" data-line-ui="">
           <header className="line__head">
             <p className="eyebrow">
-              {t("The line")}
+              <CmsText section="factory" field="eyebrow">{t("The line")}</CmsText>
             </p>
             <h2 className="line__title">
-              {t("How an")}{' '}<span className="line__code">83185</span>{' '}{t("container is made")}
+              <CmsText section="factory" field="heading">{t("How an")}{' '}<span className="line__code">83185</span>{' '}{t("container is made")}</CmsText>
             </h2>
           </header>
           <ol className="line__steps">

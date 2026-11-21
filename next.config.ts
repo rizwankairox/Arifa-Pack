@@ -21,7 +21,20 @@ const oldListings = [
   { source: '/sr-alu-pla.php', destination: '/products?family=platters' },
 ].map((r) => ({ ...r, permanent: true }));
 
+// The CMS photos and videos (Cloudflare R2, NEXT_PUBLIC_MEDIA_URL): the API sends each one as a full
+// address, so the pages show them as they are; this lets next/image resize them too, if a section uses it.
+const media = (() => {
+  try {
+    const u = new URL(process.env.NEXT_PUBLIC_MEDIA_URL || '');
+    return [{ protocol: u.protocol.replace(':', '') as 'https' | 'http', hostname: u.hostname, pathname: '/**' }];
+  } catch {
+    return [];
+  }
+})();
+
 const nextConfig: NextConfig = {
+  images: { remotePatterns: media },
+
   // The page scripts start once per page load (src/motion/PageScripts.tsx); React's development
   // double-run of effects would build every 3D scene twice, so it is switched off.
   reactStrictMode: false,

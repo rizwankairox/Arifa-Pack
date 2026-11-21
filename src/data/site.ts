@@ -73,3 +73,40 @@ export const footerCategories: NavLink[] = [
   { href: '/products?family=cutlery', label: 'Cutlery' },
   { href: '/products?family=cling-film', label: 'Cling film' },
 ];
+
+/*
+  The CMS site settings laid over the details above (called by loadContent, src/lib/content.ts,
+  when the CMS is connected). Only the fields the CMS sends are changed; the rest stay as written
+  here. Always the English document: these details are shared by every visitor, so /ar pages show
+  the address and hours through t() (Arabic when src/i18n/ar.ts knows the text, else English).
+*/
+type Phone = string | { label?: string; number?: string; tel?: string };
+const str = (v: unknown) => (typeof v === 'string' && v.trim() ? v.trim() : null);
+const dial = (s: string) => s.replace(/[^\d+]/g, '');
+
+export function applySite(en: Record<string, any>) {
+  if (!en) return;
+  const name = str(en.company_name) || str(en.name);
+  if (name) company.name = name;
+  const short = str(en.short_name);
+  if (short) company.short = short;
+  const email = str(en.email) || str(en.emails?.[0]?.address) || str(en.emails?.[0]) || str(en.emails?.info);
+  if (email) company.email = email;
+  // phones: [head office, packaging], as strings or { label, number }
+  const phones: Phone[] = Array.isArray(en.phones) ? en.phones : [];
+  phones.slice(0, company.phones.length).forEach((p, i) => {
+    const label = typeof p === 'string' ? p : str(p.number) || str(p.tel) || str(p.label);
+    if (label) Object.assign(company.phones[i], { label, tel: dial(typeof p === 'object' && p.tel ? p.tel : label) });
+  });
+  const addr = en.addresses?.[0] ?? en.address;
+  const address = str(addr) || str(addr?.text) || str(addr?.line);
+  if (address) company.address = address;
+  const maps = str(en.maps_url) || str(addr?.maps_url) || str(addr?.map);
+  if (maps) company.maps = maps;
+  const hours = str(en.hours) || str(en.hours?.short);
+  if (hours) company.hours = hours;
+  const hoursLong = str(en.hours?.long);
+  if (hoursLong) company.hoursLong = hoursLong;
+  const url = str(en.site_url);
+  if (url) company.siteUrl = url.replace(/\/+$/, '');
+}

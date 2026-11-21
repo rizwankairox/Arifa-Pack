@@ -2,11 +2,12 @@
   05 · onward
 */
 import { t, lh } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 export function QualityNext() {
   return (
-    <section className="q-next" data-theme="dark">
+    <section className="q-next" id="see-it" data-theme="dark">
       <div className="wrap q-next__grid">
-        <h2 className="q-h2">{t("See it for yourself.")}</h2>
+        <h2 className="q-h2"><CmsText section="see-it" field="heading">{t("See it for yourself.")}</CmsText></h2>
         <div className="q-next__links">
           <a className="btn btn--leaf" href={lh("/contact")} data-magnetic="">
             <span className="btn__text" data-text={t("Request a quote")}>

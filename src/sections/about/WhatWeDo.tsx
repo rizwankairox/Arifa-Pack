@@ -2,15 +2,16 @@
   06 · what we do
 */
 import { t, lh } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 export function WhatWeDo() {
   return (
     <section className="ab-do" id="what-we-do" data-theme="dark">
       <div className="wrap">
         <header className="ab-do__head">
           <p className="eyebrow">
-            {t("What we do")}
+            <CmsText section="what-we-do" field="eyebrow">{t("What we do")}</CmsText>
           </p>
-          <h2 className="ab-h2">{t("Made in our own facility. Finished in your brand.")}</h2>
+          <h2 className="ab-h2"><CmsText section="what-we-do" field="heading">{t("Made in our own facility. Finished in your brand.")}</CmsText></h2>
         </header>
         <div className="ab-do__grid">
           <article className="ab-card">

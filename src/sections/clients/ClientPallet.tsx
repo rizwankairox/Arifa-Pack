@@ -5,6 +5,7 @@
 */
 import { ClientLogos, ClientsNote } from './ClientLogos';
 import { t } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 
 export function ClientPallet() {
   return (
@@ -12,12 +13,14 @@ export function ClientPallet() {
       <div className="wrap">
         <header className="cl-pallet__head">
           <p className="eyebrow">
-            {t("Our clients")}
+            <CmsText section="clients" field="eyebrow">{t("Our clients")}</CmsText>
           </p>
           <h2 className="cl-h2">
-            {t("Packed and")}
-            <br />
-            <span className="is-dim">{t("shipped to.")}</span>
+            <CmsText section="clients" field="heading">
+              {t("Packed and")}
+              <br />
+              <span className="is-dim">{t("shipped to.")}</span>
+            </CmsText>
           </h2>
         </header>
         <div className="pallet-track">

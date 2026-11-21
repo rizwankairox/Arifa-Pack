@@ -4,6 +4,7 @@
 import { FamilyPicks } from './FamilyPicks';
 import { t } from '@/i18n';
 import { company } from '@/data/site';
+import { CmsText } from '@/components/site/CmsText';
 
 export function EnquiryDesk() {
   return (
@@ -13,15 +14,17 @@ export function EnquiryDesk() {
         <div className="ct-desk__main">
           <header className="ct-desk__head">
             <p className="eyebrow">
-              {t("Arifa Packing & Packaging LLC")}
+              <CmsText section="enquiry" field="eyebrow">{t("Arifa Packing & Packaging LLC")}</CmsText>
             </p>
             <h1 className="ct-title">
-              <span className="ct-line">
-                <span>{t("Tell us what")}</span>
-              </span>{' '}
-              <span className="ct-line">
-                <span className="is-dim">{t("to pack.")}</span>
-              </span>
+              <CmsText section="enquiry" field="heading" line="ct-line">
+                <span className="ct-line">
+                  <span>{t("Tell us what")}</span>
+                </span>{' '}
+                <span className="ct-line">
+                  <span className="is-dim">{t("to pack.")}</span>
+                </span>
+              </CmsText>
             </h1>
             <p className="ct-lede">{t("Six quick answers. We write your enquiry up as you go, on a label ready for the packaging team.")}</p>
           </header>

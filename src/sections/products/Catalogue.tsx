@@ -30,7 +30,7 @@ export function Catalogue() {
               /
             </kbd>
           </label>
-          <div className="cat-chips" role="toolbar" aria-label={t("Filter by family")} data-cat-chips="">
+          <div className="cat-chips" id="families" role="toolbar" aria-label={t("Filter by family")} data-cat-chips="">
             <span className="cat-chips__pill" data-chip-pill="" aria-hidden="true"></span>
             <CategoryChips />
           </div>

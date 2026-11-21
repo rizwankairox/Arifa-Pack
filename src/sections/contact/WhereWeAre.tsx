@@ -3,6 +3,7 @@
 */
 import { t } from '@/i18n';
 import { company } from '@/data/site';
+import { CmsText } from '@/components/site/CmsText';
 export function WhereWeAre() {
   return (
     <section className="ct-where" id="where" data-theme="dark">
@@ -22,12 +23,14 @@ export function WhereWeAre() {
         </a>
         <div className="ct-where__text">
           <p className="eyebrow">
-            {t("Where we are")}
+            <CmsText section="where" field="eyebrow">{t("Where we are")}</CmsText>
           </p>
           <h2 className="ct-h2">
-            {t("Al Jurf,")}
-            <br />
-            <span className="is-dim">{t("Ajman, UAE.")}</span>
+            <CmsText section="where" field="heading">
+              {t("Al Jurf,")}
+              <br />
+              <span className="is-dim">{t("Ajman, UAE.")}</span>
+            </CmsText>
           </h2>
           <dl className="ct-where__facts">
             <div>

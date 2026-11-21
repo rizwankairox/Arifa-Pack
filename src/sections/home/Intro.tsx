@@ -2,12 +2,13 @@
   01 · Intro statement
 */
 import { t } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 export function Intro() {
   return (
-    <section className="intro" data-theme="light" aria-labelledby="intro-label">
+    <section className="intro" id="intro" data-theme="light" aria-labelledby="intro-label">
       <div className="wrap">
         <p className="eyebrow" id="intro-label">
-          {t("The company")}
+          <CmsText section="intro" field="eyebrow">{t("The company")}</CmsText>
         </p>
         <p className="intro__text" data-words="">
           {t("We press aluminium coil")}

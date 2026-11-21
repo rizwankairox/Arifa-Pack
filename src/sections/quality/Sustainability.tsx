@@ -5,6 +5,7 @@ import { MaterialDots } from './MaterialDots';
 import { getStats } from '@/data/catalogue';
 import { pad2 } from '@/lib/format';
 import { t } from '@/i18n';
+import { CmsText } from '@/components/site/CmsText';
 
 export function Sustainability() {
   const stats = getStats();
@@ -13,15 +14,17 @@ export function Sustainability() {
       <div className="wrap q-sus__grid">
         <div className="q-sus__text">
           <p className="eyebrow">
-            {t("Sustainability")}
+            <CmsText section="sustainability" field="eyebrow">{t("Sustainability")}</CmsText>
           </p>
           <h2 className="q-h2">
-            {t("Mostly aluminium.")}
-            <br />
-            <span className="is-dim">{t("Counted, not estimated.")}</span>
+            <CmsText section="sustainability" field="heading">
+              {t("Mostly aluminium.")}
+              <br />
+              <span className="is-dim">{t("Counted, not estimated.")}</span>
+            </CmsText>
           </h2>
           <p className="q-sus__lede">
-            {t("Aluminium can be recycled again and again without losing its quality. Every dot here is one product in our range; the lit ones are aluminium.")}
+            <CmsText section="sustainability" field="body">{t("Aluminium can be recycled again and again without losing its quality. Every dot here is one product in our range; the lit ones are aluminium.")}</CmsText>
           </p>
           <dl className="q-sus__evidence">
             <div>

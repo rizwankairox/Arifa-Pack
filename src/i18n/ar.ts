@@ -401,6 +401,8 @@ export const ar: Dict = {
   "for a tender or an audit?": "لمناقصة أو تدقيق؟",
   "Ask for certificates, test reports or a product specification with your enquiry. The packaging team will tell you what is available for the products you need.": "اطلب الشهادات أو تقارير الاختبار أو مواصفات المنتج مع استفسارك. وسيخبرك فريق التغليف بما هو متاح للمنتجات التي تحتاجها.",
   "Ask for documents": "اطلب الوثائق",
+  "valid until": "صالحة حتى",
+  "View certificate": "عرض الشهادة",
   "Hygiene you can see": "نظافة يمكنك رؤيتها",
   "“Our containers meet strict hygiene and quality standards, ensuring freshness, safety and convenience.”": "«تستوفي حاوياتنا معايير صارمة للنظافة والجودة، لضمان الطزاجة والسلامة والراحة.»",
   "An inspector in a hairnet holds a product up to the light": "مفتش يرتدي غطاء الشعر يرفع منتجاً نحو الضوء",
