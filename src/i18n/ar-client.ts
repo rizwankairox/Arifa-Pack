@@ -193,5 +193,11 @@ export const arClient: Dict = {
   "Couldn’t send that just now. Please try again.": "تعذر الإرسال الآن. يُرجى المحاولة مرة أخرى.",
   "Sealed and ready.": "مختوم وجاهز.",
   "Sent to the packaging team.": "أُرسل إلى فريق التغليف.",
-  "Finding {name}…": "أبحث عن {name}…"
+  "Finding {name}…": "أبحث عن {name}…",
+  "Offline": "غير متصلة",
+  "Type below, or tap the mic and talk": "اكتب بالأسفل، أو اضغط على الميكروفون وتحدث",
+  "Connecting…": "جارٍ الاتصال…",
+  "Speaking…": "تتحدث…",
+  "Voice isn’t available right now. You can type instead.": "الصوت غير متاح الآن. يمكنك الكتابة بدلاً من ذلك.",
+  "End the voice call": "إنهاء المكالمة الصوتية"
 };

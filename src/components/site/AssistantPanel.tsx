@@ -1,13 +1,13 @@
 /*
   The Arifa assistant: the conversation card, the leaf it docks to (bottom right), and its own
-  pointer. Everything it says and does is in src/assistant/assistant.ts; with an API key on the
-  server it answers with Claude (src/app/api/assistant/route.ts), otherwise a scripted salesperson.
+  pointer. Everything it does is in src/assistant/assistant.ts; every answer comes from the Arifa
+  backend (src/lib/arifaApi.ts, WEBSITE_API.md). There is no built-in assistant.
 */
 import { t } from '@/i18n';
 export function AssistantPanel() {
   return (
     <>
-      <section className="assist" data-assist="" aria-label={t("Arifa assistant (preview)")} hidden>
+      <section className="assist" data-assist="" aria-label={t("Arifa assistant")} hidden>
         {/* (the halo round the panel, and the panel itself: drawn under its content) */}
         <span className="assist__glow" aria-hidden="true"></span>
         <span className="assist__bg" aria-hidden="true"></span>

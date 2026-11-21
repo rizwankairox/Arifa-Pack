@@ -1,5 +1,4 @@
-// Shapes shared by the assistant's browser code (assistant.ts, brain.ts) and its server route
-// (src/app/api/assistant/route.ts).
+// Shapes shared by the assistant's browser code (assistant.ts, brain.ts, nudges.ts).
 
 /** a product family as the assistant knows it: its name and how many products it has */
 export type FamilyInfo = { id: string; name: string; short: string; count: number };

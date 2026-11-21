@@ -622,5 +622,6 @@ export const ar: Dict = {
   "We have your enquiry. The packaging team will reply during working hours, the way you chose.": "وصلنا استفسارك. سيرد فريق التغليف خلال ساعات العمل بالطريقة التي اخترتها.",
   "Message Arifa": "راسل عارفة",
   "Type a message…": "اكتب رسالة…",
-  "Send": "إرسال"
+  "Send": "إرسال",
+  "Arifa assistant": "مساعدة عارفة"
 };

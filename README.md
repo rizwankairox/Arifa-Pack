@@ -25,13 +25,13 @@ Other commands:
 | `npm run typecheck` | Only the TypeScript check |
 | `npm run lint` | Checks the code for common problems |
 
-**The AI assistant (optional):** copy `.env.example` to `.env.local` and paste an Anthropic API key. Without a key the assistant still works, using its built-in scripted salesperson.
+**Connecting the backend:** copy `.env.example` to `.env.local` and fill in the Kairox backend's address and keys. The assistant, the enquiry desk and (later) the content all run on the backend; without it the assistant shows as offline and enquiries go through the email app.
 
 ## Put it online (Vercel)
 
 1. Push this folder to a GitHub repository.
 2. On [vercel.com](https://vercel.com) → **Add New → Project** → pick the repository. Vercel recognises Next.js by itself; no settings to change.
-3. Optional: **Settings → Environment Variables** → add `ANTHROPIC_API_KEY` for the live AI assistant.
+3. **Settings → Environment Variables** → add the backend settings listed in `.env.example` (the assistant, enquiries and content all come from the Kairox backend).
 4. Every push gets its own preview link; the main branch is the live site.
 
 The prototype's old addresses (`/products.html`, `/about.html` …) forward automatically to the new ones (`/products`, `/about` …). So do the previous arifapack.com site's pages: `/8325.php` → `/products/ac-8325`, `/foil.php` → `/products?family=foil` and so on (`next.config.ts`, using `legacyPage` in `catalogue.json`). Nothing on this site links to the old site.
@@ -83,7 +83,7 @@ arifa-pack-website/
 │   │   ├── (en)/page.tsx      Home            → /          (and products/, about/, quality/, clients/, contact/)
 │   │   ├── (ar)/layout.tsx    the outer HTML of the Arabic pages   (<html lang="ar" dir="rtl">)
 │   │   ├── (ar)/ar/page.tsx   الرئيسية        → /ar        (and /ar/products, /ar/about …)
-│   │   └── api/assistant/     the AI assistant's server endpoint
+│   │   └── api/revalidate/, api/draft/   called by the backend's CMS (publish refresh, editor preview)
 │   │
 │   ├── views/               THE PAGES — one file per page, shared by both languages
 │   │   └── home.tsx, products.tsx, about.tsx, quality.tsx, clients.tsx, contact.tsx
@@ -135,7 +135,7 @@ React builds every page **on the server**, so pages open fast and Google can rea
 | How a section animates | `src/sections/<page>/<section>.ts` (lower-case file next to it) |
 | Colours, spacing, fonts | `src/styles/site/base.css` (the `:root` variables at the top); fonts in `src/styles/fonts.css` |
 | 3D quality on weak phones | `src/three/quality.ts` |
-| What the AI assistant knows | `src/assistant/server/prompt.ts` |
+| The assistant's connection to the backend | `src/lib/arifaApi.ts` (the 7 website endpoints), settings in `.env.example` |
 
 ---
 
