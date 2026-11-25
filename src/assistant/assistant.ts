@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type Lenis from 'lenis';
 import type { FamilyInfo, PageName, QuoteFill } from './types';
 import { env } from '@/lib/env';
@@ -210,7 +211,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
     Object.assign(card.style, { left: `${Math.min(r.right + 28, innerWidth - w - 24)}px`, top: `${Math.max(90, r.top + r.height * 0.05)}px`, bottom: '' });
   };
   const openCard = (docked) => {
-    if (!hero) docked = true;
+    if (!hero?.hubRect) docked = true;
     card.hidden = false;
     card.classList.toggle('is-docked', docked);
     if (docked) Object.assign(card.style, { left: '', top: '', bottom: '' });
@@ -223,7 +224,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
     if (isDocked()) return;
     const before = card.getBoundingClientRect();
     flying = true;
-    if (hero && !env.reduced) {
+    if (hero?.faceHub && hero.hubRect && hero.setHub && !env.reduced) {
       await hero.faceHub();
       const from = hero.hubRect();
       dock.hidden = false;
@@ -236,7 +237,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
       }, { x: 0, y: 0, scale: 1, duration: 1.15, ease: 'expo.inOut' });
     } else {
       dock.hidden = false;
-      hero?.setHub(false);
+      hero?.setHub?.(false);
     }
     openCard(true);
     const after = card.getBoundingClientRect();
@@ -489,14 +490,29 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
     if (visible(btn)) { await moveTo(() => centre(btn), 1.2); await press(btn); } else window.location.href = lhc('/contact');
   }
 
-  async function goFactory() {
-    if (page !== 'home') { window.location.href = lhc('/#factory'); return; }
+  // the factory tour: "Walk the floor" (#floor, the film's seven stops; #factory is the press), opened
+  // at the chapter the backend names (tour_chapters keys, in the order of the stops on the page)
+  const CHAPTERS = ['arrival', 'forming', 'lids', 'foil', 'packing', 'moulding', 'warehouse'];
+  async function goFactory(chapter?: string | null) {
+    if (page !== 'home') {
+      state.pending = { kind: 'factory', chapter: chapter || null };
+      save(state);
+      window.location.href = lhc('/#floor');
+      return;
+    }
     await flyToDock();
-    showPointer();
-    const link = [...document.querySelectorAll<HTMLAnchorElement>('.nav__links a')].find((a) => a.getAttribute('href') === lhc('/#factory'));
-    if (visible(link)) { await moveTo(() => centre(link), 1.2); await press(link); } else lenis?.scrollTo('#factory', { duration: 1.6 });
-    await wait(1.2);
-    hidePointer();
+    const root = document.getElementById('floor');
+    if (!root) return;
+    const stops = [...root.querySelectorAll<HTMLElement>('.chapter')];
+    const i = Math.max(0, CHAPTERS.indexOf(String(chapter || '')));
+    // big screens: the section is pinned and the scroll walks the track sideways, so the stop is a point
+    // along the pin; phones: the stops are stacked, so it is the stop itself
+    const pinned = ScrollTrigger.getAll().find((t) => t.trigger === root && t.pin);
+    const to = pinned ? pinned.start + (pinned.end - pinned.start) * (stops.length > 1 ? i / (stops.length - 1) : 0) : i > 0 && stops[i] ? stops[i] : root;
+    if (lenis) lenis.scrollTo(to as number | HTMLElement, { duration: 1.6 });
+    else if (typeof to === 'number') window.scrollTo({ top: to, behavior: 'smooth' });
+    else to.scrollIntoView({ behavior: 'smooth' });
+    await wait(1.7);
   }
 
 
@@ -615,7 +631,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
         break;
       }
       case 'scroll_to': await scrollToSection(a.section); break;
-      case 'factory_tour': await goFactory(); break;
+      case 'factory_tour': await goFactory(a.chapter); break;
       case 'add_to_enquiry': addToEnquiry(a.product_ids); break;
       case 'fill_enquiry': {
         const f = a.fill || {};
@@ -833,6 +849,9 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
         } else if (p.kind === 'product' && page === 'products') {
           const pc = p.id ? document.querySelector<HTMLElement>(`.pcard[data-product="${CSS.escape(p.id)}"]`) : null;
           await openProduct(p.ref, { card: pc });
+        } else if (p.kind === 'factory' && page === 'home') {
+          await wait(0.6);
+          await goFactory(p.chapter);
         } else if (p.kind === 'quote' && page === 'contact') {
           await fillQuote(p.fill);
         }

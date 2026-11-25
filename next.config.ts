@@ -35,6 +35,11 @@ const media = (() => {
 const nextConfig: NextConfig = {
   images: { remotePatterns: media },
 
+  // the CMS reads (GET /v1/content/*) run on the server, not in the browser, so they never show in the
+  // browser's Network tab: in development each one is printed in the terminal running `npm run dev`
+  // (full address, and whether it came from the cache)
+  logging: { fetches: { fullUrl: true, hmrRefreshes: true } },
+
   // The page scripts start once per page load (src/motion/PageScripts.tsx); React's development
   // double-run of effects would build every 3D scene twice, so it is switched off.
   reactStrictMode: false,

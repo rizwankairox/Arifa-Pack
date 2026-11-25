@@ -18,7 +18,7 @@ export function Hero() {
             <span></span>{' '}<CmsText section="top" field="eyebrow">{t("The Arifa collection")}</CmsText>
           </p>
           <p className="hero__title">
-            <CmsText section="top" field="heading" line="hero__line" lineAttr="data-hero-line">
+            <CmsText section="top" field="heading" line="hero__line" lineAttr="data-hero-line" lineClasses={['', 'hero__line--metal']}>
               <span className="hero__line">
                 <span data-hero-line="">{t("Considered in detail.")}</span>
               </span>

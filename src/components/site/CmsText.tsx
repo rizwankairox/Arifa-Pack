@@ -22,20 +22,24 @@ type Props = {
   line?: string;
   /** an attribute the inner span of each line carries (e.g. "data-hero-line") */
   lineAttr?: string;
+  /** extra classes for the lines, by position (e.g. the hero's second line in brushed metal) */
+  lineClasses?: string[];
   children: ReactNode;
 };
 
-export function CmsText({ section, field, line, lineAttr, children }: Props) {
+export function CmsText({ section, field, line, lineAttr, lineClasses = [], children }: Props) {
   const v = blockText(section, field);
   if (v == null) return <>{children}</>;
-  const parts = v.split(/\n+/).map((p) => p.trim()).filter(Boolean);
+  let parts = v.split(/\n+/).map((p) => p.trim()).filter(Boolean);
+  // a heading typed on one line ("Considered in detail. Made to perform.") still reveals sentence by sentence
+  if (line && parts.length === 1) parts = parts[0].split(/(?<=[.!?؟])\s+/).filter(Boolean);
   if (line) {
     return (
       <>
         {parts.map((p, i) => (
           <Fragment key={i}>
             {i > 0 && ' '}
-            <span className={line}>
+            <span className={[line, lineClasses[i]].filter(Boolean).join(' ')}>
               <span {...(lineAttr ? { [lineAttr]: '' } : {})}>{p}</span>
             </span>
           </Fragment>
