@@ -3,6 +3,7 @@
   Read every frame by the 3D scenes and by the page scripts. Browser-only: imported after the page
   has loaded (see src/motion/PageScripts.tsx), never on the server.
 */
+import { hasWebGL } from '@/three/probe';
 import { clipFor } from './clips';
 
 const mq = (q: string) => window.matchMedia(q).matches;
@@ -19,14 +20,7 @@ export const env = {
   small: mq('(max-width: 720px)'),
   /** small screen or a slow processor: fewer dots, softer shadows (see src/three/quality.ts) */
   lowPower: mq('(max-width: 720px)') || (navigator.hardwareConcurrency || 8) <= 4,
-  webgl: (() => {
-    try {
-      const c = document.createElement('canvas');
-      return !!(c.getContext('webgl2') || c.getContext('webgl'));
-    } catch {
-      return false;
-    }
-  })(),
+  webgl: hasWebGL(),
 };
 
 /** pointer position in pixels (x, y), as -1…1 across the window (nx, ny), and its speed */

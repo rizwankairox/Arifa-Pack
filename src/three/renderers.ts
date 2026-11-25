@@ -31,9 +31,12 @@ export function provideRenderer(name: SceneName, renderer: WebGLRenderer | null)
 
 /**
  * The renderer for a scene, once React has created it. Resolves null if this browser has no
- * WebGL, if the page has no such canvas, or if it hasn't appeared after `timeout` ms.
+ * WebGL or the renderer couldn't be made (both reported at once by SceneCanvas), or if it hasn't
+ * appeared after `timeout` ms (a page without that canvas). The wait is generous: on a slow
+ * machine, or the first load of the dev server, React can take several seconds to get there, and
+ * giving up early would show the photographs to a browser that can draw the 3D.
  */
-export function whenRenderer(name: SceneName, timeout = 6000): Promise<WebGLRenderer | null> {
+export function whenRenderer(name: SceneName, timeout = 15000): Promise<WebGLRenderer | null> {
   const s = slot(name);
   if (s.value !== undefined) return Promise.resolve(s.value);
   return Promise.race([s.promise, new Promise<null>((r) => setTimeout(() => r(null), timeout))]);
@@ -42,4 +45,18 @@ export function whenRenderer(name: SceneName, timeout = 6000): Promise<WebGLRend
 /** the renderer if it is ready right now (null otherwise) */
 export function getRenderer(name: SceneName): WebGLRenderer | null {
   return slots.get(name)?.value ?? null;
+}
+
+/**
+ * A scene's WebGL context was lost (the graphics card was reset, or the browser reclaimed it).
+ * Its canvas would stay black, so it is hidden and its section marked "gl-lost"; the scene's page
+ * script hears "arifa:gl-lost" ({ name }) and shows its photographs instead (the hero does).
+ */
+export function glLost(name: SceneName, canvas: HTMLCanvasElement) {
+  console.warn(`3D scene "${name}" lost its graphics context; showing the photographs.`);
+  const s = slots.get(name);
+  if (s) s.value = null;
+  canvas.style.visibility = 'hidden';
+  canvas.closest('section')?.classList.add('gl-lost');
+  window.dispatchEvent(new CustomEvent('arifa:gl-lost', { detail: { name } }));
 }

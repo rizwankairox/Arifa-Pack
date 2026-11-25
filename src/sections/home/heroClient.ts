@@ -47,12 +47,21 @@ export function initHero(lenis) {
   const cue = root.querySelector<HTMLElement>('[data-hero-scroll]');
   const dock = root.querySelector<HTMLElement>('[data-hero-dock]');
 
-  if (!env.webgl || !labels.length) {
+  // the hero without 3D: headline, line and button as usual, and the families as photo cards
+  // (sections.css "without WebGL")
+  const photoCards = () => {
+    root.classList.remove('has-dots');
     root.classList.add('no-gl');
-    const photos = root.querySelectorAll<HTMLElement>('.hero__fallback, .hero__label');
+    gsap.killTweensOf([caption, cue, dock, cta, sub, ...reveals]);
+    gsap.set([cue, dock, cta, sub, ...reveals], { opacity: 1, y: 0, yPercent: 0, filter: 'none' });
+    gsap.set(root.querySelectorAll('.hero__word, [data-hero-sub] *, [data-hero-cta] span'), { opacity: 1, y: 0, yPercent: 0, filter: 'none' });
+  };
+  if (!env.webgl || !labels.length) {
+    photoCards();
+    const cards = labels;
     return {
       ready: Promise.resolve(),
-      intro: () => (env.reduced ? gsap.set(photos, { opacity: 1, y: 0 }) : gsap.from(photos, { opacity: 0, y: 20, duration: 1, stagger: 0.06, ease: 'expo.out' })),
+      intro: () => (env.reduced ? undefined : gsap.from(cards, { opacity: 0, y: 20, duration: 1, stagger: 0.06, ease: 'expo.out' })),
     };
   }
   root.classList.add('has-dots');
@@ -158,10 +167,11 @@ export function initHero(lenis) {
     gsap.killTweensOf(progressBar);
     progressBar.v = 0;
     drawProgress();
-    if (paused || hovering || held || env.reduced) return;
+    if (!field || paused || hovering || held || env.reduced) return;
     cycle = gsap.to(progressBar, { v: 1, duration: PERIOD, ease: 'none', onUpdate: drawProgress, onComplete: () => go((current + 1) % labels.length) });
   }
   function go(i, { immediate = env.reduced } = {}) {
+    if (!field) return; // (no 3D, or it was lost: the photo cards are the index)
     if (i === current && morphing) { schedule(); return; }
     current = i;
     name(i, !immediate);
@@ -237,6 +247,16 @@ export function initHero(lenis) {
     c.addEventListener('click', (e) => { if (overShape(e)) window.location.href = links[current].getAttribute('href'); });
   };
 
+  // the graphics context was lost mid-visit (src/three/renderers.ts): the photographs take over
+  window.addEventListener('arifa:gl-lost', (e) => {
+    if ((e as CustomEvent).detail?.name !== 'hero') return;
+    cycle?.kill();
+    morphing?.kill?.();
+    field?.stop();
+    field = null;
+    photoCards();
+  });
+
   // render only while the hero is on screen
   let visible = true;
   ScrollTrigger.create({
@@ -263,15 +283,14 @@ export function initHero(lenis) {
       field.u.uDrift.value = env.reduced ? 0 : 1.2;
     } catch (err) {
       console.warn('Hero dots unavailable, showing photographs.', err);
-      root.classList.remove('has-dots');
-      root.classList.add('no-gl');
-      gsap.set([caption, cue, dock, cta, ...reveals, ...words, ...subLines], { opacity: 1, y: 0, yPercent: 0, filter: 'none' });
+      photoCards();
       return Promise.resolve();
     }
     if (process.env.NODE_ENV === 'development') window.__hero = { field, go };
     stage(products);
     field.paused = paused;
     field.onResize = () => {
+      if (!field) return;
       const a = anchor();
       Object.assign(field.poseB, { s: a.s });
       field.poseB.off.set(a.x, a.y, 0);

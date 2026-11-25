@@ -97,6 +97,19 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
   let flying = false;
 
   // ── the conversation on screen ──
+  // Once the visitor has used her (typed, tapped a suggestion, opened her, started a call), the card
+  // stays open from page to page, with the last lines of the conversation, until they press ✕.
+  // (state.open and state.log live in sessionStorage: this tab only, gone when it closes)
+  const remember = (who: 'you' | 'bot' | 'wa', text: string) => {
+    if (!text) return;
+    state.log = [...(state.log || []), { who, text }].slice(-5);
+    save(state);
+  };
+  const keepOpen = (on: boolean) => {
+    if (!!state.open === on) return;
+    state.open = on;
+    save(state);
+  };
   const trim = () => { while (log.children.length > 5) log.firstElementChild.remove(); };
   const bubble = (who, text) => {
     const li = document.createElement('li');
@@ -104,6 +117,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
     li.textContent = text;
     log.appendChild(li);
     trim();
+    if (who === 'you') { keepOpen(true); remember('you', text); } else remember('bot', text);
     gsap.from(li, { opacity: 0, y: 8, duration: 0.4, ease: 'expo.out' });
     log.scrollTop = log.scrollHeight;
     return li;
@@ -163,6 +177,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
     gsap.from(li, { opacity: 0, y: 8, duration: 0.4, ease: 'expo.out' });
     await wait(env.reduced ? 0 : 0.35);
     const cap = caption(li, text, pace(text));
+    remember('bot', text);
     log.scrollTop = log.scrollHeight;
     await cap.tween;
     cap.finish();
@@ -520,6 +535,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
     li.appendChild(a);
     log.appendChild(li);
     trim();
+    remember('wa', href);
     log.scrollTop = log.scrollHeight;
   }
 
@@ -683,10 +699,12 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
   const shown = (text) => {
     const li = bubble('bot', '');
     const cap = caption(li, text, pace(text));
+    remember('bot', text);
     cap.tween.then(() => cap.finish());
   };
   async function toggleVoice() {
     if (liveVoice) { const v = liveVoice; liveVoice = null; await v.stop(); setVoiceState('off'); return; }
+    keepOpen(true);
     if (!apiEnabled() || currentSession()?.voice_available === false) { setVoiceState('unavailable'); return; }
     setVoiceState('connecting');
     try {
@@ -722,11 +740,13 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
   });
 
   card.querySelector<HTMLElement>('[data-assist-close]').addEventListener('click', () => {
+    keepOpen(false); // (only ✕ closes her for good: the next page starts with her docked)
     gsap.to(card, { opacity: 0, y: 12, duration: 0.3, ease: 'power2.in', onComplete: () => { card.hidden = true; gsap.set(card, { clearProps: 'opacity,transform' }); } });
     if (!isDocked()) { dock.hidden = false; state.docked = true; save(state); gsap.from(leafBox, { scale: 0, duration: 0.6, ease: 'back.out(2)' }); }
   });
   dock.addEventListener('click', () => {
-    if (!card.hidden) { card.hidden = true; return; }
+    if (!card.hidden) { card.hidden = true; keepOpen(false); return; }
+    keepOpen(true);
     openCard(true);
     gsap.from(card, { opacity: 0, y: 14, duration: 0.45, ease: 'expo.out' });
     if (!log.children.length) { bubble('bot', GREETING); chips(SUGGEST); }
@@ -740,6 +760,32 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
 
   setVoiceState('off');
   if (state.docked) dock.hidden = false;
+
+  // a new page, and the visitor was talking to her: she is still open, with the conversation so far
+  if (state.open) {
+    dock.hidden = false;
+    state.docked = true;
+    (state.log || []).forEach((m: { who: 'you' | 'bot' | 'wa'; text: string }) => {
+      const li = document.createElement('li');
+      li.className = `assist__msg assist__msg--${m.who === 'you' ? 'you' : 'bot'}`;
+      if (m.who === 'wa') {
+        const a = document.createElement('a');
+        Object.assign(a, { className: 'assist__wa', href: m.text, target: '_blank', rel: 'noopener', textContent: tc('Chat on WhatsApp') });
+        li.appendChild(a);
+      } else if (m.who === 'bot') {
+        // (already said: shown lit, not captioned again)
+        m.text.split(' ').forEach((word, i, all) => {
+          const w = document.createElement('span');
+          w.className = 'w on';
+          w.textContent = i < all.length - 1 ? `${word} ` : word;
+          li.appendChild(w);
+        });
+      } else li.textContent = m.text;
+      log.appendChild(li);
+    });
+    openCard(true);
+    log.scrollTop = log.scrollHeight;
+  }
   // the header tag: "Live AI" once the backend has answered, "Offline" when it can't be reached
   const tag = card.querySelector<HTMLElement>('.assist__name .mono');
   function showSource() { tag.textContent = tc(brain.online() ? 'Live AI' : 'Offline'); }

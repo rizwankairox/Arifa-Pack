@@ -1,0 +1,98 @@
+{
+  "en": {
+    "path": "/",
+    "title": "Home",
+    "blocks": [
+      {
+        "section_id": "top",
+        "design_id": "HM-01",
+        "kind": "hero",
+        "eyebrow": "The Arifa collection",
+        "heading": "Considered in detail.\nMade to perform.",
+        "body": "Aluminium containers, foil, platters and food packaging, formed in aluminium and made in Ajman, UAE.",
+        "keywords": [
+          "home",
+          "start",
+          "range"
+        ]
+      },
+      {
+        "section_id": "intro",
+        "design_id": "HM-02",
+        "kind": "text",
+        "eyebrow": "The company",
+        "keywords": [
+          "company",
+          "who are you",
+          "what do you make"
+        ]
+      },
+      {
+        "section_id": "factory",
+        "design_id": "HM-03",
+        "kind": "film",
+        "eyebrow": "The line",
+        "heading": "How an 83185 container is made",
+        "keywords": [
+          "how it is made",
+          "press",
+          "production line",
+          "making"
+        ]
+      },
+      {
+        "section_id": "range",
+        "design_id": "HM-04",
+        "kind": "list",
+        "eyebrow": "Products",
+        "heading": "Eight product families, catalogued by code and carton.",
+        "body": "Each line opens the full listing with product codes and packing quantities.",
+        "keywords": [
+          "families",
+          "range",
+          "categories"
+        ]
+      },
+      {
+        "section_id": "floor",
+        "design_id": "HM-05",
+        "kind": "film",
+        "eyebrow": "Walk the floor",
+        "heading": "Seven stops inside Arifa.",
+        "keywords": [
+          "factory film",
+          "video",
+          "tour",
+          "factory tour"
+        ]
+      },
+      {
+        "section_id": "company",
+        "design_id": "HM-06",
+        "kind": "cards",
+        "eyebrow": "What we do",
+        "heading": "Made in our own facility. Finished in your brand.",
+        "body": "Arifa Pack specialises in disposable packaging — aluminium containers, plastic containers and disposable cutlery — backed by consistent quality standards and a customer-first way of working.",
+        "keywords": [
+          "services",
+          "directors",
+          "custom printing",
+          "branding"
+        ]
+      },
+      {
+        "section_id": "contact",
+        "design_id": "HM-07",
+        "kind": "cta",
+        "eyebrow": "Request a quote",
+        "heading": "Tell us what you need packed.",
+        "body": "Share the product, an approximate quantity and where it's going. The packaging team will come back to you during working hours.",
+        "keywords": [
+          "quote",
+          "quotation",
+          "enquiry"
+        ]
+      }
+    ]
+  }
+}

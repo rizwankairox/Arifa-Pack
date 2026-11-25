@@ -12,10 +12,11 @@
   class, so the page's photo fallbacks take over.
 */
 import { Canvas } from '@react-three/fiber';
-import { useEffect, useSyncExternalStore, type CSSProperties } from 'react';
+import { Component, useEffect, useSyncExternalStore, type CSSProperties, type ReactNode } from 'react';
 import * as THREE from 'three';
 import { SCENES, sceneDpr, type SceneName } from './quality';
-import { provideRenderer } from './renderers';
+import { glLost, provideRenderer } from './renderers';
+import { hasWebGL } from './probe';
 
 type Props = {
   name: SceneName;
@@ -25,17 +26,12 @@ type Props = {
   dataAttr: string;
 };
 
-let webgl: boolean | undefined;
-function hasWebGL() {
-  if (webgl === undefined) {
-    try {
-      const c = document.createElement('canvas');
-      webgl = !!(c.getContext('webgl2') || c.getContext('webgl'));
-    } catch {
-      webgl = false;
-    }
-  }
-  return webgl;
+/** if the renderer can't be made (WebGL blocked or out of contexts), the box stays empty and the page's photo fallback shows */
+class NoCrash extends Component<{ fallback: ReactNode; onError: () => void; children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  componentDidCatch(err: unknown) { console.warn('3D scene unavailable, showing the photographs.', err); this.props.onError(); }
+  render() { return this.state.failed ? this.props.fallback : this.props.children; }
 }
 
 // false while rendering on the server and hydrating, true once in the browser
@@ -63,14 +59,20 @@ export function SceneCanvas({ name, className, dataAttr }: Props) {
 
   const settings = SCENES[name];
   return (
-    <Canvas
-      {...box}
-      style={UNSET}
-      frameloop="never"
-      flat
-      dpr={sceneDpr(name)}
-      gl={(defaults) => new THREE.WebGLRenderer({ ...defaults, powerPreference: 'high-performance', ...settings.gl })}
-      onCreated={({ gl }) => provideRenderer(name, gl)}
-    />
+    <NoCrash fallback={<div {...box} />} onError={() => provideRenderer(name, null)}>
+      <Canvas
+        {...box}
+        style={UNSET}
+        frameloop="never"
+        flat
+        dpr={sceneDpr(name)}
+        gl={(defaults) => new THREE.WebGLRenderer({ ...defaults, powerPreference: 'high-performance', ...settings.gl })}
+        onCreated={({ gl }) => {
+          // the graphics card was reset, or the browser took the context back: the page switches to its photographs
+          gl.domElement.addEventListener('webglcontextlost', (e) => { e.preventDefault(); glLost(name, gl.domElement); }, { once: true });
+          provideRenderer(name, gl);
+        }}
+      />
+    </NoCrash>
   );
 }

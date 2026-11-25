@@ -8,6 +8,12 @@
 @media (min-width: 1101px) and (max-width: 1300px) {
   .nav__status { display: none; }
 }
+/* the right-hand group (language, clock, quote, menu) is wider than a third of the header up to
+   about 1700px, and ran into the links: the links take the space that is left, centred in it */
+@media (min-width: 1101px) {
+  .nav { grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 28px; }
+  .nav__links { justify-self: center; gap: clamp(20px, 2vw, 34px); }
+}
 @media (max-width: 1100px) {
   .nav__links { display: none; }
   .nav { grid-template-columns: auto 1fr; }
