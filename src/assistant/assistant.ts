@@ -7,6 +7,7 @@ import { createBrain } from '@/assistant/brain';
 import { currentSession, sendContact, ApiError, apiEnabled, type EventOut, type SiteAction } from '@/lib/arifaApi';
 import { enquiry } from '@/lib/enquiry';
 import { initNudges } from '@/assistant/nudges';
+import { askedFor, extractContact, type ContactFields, type Expecting } from '@/assistant/contactCapture';
 import type { LiveVoice } from '@/assistant/liveVoice';
 import { isArPage, lhc, tc } from '@/i18n/client';
 
@@ -180,6 +181,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
     await wait(env.reduced ? 0 : 0.35);
     const cap = caption(li, text, pace(text));
     remember('bot', text);
+    noteAsk(text);
     log.scrollTop = log.scrollHeight;
     await cap.tween;
     cap.finish();
@@ -520,6 +522,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
   async function handle(text: string, input: 'text' | 'voice' = 'text') {
     text = text.trim();
     if (!text) return;
+    captureContact(text);
     if (busy) { queued = { text, input }; return; }
     busy = true;
     chips([]);
@@ -639,59 +642,33 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
         await goQuote({ ...f, family: families[0], families, notes: f.message || f.detail } as QuoteFill);
         break;
       }
-      case 'ask_contact': contactCard(a.fields, a.consents); break;
+      // the assistant asks in her own words; the visitor's answer is picked up by captureContact()
+      case 'ask_contact': expecting = Object.fromEntries((a.fields?.length ? a.fields : ['name', 'phone', 'email']).map((f: string) => [f, true])); break;
     }
   }
 
   // the contact card in the chat: name, phone, email and two separate, unticked consents
   // (POST /v1/public/sessions/{id}/contact). The words next to the ticks go with it as proof.
-  function contactCard(fields: string[] = [], consents: string[] = []) {
-    const want = fields.length ? fields : ['name', 'phone', 'email'];
-    const ticks = consents.length ? consents : ['whatsapp', 'email'];
-    const words = {
-      whatsapp: tc('Send my quotation on WhatsApp'),
-      email: tc('Send my quotation by email'),
-    };
-    const labels = { name: tc('Your name'), company: tc('Company'), phone: tc('Phone / WhatsApp'), email: tc('Email') };
-    const types = { name: 'text', company: 'text', phone: 'tel', email: 'email' };
-    const auto = { name: 'name', company: 'organization', phone: 'tel', email: 'email' };
-    const li = document.createElement('li');
-    li.className = 'assist__msg assist__msg--bot assist__card-msg';
-    const form = document.createElement('form');
-    form.className = 'assist__contact';
-    form.noValidate = true;
-    form.innerHTML = `
-      ${want.filter((f) => labels[f]).map((f) => `<label class="assist__cfield"><span>${labels[f]}</span><input name="${f}" type="${types[f]}" autocomplete="${auto[f]}" /></label>`).join('')}
-      ${ticks.filter((c) => words[c]).map((c) => `<label class="assist__ctick"><input type="checkbox" name="opt_${c}" /><span>${words[c]}</span></label>`).join('')}
-      <div class="assist__crow"><button type="submit" class="assist__csend">${tc('Send')}</button><span class="assist__cmsg" role="status" aria-live="polite"></span></div>`;
-    li.appendChild(form);
-    log.appendChild(li);
-    trim();
-    log.scrollTop = log.scrollHeight;
-    const msg = form.querySelector<HTMLElement>('.assist__cmsg');
-    const v = (n) => (form.querySelector<HTMLInputElement>(`[name="${n}"]`)?.value || '').trim();
-    const on = (n) => !!form.querySelector<HTMLInputElement>(`[name="${n}"]`)?.checked;
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (!v('phone') && !v('email')) { msg.textContent = tc('Add a phone number or an email.'); return; }
-      const ticked = ticks.filter((c) => on(`opt_${c}`));
-      const btn = form.querySelector<HTMLButtonElement>('button');
-      btn.disabled = true;
-      try {
-        await sendContact({
-          name: v('name'), company: v('company'), phone: v('phone'), email: v('email'),
-          whatsapp_opt_in: on('opt_whatsapp'), email_opt_in: on('opt_email'),
-          consent_wording: ticked.map((c) => words[c]).join(' / ') || undefined,
-        });
-        li.textContent = tc('Thank you. We have your details.');
-      } catch (err) {
-        btn.disabled = false;
-        msg.textContent = err instanceof ApiError && err.status === 422
-          ? tc('That phone number or email doesn’t look right.')
-          : tc('Couldn’t send that just now. Please try again.');
-      }
-    });
-    form.querySelector<HTMLInputElement>('input')?.focus({ preventScroll: true });
+  // ── contact details from the conversation (no form): what the visitor types or says that is a name,
+  // a phone, an email or a company goes to POST /sessions/{id}/contact (src/assistant/contactCapture.ts).
+  // Each detail is sent once; the opt-ins stay false (consent is never assumed from chat) ──
+  let expecting: Expecting = {};
+  // her line asks for something ("May I have your name and number?"): the next answer is read with that in mind
+  function noteAsk(line: string) {
+    const asked = askedFor(line || '');
+    (Object.keys(asked) as (keyof Expecting)[]).forEach((k) => { if (asked[k]) expecting[k] = true; });
+  }
+  function captureContact(text: string) {
+    const found = extractContact(text, expecting);
+    expecting = {};
+    const known = (state.contact || {}) as ContactFields;
+    const fresh = (Object.keys(found) as (keyof ContactFields)[]).filter((k) => found[k] && found[k] !== known[k]);
+    if (!fresh.length || !apiEnabled()) return;
+    const all = { ...known, ...found };
+    state.contact = all;
+    save(state);
+    sendContact({ ...all, whatsapp_opt_in: false, email_opt_in: false }).catch((e) =>
+      console.warn('[Arifa] contact details not saved:', e instanceof ApiError ? `${e.status} ${e.reason || ''}` : e));
   }
 
   // a short message from the assistant after a visitor event (src/assistant/nudges.ts)
@@ -717,6 +694,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
     const li = bubble('bot', '');
     const cap = caption(li, text, pace(text));
     remember('bot', text);
+    noteAsk(text);
     cap.tween.then(() => cap.finish());
   };
   async function toggleVoice() {
@@ -729,7 +707,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
       const { startLiveVoice } = await import('@/assistant/liveVoice');
       liveVoice = await startLiveVoice(isArPage() ? 'ar' : 'en', {
         onState: (st) => { if (st === 'off') { liveVoice = null; setVoiceState('off'); } else setVoiceState(st); },
-        onLine: (text, me) => { if (me) bubble('you', text); else shown(text); },
+        onLine: (text, me) => { if (me) { bubble('you', text); captureContact(text); } else shown(text); },
         onLevel: (v) => { const x = v.toFixed(3); card.style.setProperty('--lvl', x); dock.style.setProperty('--lvl', x); },
         onAction: (a) => enqueue(a), // (the agent's site actions during the call)
       });
@@ -752,7 +730,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
     if (!text) return;
     input.value = '';
     bubble('you', text);
-    if (liveVoice) { liveVoice.sendText(text); return; }
+    if (liveVoice) { captureContact(text); liveVoice.sendText(text); return; }
     handle(text, 'text');
   });
 
