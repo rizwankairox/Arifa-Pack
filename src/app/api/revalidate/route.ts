@@ -15,7 +15,10 @@ import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function POST(req: Request) {
   const secret = process.env.KX_REVALIDATE_SECRET;
-  if (!secret) return new Response('revalidation is not configured', { status: 503 });
+  if (!secret) {
+    console.warn('[revalidate] refused: KX_REVALIDATE_SECRET is not set in .env.local');
+    return new Response('revalidation is not configured', { status: 503 });
+  }
 
   const ts = req.headers.get('x-kx-timestamp') || '';
   const sig = req.headers.get('x-kx-signature') || '';
@@ -23,7 +26,10 @@ export async function POST(req: Request) {
   const want = `sha256=${crypto.createHmac('sha256', secret).update(`${ts}.${body}`).digest('hex')}`;
   const fresh = Number.isFinite(Number(ts)) && Math.abs(Date.now() / 1000 - Number(ts)) <= 300;
   const same = sig.length === want.length && crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(want));
-  if (!fresh || !same) return new Response('bad signature', { status: 401 });
+  if (!fresh || !same) {
+    console.warn(`[revalidate] refused (401): ${!fresh ? 'timestamp more than 5 minutes off' : 'signature does not match the secret'}`);
+    return new Response('bad signature', { status: 401 });
+  }
 
   let tags: string[] = [];
   let paths: string[] = [];
@@ -35,6 +41,8 @@ export async function POST(req: Request) {
     return new Response('body is not JSON', { status: 422 });
   }
   // ('max': serve the old page while the new one renders, so no visitor waits)
+  // (printed in the terminal running the site, so the backend's publish calls can be seen there)
+  console.info(`[revalidate] publish received: tags ${tags.join(', ') || '-'} | paths ${paths.join(', ') || '-'}`);
   tags.forEach((t) => revalidateTag(t, 'max'));
   paths.forEach((p) => revalidatePath(p));
   return Response.json({ ok: true, tags: tags.length, paths: paths.length });
