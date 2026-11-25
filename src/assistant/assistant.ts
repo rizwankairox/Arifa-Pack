@@ -61,6 +61,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
   const card = document.querySelector<HTMLElement>('[data-assist]');
   if (!card) return { handoff(_id: string) {}, async start(_o: { quiet?: boolean } = {}) {}, async opening(_h?: HeroAssist | null) {}, async arrive() {} };
   let hero = heroIn; // (home: the hero's ring, handed over by opening())
+  const greeting = card.dataset.greeting || GREETING; // (the CMS's greeting, site.assistant, when it has one)
   const log = card.querySelector<HTMLElement>('[data-assist-log]');
   const statusEl = card.querySelector<HTMLElement>('[data-assist-status]');
   const chipsEl = card.querySelector<HTMLElement>('[data-assist-chips]');
@@ -749,7 +750,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
     keepOpen(true);
     openCard(true);
     gsap.from(card, { opacity: 0, y: 14, duration: 0.45, ease: 'expo.out' });
-    if (!log.children.length) { bubble('bot', GREETING); chips(SUGGEST); }
+    if (!log.children.length) { bubble('bot', greeting); chips(SUGGEST); }
     card.querySelector<HTMLInputElement>('[data-assist-type] input')?.focus({ preventScroll: true });
   });
   // the greeting card belongs to the hero: it steps aside once you scroll on
@@ -815,7 +816,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
       openCard(true);
       card.classList.add('is-invite');
       gsap.from(card, { opacity: 0, y: 14, duration: 0.6, ease: 'expo.out' });
-      bubble('bot', GREETING);
+      bubble('bot', greeting);
       chips(SUGGEST);
       state.docked = true;
       save(state);

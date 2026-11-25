@@ -5,7 +5,7 @@ import { t, lh } from '@/i18n';
 import { CmsText } from '@/components/site/CmsText';
 import { cmsCollection } from '@/lib/content';
 
-type Cert = { title?: string; issuer?: string; scope?: string; valid_until?: string; file?: { src?: string } };
+type Cert = { title?: string; issuer?: string; text?: string; valid_until?: string; file?: { src?: string } };
 
 export function Documents() {
   const certs = (cmsCollection<Cert>('certificates') || []).filter((c) => c.title);
@@ -26,7 +26,7 @@ export function Documents() {
             <article className="q-cert" key={c.key}>
               {c.issuer && <span className="q-cert__issuer mono">{c.issuer}</span>}
               <h3>{c.title}</h3>
-              {(c.scope || c.valid_until) && <p>{[c.scope, c.valid_until && `${t("valid until")} ${c.valid_until}`].filter(Boolean).join(' · ')}</p>}
+              {(c.text || c.valid_until) && <p>{[c.text, c.valid_until && `${t("valid until")} ${c.valid_until}`].filter(Boolean).join(' · ')}</p>}
               {c.file?.src && (
                 <a className="link mono" href={c.file.src} target="_blank" rel="noopener">
                   {t("View certificate")}

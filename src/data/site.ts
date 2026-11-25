@@ -75,38 +75,53 @@ export const footerCategories: NavLink[] = [
 ];
 
 /*
-  The CMS site settings laid over the details above (called by loadContent, src/lib/content.ts,
-  when the CMS is connected). Only the fields the CMS sends are changed; the rest stay as written
-  here. Always the English document: these details are shared by every visitor, so /ar pages show
-  the address and hours through t() (Arabic when src/i18n/ar.ts knows the text, else English).
+  The CMS site settings laid over the details above (called by loadContent, src/lib/content.ts, when
+  the CMS is connected; fields as GET /v1/content/site sends them: CMS_API.md "site"). Only the
+  fields the CMS fills in change; the rest stay as written here. Always the English document: these
+  details are shared by every visitor, so /ar pages show the address and hours through t()
+  (Arabic when src/i18n/ar.ts knows the text, else English).
 */
-type Phone = string | { label?: string; number?: string; tel?: string };
+type CmsPhone = { label?: string; number?: string; whatsapp?: boolean };
+type CmsSite = {
+  company_name?: string;
+  site_url?: string | null;
+  phones?: CmsPhone[];
+  emails?: { label?: string; address?: string }[];
+  addresses?: { label?: string; lines?: string[]; map_url?: string | null }[];
+  hours?: { text?: string; days?: string[]; opens?: string | null; closes?: string | null } | null;
+};
 const str = (v: unknown) => (typeof v === 'string' && v.trim() ? v.trim() : null);
 const dial = (s: string) => s.replace(/[^\d+]/g, '');
+const DAY = { mon: ['Mon', 'Mo'], tue: ['Tue', 'Tu'], wed: ['Wed', 'We'], thu: ['Thu', 'Th'], fri: ['Fri', 'Fr'], sat: ['Sat', 'Sa'], sun: ['Sun', 'Su'] } as const;
 
-export function applySite(en: Record<string, any>) {
+export function applySite(en: CmsSite) {
   if (!en) return;
-  const name = str(en.company_name) || str(en.name);
+  const name = str(en.company_name);
   if (name) company.name = name;
-  const short = str(en.short_name);
-  if (short) company.short = short;
-  const email = str(en.email) || str(en.emails?.[0]?.address) || str(en.emails?.[0]) || str(en.emails?.info);
-  if (email) company.email = email;
-  // phones: [head office, packaging], as strings or { label, number }
-  const phones: Phone[] = Array.isArray(en.phones) ? en.phones : [];
-  phones.slice(0, company.phones.length).forEach((p, i) => {
-    const label = typeof p === 'string' ? p : str(p.number) || str(p.tel) || str(p.label);
-    if (label) Object.assign(company.phones[i], { label, tel: dial(typeof p === 'object' && p.tel ? p.tel : label) });
-  });
-  const addr = en.addresses?.[0] ?? en.address;
-  const address = str(addr) || str(addr?.text) || str(addr?.line);
-  if (address) company.address = address;
-  const maps = str(en.maps_url) || str(addr?.maps_url) || str(addr?.map);
-  if (maps) company.maps = maps;
-  const hours = str(en.hours) || str(en.hours?.short);
-  if (hours) company.hours = hours;
-  const hoursLong = str(en.hours?.long);
-  if (hoursLong) company.hoursLong = hoursLong;
   const url = str(en.site_url);
   if (url) company.siteUrl = url.replace(/\/+$/, '');
+  const email = str(en.emails?.[0]?.address);
+  if (email) company.email = email;
+  // phones: [head office, packaging]; label is how it's shown, number is what it dials
+  (en.phones || []).slice(0, company.phones.length).forEach((p, i) => {
+    const number = str(p.number) || str(p.label);
+    if (number) Object.assign(company.phones[i], { label: str(p.label) || number, tel: dial(number) });
+  });
+  const addr = en.addresses?.[0];
+  const lines = (addr?.lines || []).map(str).filter(Boolean) as string[];
+  if (lines.length) {
+    company.address = lines.join(', ');
+    company.postal = { streetAddress: lines[0], addressLocality: lines.length > 1 ? lines[lines.length - 1].replace(/,?\s*UAE$/i, '') : company.postal.addressLocality, addressCountry: 'AE' };
+  }
+  if (str(addr?.map_url)) company.maps = str(addr?.map_url)!;
+  const h = en.hours;
+  if (h) {
+    if (str(h.text)) company.hoursLong = str(h.text)!;
+    const days = (h.days || []).filter((d): d is keyof typeof DAY => d in DAY);
+    if (days.length && h.opens && h.closes) {
+      const [a, b] = [DAY[days[0]], DAY[days[days.length - 1]]];
+      company.hours = `${a[0]}${days.length > 1 ? ` – ${b[0]}` : ''}, ${h.opens} – ${h.closes}`;
+      company.hoursSchema = `${a[1]}${days.length > 1 ? `-${b[1]}` : ''} ${h.opens}-${h.closes}`;
+    }
+  }
 }

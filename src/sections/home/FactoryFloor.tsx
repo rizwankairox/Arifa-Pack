@@ -3,7 +3,13 @@
 */
 import { t } from '@/i18n';
 import { CmsText } from '@/components/site/CmsText';
+import { cmsCollection } from '@/lib/content';
+
 export function FactoryFloor() {
+  // the seven stops' names and lines: the CMS "tour_chapters" collection (in order) when it is
+  // connected, else as written here. The clips stay with their stop.
+  const cms = cmsCollection<{ title?: string; text?: string }>('tour_chapters');
+  const chapter = (i: number, field: 'title' | 'text', fallback: string) => cms?.[i]?.[field]?.trim() || fallback;
   return (
     <section className="floor" id="floor" data-theme="dark" data-floor="">
       <div className="floor__pin">
@@ -28,8 +34,8 @@ export function FactoryFloor() {
                 data-src="/media/clips/hero-exterior.mp4"
               ></video>
             </div>
-            <h3>{t("Arrival")}</h3>
-            <p>{t("The building on Al Jurf Industrial Area 2.")}</p>
+            <h3>{chapter(0, "title", t("Arrival"))}</h3>
+            <p>{chapter(0, "text", t("The building on Al Jurf Industrial Area 2."))}</p>
           </article>
           <article className="chapter">
             <div className="chapter__media">
@@ -42,8 +48,8 @@ export function FactoryFloor() {
                 data-src="/media/clips/line-conveyor.mp4"
               ></video>
             </div>
-            <h3>{t("Forming")}</h3>
-            <p>{t("Container lines and their stackers.")}</p>
+            <h3>{chapter(1, "title", t("Forming"))}</h3>
+            <p>{chapter(1, "text", t("Container lines and their stackers."))}</p>
           </article>
           <article className="chapter">
             <div className="chapter__media">
@@ -56,8 +62,8 @@ export function FactoryFloor() {
                 data-src="/media/clips/pack-sleeve.mp4"
               ></video>
             </div>
-            <h3>{t("Lids")}</h3>
-            <p>{t("Printed lids, fitted to every container.")}</p>
+            <h3>{chapter(2, "title", t("Lids"))}</h3>
+            <p>{chapter(2, "text", t("Printed lids, fitted to every container."))}</p>
           </article>
           <article className="chapter">
             <div className="chapter__media">
@@ -70,8 +76,8 @@ export function FactoryFloor() {
                 data-src="/media/clips/foil-roll.mp4"
               ></video>
             </div>
-            <h3>{t("Foil")}</h3>
-            <p>{t("Rewinding jumbo rolls into kitchen rolls.")}</p>
+            <h3>{chapter(3, "title", t("Foil"))}</h3>
+            <p>{chapter(3, "text", t("Rewinding jumbo rolls into kitchen rolls."))}</p>
           </article>
           <article className="chapter">
             <div className="chapter__media">
@@ -84,8 +90,8 @@ export function FactoryFloor() {
                 data-src="/media/clips/pack-box.mp4"
               ></video>
             </div>
-            <h3>{t("Packing")}</h3>
-            <p>{t("Sleeved, shrink-wrapped, boxed.")}</p>
+            <h3>{chapter(4, "title", t("Packing"))}</h3>
+            <p>{chapter(4, "text", t("Sleeved, shrink-wrapped, boxed."))}</p>
           </article>
           <article className="chapter">
             <div className="chapter__media">
@@ -98,8 +104,8 @@ export function FactoryFloor() {
                 data-src="/media/clips/moulding-robot.mp4"
               ></video>
             </div>
-            <h3>{t("Cutlery")}</h3>
-            <p>{t("Plastic forks and spoons, straight off the moulding line.")}</p>
+            <h3>{chapter(5, "title", t("Cutlery"))}</h3>
+            <p>{chapter(5, "text", t("Plastic forks and spoons, straight off the moulding line."))}</p>
           </article>
           <article className="chapter">
             <div className="chapter__media">
@@ -112,8 +118,8 @@ export function FactoryFloor() {
                 data-src="/media/clips/warehouse-walk.mp4"
               ></video>
             </div>
-            <h3>{t("Warehouse")}</h3>
-            <p>{t("Labelled, racked and ready to dispatch.")}</p>
+            <h3>{chapter(6, "title", t("Warehouse"))}</h3>
+            <p>{chapter(6, "text", t("Labelled, racked and ready to dispatch."))}</p>
           </article>
         </div>
 

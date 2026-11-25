@@ -35,6 +35,18 @@ export type ProductEntry = {
    * product's own page here, so existing Google results and bookmarks keep working.
    */
   legacyPage?: string;
+  /** what the CMS adds about a product (CMS_API.md products: description, specs, suitability …); absent without the CMS */
+  details?: ProductDetails;
+};
+
+/** a product's details from the CMS: each shown on its page only when filled in */
+export type ProductDetails = {
+  description?: string;
+  specs?: Partial<Record<'material' | 'capacity' | 'dimensions' | 'thickness' | 'colours' | 'lid_options' | 'pieces_per_carton', string | null>>;
+  suitability?: Partial<Record<'oven' | 'microwave' | 'freezer', boolean | null>>;
+  applications?: string[];
+  moq?: string;
+  datasheet?: string;
 };
 
 /** a product ready for the page: with its photo (if there is one) and its family's name */

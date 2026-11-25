@@ -26,6 +26,7 @@ import {
   type Block, type ContentDoc, type ContentList, type Locale,
 } from './arifaContent';
 import { getLocale } from '@/i18n/locale';
+import { t } from '@/i18n';
 import { applySite } from '@/data/site';
 
 /** the collections every page may draw on (clients page, enquiry desk, about, home tour, quality) */
@@ -42,6 +43,30 @@ type Store = {
   productsEn: ContentDoc[] | null;
   collections: Partial<Record<CollectionName, ContentList | null>>;
 };
+
+/*
+  The CMS's photos of files this site already has are written as the site's own address
+  (https://www.arifapack.com/images/catalogue/ac-8325.webp). Those are made relative
+  (/images/catalogue/ac-8325.webp), so they load from wherever the site runs (local, preview,
+  live) and keep their AVIF and phone-size copies. Photos on the CMS's media store stay as they are.
+*/
+const OWN_HOSTS = new Set(['arifapack.com', 'www.arifapack.com']);
+function ownToRelative<T>(v: T): T {
+  if (Array.isArray(v)) return v.map(ownToRelative) as T;
+  if (!v || typeof v !== 'object') return v;
+  const out: Record<string, unknown> = {};
+  for (const [k, x] of Object.entries(v as Record<string, unknown>)) {
+    if ((k === 'src' || k === 'url') && typeof x === 'string') {
+      try {
+        const u = new URL(x);
+        out[k] = OWN_HOSTS.has(u.hostname) && /^\/(images|media|docs)\//.test(u.pathname) ? u.pathname : x;
+      } catch {
+        out[k] = x;
+      }
+    } else out[k] = ownToRelative(x);
+  }
+  return out as T;
+}
 
 const store = cache((): Store => ({ page: null, pageDoc: null, site: null, families: null, products: null, productsEn: null, collections: {} }));
 
@@ -70,8 +95,8 @@ export const loadContent = cache(async (page: string, locale: Locale = getLocale
     locale === 'en' ? null : allProducts('en'),
     ...COLLECTIONS.map((c) => getCollection(c, locale)),
   ]);
-  Object.assign(s, { site, pageDoc, families, products, productsEn: productsEn ?? products });
-  COLLECTIONS.forEach((c, i) => (s.collections[c] = lists[i]));
+  Object.assign(s, ownToRelative({ site, pageDoc, families, products, productsEn: productsEn ?? products }));
+  COLLECTIONS.forEach((c, i) => (s.collections[c] = ownToRelative(lists[i])));
   // phones, email, address, hours: shared by every visitor, so taken from the English document
   const en = locale === 'en' ? site : siteEn;
   if (en) applySite(en.data);
@@ -89,7 +114,15 @@ export function cmsCatalogue() {
 export function cmsCollection<T = Record<string, any>>(name: CollectionName): (T & { key: string })[] | null {
   const list = store().collections[name];
   if (!list?.items.length) return null;
-  return list.items.map((d) => ({ ...(d.data as T), key: d.key }));
+  // on /ar, each untranslated text field (the CMS sends the English) uses the site's own Arabic when there is one
+  const ar = getLocale() === 'ar';
+  const tr = (v: unknown): unknown => (typeof v === 'string' ? t(v) : Array.isArray(v) ? v.map((x) => (typeof x === 'string' ? t(x) : x)) : v);
+  const KEEP = new Set(['kit', 'families', 'industry', 'trade', 'kind', 'family', 'valid_until']); // ids and values matched by the site, never translated
+  return list.items.map((d) => {
+    const data = d.data as Record<string, unknown>;
+    const out = ar ? Object.fromEntries(Object.entries(data).map(([k, v]) => [k, KEEP.has(k) ? v : tr(v)])) : data;
+    return { ...(out as T), key: d.key };
+  });
 }
 
 /** this page's block for one section (its DOM id), or null */
@@ -98,27 +131,38 @@ export const pageBlock = (sectionId: string): Block | null => blockOf(store().pa
 /** one text field of this page's section from the CMS, or null */
 export function blockText(sectionId: string, field: 'eyebrow' | 'heading' | 'body'): string | null {
   const v = pageBlock(sectionId)?.[field];
-  return typeof v === 'string' && v.trim() ? v : null;
+  if (typeof v !== 'string' || !v.trim()) return null;
+  // the site shows no section numbers: an eyebrow that is only one ("(01)", "02") keeps the site's own label
+  if (field === 'eyebrow' && /^\(?\s*\d{1,2}\s*\)?\.?$/.test(v.trim())) return null;
+  // on /ar, text the CMS has no Arabic for yet (it sends the English) uses the site's own Arabic when there is one
+  return getLocale() === 'ar' ? t(v) : v;
 }
 
 /** the CMS site settings document for this request (theme, announcement, assistant texts), or null */
 export const cmsSite = () => store().site?.data ?? null;
 
 /** the page's SEO fields from the CMS (title, description), or null */
-export function cmsSeo(): { title?: string; description?: string; og_image?: { src?: string } } | null {
+export function cmsSeo(): { title?: string; description?: string; share_image?: { src?: string } | null; noindex?: boolean } | null {
   const d = store().pageDoc?.data as Record<string, any> | undefined;
   return (d?.seo as Record<string, any>) || (d?.title ? { title: d.title, description: d.description } : null);
 }
 
 /** a page's metadata with the CMS SEO title and description laid over it, when the CMS has them */
-export function withCmsSeo<M extends { title?: unknown; description?: unknown; openGraph?: unknown }>(m: M): M {
+export function withCmsSeo<M extends { title?: unknown; description?: unknown; openGraph?: unknown; robots?: unknown }>(m: M): M {
   const seo = cmsSeo();
-  if (!seo?.title && !seo?.description) return m;
+  const image = seo?.share_image?.src;
+  if (!seo?.title && !seo?.description && !image && !seo?.noindex) return m;
   const og = (m.openGraph || {}) as Record<string, unknown>;
   return {
     ...m,
     ...(seo.title ? { title: seo.title } : {}),
     ...(seo.description ? { description: seo.description } : {}),
-    openGraph: { ...og, ...(seo.title ? { title: seo.title } : {}), ...(seo.description ? { description: seo.description } : {}) },
+    ...(seo.noindex ? { robots: { index: false, follow: true } } : {}),
+    openGraph: {
+      ...og,
+      ...(seo.title ? { title: seo.title } : {}),
+      ...(seo.description ? { description: seo.description } : {}),
+      ...(image ? { images: [{ url: image }] } : {}),
+    },
   };
 }

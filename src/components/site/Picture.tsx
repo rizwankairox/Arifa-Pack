@@ -21,6 +21,11 @@ type Props = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'srcSet' | 'width
 };
 
 export function Picture({ src, width, height, widths = [], sizes, alt = '', ...img }: Props) {
+  // a photo from the CMS (a full https address on its media store): no AVIF or smaller copies exist
+  // beside it, so it is shown as it is (a <source> pointing at a missing .avif would show nothing)
+  if (/^(https?:)?\/\//.test(src) || !src.endsWith('.webp')) {
+    return <img src={src} width={width} height={height} alt={alt} {...img} />;
+  }
   const base = src.replace(/\.webp$/, '');
   const set = (ext: string) => [...widths.map((w) => `${base}-${w}.${ext} ${w}w`), `${base}.${ext} ${width}w`].join(', ');
   const responsive = widths.length > 0;

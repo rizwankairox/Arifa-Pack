@@ -21,6 +21,17 @@ export function ProductDetail({ p }: { p: Product }) {
     [t('Family'), p.familyName],
     [t('Range'), p.range === 'self' ? t('Arifa self range') : t('Trade')],
   ];
+  // the CMS's details (src/data/catalogue.ts): each row only when it is filled in
+  const d = p.details || {};
+  const SPEC: [keyof NonNullable<typeof d.specs>, string][] = [
+    ['material', 'Material'], ['capacity', 'Capacity'], ['dimensions', 'Dimensions'], ['thickness', 'Thickness'],
+    ['colours', 'Colours'], ['lid_options', 'Lid options'], ['pieces_per_carton', 'Pieces per carton'],
+  ];
+  SPEC.forEach(([k, label]) => { const v = d.specs?.[k]; if (v && String(v).trim()) rows.push([t(label), String(v).trim()]); });
+  const suits = (['oven', 'microwave', 'freezer'] as const).filter((k) => d.suitability?.[k]).map((k) => t(k[0].toUpperCase() + k.slice(1)));
+  if (suits.length) rows.push([t('Suitable for'), suits.join(' · ')]);
+  if (d.applications?.length) rows.push([t('Used for'), d.applications.join(', ')]);
+  if (d.moq) rows.push([t('Minimum order'), d.moq]);
   return (
     <section className="pd" id="product" data-theme="light">
       <div className="wrap">
@@ -54,6 +65,7 @@ export function ProductDetail({ p }: { p: Product }) {
             </p>
             <p className="pd__ref">{p.ref}</p>
             <h1 className="pd__title">{p.name}</h1>
+            {d.description && <p className="pd__desc">{d.description}</p>}
             {p.range === 'self' && <span className="pd__tag mono">{t('Arifa self range')}</span>}
 
             <dl className="qv__spec pd__spec">
@@ -64,6 +76,12 @@ export function ProductDetail({ p }: { p: Product }) {
                 </div>
               ))}
             </dl>
+
+            {d.datasheet && (
+              <a className="link mono pd__sheet" href={d.datasheet} target="_blank" rel="noopener">
+                {t('Download the datasheet')} ↗
+              </a>
+            )}
 
             {/* the other version of this product: its packet pack (old sr-… page), or the carton it packs */}
             {(p.pack || p.trade?.length) ? (

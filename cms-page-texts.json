@@ -1,0 +1,376 @@
+{
+  "home": [
+    {
+      "section_id": "top",
+      "design_id": "HM-01",
+      "en": {
+        "eyebrow": "The Arifa collection",
+        "heading": "Considered in detail.\nMade to perform.",
+        "body": "Aluminium containers, foil, platters and food packaging, formed in aluminium and made in Ajman, UAE."
+      },
+      "ar": {
+        "eyebrow": "مجموعة عارفة",
+        "heading": "مدروسة بأدق التفاصيل.\nمصنوعة لتؤدي.",
+        "body": "حاويات ألمنيوم، وورق ألمنيوم، وصوانٍ وعبوات للأغذية، مشكّلة من الألمنيوم ومصنوعة في عجمان، الإمارات."
+      }
+    },
+    {
+      "section_id": "intro",
+      "design_id": "HM-02",
+      "en": {
+        "eyebrow": "The company"
+      },
+      "ar": {
+        "eyebrow": "الشركة"
+      }
+    },
+    {
+      "section_id": "factory",
+      "design_id": "HM-03",
+      "en": {
+        "eyebrow": "The line",
+        "heading": "How an 83185 container is made"
+      },
+      "ar": {
+        "eyebrow": "خط الإنتاج",
+        "heading": "كيف تُصنع الحاوية 83185 "
+      }
+    },
+    {
+      "section_id": "range",
+      "design_id": "HM-04",
+      "en": {
+        "eyebrow": "Products",
+        "heading": "Eight product families, catalogued by code and carton.",
+        "body": "Each line opens the full listing with product codes and packing quantities."
+      },
+      "ar": {
+        "eyebrow": "المنتجات",
+        "heading": "ثماني عائلات منتجات، مصنّفة حسب الرمز والكرتونة.",
+        "body": "كل سطر يفتح القائمة الكاملة مع رموز المنتجات وكميات التعبئة."
+      }
+    },
+    {
+      "section_id": "floor",
+      "design_id": "HM-05",
+      "en": {
+        "eyebrow": "Walk the floor",
+        "heading": "Seven stops inside Arifa."
+      },
+      "ar": {
+        "eyebrow": "جولة في المصنع",
+        "heading": "سبع محطات داخل عارفة."
+      }
+    },
+    {
+      "section_id": "company",
+      "design_id": "HM-06",
+      "en": {
+        "eyebrow": "What we do",
+        "heading": "Made in our own facility. Finished in your brand.",
+        "body": "Arifa Pack specialises in disposable packaging — aluminium containers, plastic containers and disposable cutlery — backed by consistent quality standards and a customer-first way of working."
+      },
+      "ar": {
+        "eyebrow": "ماذا نفعل",
+        "heading": "نصنعه في منشأتنا. ونُنهيه بعلامتك التجارية.",
+        "body": "تتخصص عارفة باك في العبوات أحادية الاستخدام — حاويات الألمنيوم والحاويات البلاستيكية وأدوات المائدة أحادية الاستخدام — مدعومةً بمعايير جودة ثابتة وأسلوب عمل يضع العميل أولاً."
+      }
+    },
+    {
+      "section_id": "contact",
+      "design_id": "HM-07",
+      "en": {
+        "eyebrow": "Request a quote",
+        "heading": "Tell us what you need packed.",
+        "body": "Share the product, an approximate quantity and where it's going. The packaging team will come back to you during working hours."
+      },
+      "ar": {
+        "eyebrow": "اطلب عرض سعر",
+        "heading": "أخبرنا بما تحتاج إلى تعبئته.",
+        "body": "شاركنا المنتج والكمية التقريبية ووجهة الشحن. وسيعود إليك فريق التغليف خلال ساعات العمل."
+      }
+    }
+  ],
+  "products": [
+    {
+      "section_id": "top",
+      "design_id": "PR-01"
+    },
+    {
+      "section_id": "families",
+      "design_id": "PR-02"
+    },
+    {
+      "section_id": "catalogue",
+      "design_id": "PR-03"
+    },
+    {
+      "section_id": "not-listed",
+      "design_id": "PR-06",
+      "en": {
+        "eyebrow": "Not listed",
+        "heading": "Need a size or code that isn't here?"
+      },
+      "ar": {
+        "eyebrow": "غير مدرج",
+        "heading": "تحتاج مقاساً أو رمزاً غير موجود هنا؟"
+      }
+    }
+  ],
+  "about": [
+    {
+      "section_id": "top",
+      "design_id": "AB-01",
+      "en": {
+        "heading": "Packaging that\nprotects, presents\nand performs."
+      },
+      "ar": {
+        "heading": "تغليف\nيحمي، ويُبرز،\nويؤدي."
+      }
+    },
+    {
+      "section_id": "story",
+      "design_id": "AB-02",
+      "en": {
+        "eyebrow": "Heritage",
+        "heading": "Arifa Group,\nsince 1997."
+      },
+      "ar": {
+        "eyebrow": "الإرث",
+        "heading": "مجموعة عارفة،\nمنذ 1997."
+      }
+    },
+    {
+      "section_id": "values",
+      "design_id": "AB-03",
+      "en": {
+        "eyebrow": "Core values",
+        "heading": "Six values, practised every day."
+      },
+      "ar": {
+        "eyebrow": "القيم الأساسية",
+        "heading": "ست قيم نمارسها كل يوم."
+      }
+    },
+    {
+      "section_id": "reach",
+      "design_id": "AB-04",
+      "en": {
+        "eyebrow": "From Ajman to the world",
+        "heading": "One factory in Ajman.\nBusinesses worldwide."
+      },
+      "ar": {
+        "eyebrow": "من عجمان إلى العالم",
+        "heading": "مصنع واحد في عجمان.\nوأعمال حول العالم."
+      }
+    },
+    {
+      "section_id": "chairman",
+      "design_id": "AB-05",
+      "en": {
+        "eyebrow": "From the President / CEO"
+      },
+      "ar": {
+        "eyebrow": "من الرئيس / الرئيس التنفيذي"
+      }
+    },
+    {
+      "section_id": "leadership",
+      "design_id": "AB-06",
+      "en": {
+        "eyebrow": "Leadership",
+        "heading": "The directors"
+      },
+      "ar": {
+        "eyebrow": "القيادة",
+        "heading": "أعضاء مجلس الإدارة"
+      }
+    },
+    {
+      "section_id": "what-we-do",
+      "design_id": "AB-07",
+      "en": {
+        "eyebrow": "What we do",
+        "heading": "Made in our own facility. Finished in your brand."
+      },
+      "ar": {
+        "eyebrow": "ماذا نفعل",
+        "heading": "نصنعه في منشأتنا. ونُنهيه بعلامتك التجارية."
+      }
+    },
+    {
+      "section_id": "visit",
+      "design_id": "AB-08",
+      "en": {
+        "eyebrow": "Visit",
+        "heading": "Al Jurf Industrial Area 2,\nAjman, UAE."
+      },
+      "ar": {
+        "eyebrow": "زيارتنا",
+        "heading": "منطقة الجرف الصناعية 2،\nعجمان، الإمارات."
+      }
+    }
+  ],
+  "quality": [
+    {
+      "section_id": "top",
+      "design_id": "QA-01",
+      "en": {
+        "eyebrow": "Quality & Sustainability",
+        "heading": "Shown,\nnot claimed."
+      },
+      "ar": {
+        "eyebrow": "الجودة والاستدامة",
+        "heading": "نُريك،\nلا نَدّعي."
+      }
+    },
+    {
+      "section_id": "line",
+      "design_id": "QA-02",
+      "en": {
+        "eyebrow": "The line, checked",
+        "heading": "From coil to carton."
+      },
+      "ar": {
+        "eyebrow": "خط الإنتاج، مفحوصاً",
+        "heading": "من اللفافة إلى الكرتونة."
+      }
+    },
+    {
+      "section_id": "hygiene",
+      "design_id": "QA-03",
+      "en": {
+        "eyebrow": "Hygiene you can see"
+      },
+      "ar": {
+        "eyebrow": "نظافة يمكنك رؤيتها"
+      }
+    },
+    {
+      "section_id": "documents",
+      "design_id": "QA-04",
+      "en": {
+        "eyebrow": "Certificates & documents",
+        "heading": "Need paperwork for a tender or an audit?"
+      },
+      "ar": {
+        "eyebrow": "الشهادات والوثائق",
+        "heading": "تحتاج مستندات لمناقصة أو تدقيق؟"
+      }
+    },
+    {
+      "section_id": "sustainability",
+      "design_id": "QA-05",
+      "en": {
+        "eyebrow": "Sustainability",
+        "heading": "Mostly aluminium.\nCounted, not estimated.",
+        "body": "Aluminium can be recycled again and again without losing its quality. Every dot here is one product in our range; the lit ones are aluminium."
+      },
+      "ar": {
+        "eyebrow": "الاستدامة",
+        "heading": "معظمها من الألمنيوم.\nبالعدّ، لا بالتقدير.",
+        "body": "يمكن إعادة تدوير الألمنيوم مرة بعد مرة دون أن يفقد جودته. كل نقطة هنا منتجٌ واحد في تشكيلتنا، والنقاط المضيئة منها من الألمنيوم."
+      }
+    },
+    {
+      "section_id": "see-it",
+      "design_id": "QA-06",
+      "en": {
+        "heading": "See it for yourself."
+      },
+      "ar": {
+        "heading": "شاهد بنفسك."
+      }
+    }
+  ],
+  "clients": [
+    {
+      "section_id": "industries",
+      "design_id": "CL-01",
+      "en": {
+        "eyebrow": "Clients & Industries",
+        "heading": "Packed in Ajman.\nSent to every kitchen.",
+        "body": "Bakeries, hotels, restaurants, supermarkets, caterers and distributors. Scroll to follow the cartons from our factory to each of them."
+      },
+      "ar": {
+        "eyebrow": "العملاء والقطاعات",
+        "heading": "نعبّئ في عجمان.\nونرسل إلى كل مطبخ.",
+        "body": "مخابز وفنادق ومطاعم ومتاجر كبرى ومتعهدو تموين وموزّعون. مرّر لتتبّع الكراتين من مصنعنا إلى كلٍّ منهم."
+      }
+    },
+    {
+      "section_id": "clients",
+      "design_id": "CL-02",
+      "en": {
+        "eyebrow": "Our clients",
+        "heading": "Packed and\nshipped to."
+      },
+      "ar": {
+        "eyebrow": "عملاؤنا",
+        "heading": "عبّأنا وشحنّا\nإلى."
+      }
+    },
+    {
+      "section_id": "reviews",
+      "design_id": "CL-03",
+      "en": {
+        "eyebrow": "Customer stories",
+        "heading": "From their side\nof the counter."
+      },
+      "ar": {
+        "eyebrow": "قصص العملاء",
+        "heading": "من الجانب الآخر\nمن الكاونتر."
+      }
+    },
+    {
+      "section_id": "your-business",
+      "design_id": "CL-04",
+      "en": {
+        "eyebrow": "Your business",
+        "heading": "Not on the list?\nTell us what you pack."
+      },
+      "ar": {
+        "eyebrow": "عملك أنت",
+        "heading": "لست في القائمة؟\nأخبرنا بما تعبّئه."
+      }
+    }
+  ],
+  "contact": [
+    {
+      "section_id": "enquiry",
+      "design_id": "CT-01",
+      "en": {
+        "eyebrow": "Arifa Packing & Packaging LLC",
+        "heading": "Tell us what\nto pack."
+      },
+      "ar": {
+        "eyebrow": "عارفة للتغليف والتعبئة ذ.م.م",
+        "heading": "أخبرنا ماذا\nنعبّئ لك."
+      }
+    },
+    {
+      "section_id": "call",
+      "design_id": "CT-02",
+      "en": {
+        "eyebrow": "Rather talk?",
+        "heading": "A person in Ajman,\nor Arifa, right here."
+      },
+      "ar": {
+        "eyebrow": "تفضّل التحدّث؟",
+        "heading": "شخصٌ في عجمان،\nأو عارفة، هنا مباشرة."
+      }
+    },
+    {
+      "section_id": "where",
+      "design_id": "CT-03",
+      "en": {
+        "eyebrow": "Where we are",
+        "heading": "Al Jurf,\nAjman, UAE."
+      },
+      "ar": {
+        "eyebrow": "أين نحن",
+        "heading": "الجرف،\nعجمان، الإمارات."
+      }
+    }
+  ]
+}

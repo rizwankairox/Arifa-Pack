@@ -11,7 +11,7 @@ type Person = { name: string; role: string; photo: string; alt: string; quote?: 
 function people(): Person[] {
   const cms = cmsCollection<{ name?: string; role?: string; quote?: string; photo?: { src?: string; alt?: string }; kind?: string }>('leadership');
   const list = cms
-    ?.filter((p) => p.name && p.kind !== 'chairman')
+    ?.filter((p) => p.name && !/chair|ceo|president/i.test(p.kind || ''))
     .map((p) => ({ name: p.name!, role: p.role || '', photo: p.photo?.src || '', alt: p.photo?.alt || p.name!, quote: p.quote }));
   if (list?.length) return list;
   return [

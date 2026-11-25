@@ -4,10 +4,13 @@
   backend (src/lib/arifaApi.ts, WEBSITE_API.md). There is no built-in assistant.
 */
 import { t } from '@/i18n';
+import { cmsSite } from '@/lib/content';
 export function AssistantPanel() {
+  // her fixed texts from the CMS (site.assistant), when it is connected; else the ones in assistant.ts
+  const texts = (cmsSite()?.assistant || {}) as { greeting?: string | null };
   return (
     <>
-      <section className="assist" data-assist="" aria-label={t("Arifa assistant")} hidden>
+      <section className="assist" data-assist="" aria-label={t("Arifa assistant")} hidden {...(texts.greeting?.trim() ? { 'data-greeting': texts.greeting.trim() } : {})}>
         {/* (the halo round the panel, and the panel itself: drawn under its content) */}
         <span className="assist__glow" aria-hidden="true"></span>
         <span className="assist__bg" aria-hidden="true"></span>

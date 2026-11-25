@@ -83,7 +83,9 @@ function build(families: Family[], entries: (ProductEntry & { img?: string | nul
 }
 
 // ── from the CMS ──
-const s = (v: unknown, d = '') => (typeof v === 'string' ? v : v == null ? d : String(v));
+const s = (v: unknown, d = '') => (typeof v === 'string' ? v.trim() || d : v == null ? d : String(v));
+/** the CMS has no field for which trade product a self-range pack packs: it comes from catalogue.json */
+const localPackOf = new Map((raw.products as ProductEntry[]).filter((p) => p.packOf).map((p) => [p.id, p.packOf!]));
 const mediaSrc = (m: any): string | null => (m && typeof m === 'object' ? m.src || m.url || null : typeof m === 'string' ? m : null);
 
 /** a CMS family / product document → the site's own shape (CMS_API.md §3: the fields are named as in catalogue.json) */
@@ -104,7 +106,15 @@ function cmsProduct(d: ContentDoc, en?: ContentDoc): ProductEntry & { img: strin
     code: s(p.code),
     qty: s(p.qty ?? p.packing),
     range: p.range === 'self' ? 'self' : 'trade',
-    ...(Array.isArray(p.pack_of ?? p.packOf) ? { packOf: (p.pack_of ?? p.packOf) as string[] } : {}),
+    ...(Array.isArray(p.pack_of ?? p.packOf) ? { packOf: (p.pack_of ?? p.packOf) as string[] } : localPackOf.has(d.key) ? { packOf: localPackOf.get(d.key) } : {}),
+    details: {
+      description: s(p.description) || s(p.short_description) || undefined,
+      specs: p.specs || undefined,
+      suitability: p.suitability || undefined,
+      applications: Array.isArray(p.applications) ? p.applications.filter(Boolean) : undefined,
+      moq: s(p.moq_text) || undefined,
+      datasheet: mediaSrc(p.datasheet) || undefined,
+    },
     ...(legacy ? { legacyPage: legacy } : {}),
     img: photo || localImg(d.key),
     ...(nameEn && nameEn !== s(p.name) ? { nameEn } : {}),
@@ -117,7 +127,12 @@ function fromCms(families: ContentDoc[], products: ContentDoc[], productsEn: Con
   const hit = fromCmsCache.get(products)?.[locale];
   if (hit) return hit;
   const en = new Map(productsEn.map((d) => [d.key, d]));
-  const cat = build(families.map(cmsFamily), products.map((d) => cmsProduct(d, locale === 'ar' ? en.get(d.key) : undefined)), lh);
+  // on /ar, text the CMS has no Arabic for yet comes back in English: the site's own Arabic (src/i18n/ar.ts)
+  // is used for it, as without the CMS (t() leaves text that is already Arabic as it is)
+  const ar = locale === 'ar';
+  const fams = families.map(cmsFamily).map((f) => (ar ? { ...f, name: t(f.name), short: t(f.short), blurb: t(f.blurb) } : f));
+  const items = products.map((d) => cmsProduct(d, ar ? en.get(d.key) : undefined)).map((p) => (ar ? { ...p, nameEn: p.nameEn || p.name, name: t(p.name), qty: t(p.qty) } : p));
+  const cat = build(fams, items, lh);
   fromCmsCache.set(products, { ...fromCmsCache.get(products), [locale]: cat });
   return cat;
 }

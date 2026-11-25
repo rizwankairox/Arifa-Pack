@@ -21,7 +21,14 @@ function entry(en: string, ar: string, priority: number, lastModified?: string |
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const cms = await getSitemap();
   if (cms?.length) {
-    return cms.flatMap((e) => entry(e.path_en, e.path_ar, e.path_en === '/' ? 1 : PRIORITY[e.kind] ?? 0.6, e.updated_at));
+    // the CMS lists product pages only once its product_pages switch is on; the site has them already,
+    // so any product page it leaves out is added from the catalogue
+    const listed = new Set(cms.map((e) => e.path_en));
+    const products = productIds().filter((id) => !listed.has(productPath(id)));
+    return [
+      ...cms.flatMap((e) => entry(e.path_en, e.path_ar, e.path_en === '/' ? 1 : PRIORITY[e.kind] ?? 0.6, e.updated_at)),
+      ...products.flatMap((id) => entry(productPath(id), `/ar${productPath(id)}`, 0.6)),
+    ];
   }
   const pages = ['', '/products', '/about', '/quality', '/clients', '/contact'];
   return [
