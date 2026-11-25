@@ -1,0 +1,4686 @@
+{
+  "_note": "The JSON the Next.js server receives from the Arifa CMS, as the backend sent it on 25 Nov 2026 (copied from the WhatsApp chat). The products list was cut off by WhatsApp: 74 of 78 products are here; the live endpoint sends all of them. Prices never appear in this API.",
+  "GET /v1/content/site?locale=en": {
+    "collection": "site",
+    "key": "site",
+    "version": 4,
+    "published_at": "2026-11-21T13:01:13.741379Z",
+    "data": {
+      "hours": {
+        "days": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat"
+        ],
+        "text": "Monday to Saturday, 08:00 to 20:00",
+        "opens": "08:00",
+        "closes": "20:00",
+        "timezone": "Asia/Dubai"
+      },
+      "emails": [
+        {
+          "label": "Sales",
+          "address": "info@arifapack.com"
+        }
+      ],
+      "phones": [
+        {
+          "label": "+971 6 747 7061",
+          "number": "+97167477061"
+        },
+        {
+          "label": "+971 6 748 5384",
+          "number": "+97167485384"
+        }
+      ],
+      "tagline": "Considered in detail. Made to perform. (test edit)",
+      "site_url": "https://www.arifapack.com",
+      "addresses": [
+        {
+          "label": "Head office and factory",
+          "lines": [
+            "Al Jurf Industrial Area 2",
+            "Ajman, UAE"
+          ]
+        }
+      ],
+      "assistant": {
+        "handover": "Our sales team is preparing your quotation; you'll receive it on WhatsApp shortly."
+      },
+      "company_name": "Arifa Packing ",
+      "product_pages": false
+    },
+    "draft": false
+  },
+  "GET /v1/content/pages/home?locale=en": {
+    "collection": "pages",
+    "key": "home",
+    "version": 1,
+    "published_at": "2026-11-20T12:09:20.030623Z",
+    "data": {
+      "path": "/",
+      "title": "Home",
+      "blocks": [
+        {
+          "kind": "hero",
+          "heading": "Considered in detail. Made to perform.",
+          "keywords": [
+            "home",
+            "start",
+            "range"
+          ],
+          "design_id": "HM-01",
+          "section_id": "top"
+        },
+        {
+          "kind": "text",
+          "eyebrow": "(01)",
+          "heading": "The company",
+          "keywords": [
+            "company",
+            "who are you",
+            "what do you make"
+          ],
+          "design_id": "HM-02",
+          "section_id": "intro"
+        },
+        {
+          "kind": "film",
+          "eyebrow": "(02)",
+          "heading": "The line",
+          "keywords": [
+            "how it is made",
+            "press",
+            "production line",
+            "making"
+          ],
+          "design_id": "HM-03",
+          "section_id": "factory"
+        },
+        {
+          "kind": "list",
+          "eyebrow": "(03)",
+          "heading": "Products",
+          "keywords": [
+            "families",
+            "range",
+            "categories"
+          ],
+          "design_id": "HM-04",
+          "section_id": "range"
+        },
+        {
+          "kind": "film",
+          "eyebrow": "(04)",
+          "heading": "Walk the floor",
+          "keywords": [
+            "factory film",
+            "video",
+            "tour",
+            "factory tour"
+          ],
+          "design_id": "HM-05",
+          "section_id": "floor"
+        },
+        {
+          "kind": "cards",
+          "eyebrow": "(05)",
+          "heading": "What we do",
+          "keywords": [
+            "services",
+            "directors",
+            "custom printing",
+            "branding"
+          ],
+          "design_id": "HM-06",
+          "section_id": "company"
+        },
+        {
+          "kind": "cta",
+          "heading": "Request a quote",
+          "keywords": [
+            "quote",
+            "quotation",
+            "enquiry"
+          ],
+          "design_id": "HM-07",
+          "section_id": "contact"
+        }
+      ]
+    },
+    "draft": false
+  },
+  "GET /v1/content/families?locale=en": {
+    "collection": "families",
+    "locale": "en",
+    "revision": 139,
+    "items": [
+      {
+        "collection": "families",
+        "key": "containers",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.338811Z",
+        "data": {
+          "clip": "line-stack",
+          "name": "Aluminium Containers",
+          "blurb": "Containers and lids for hot and cold food, from 8325 to 831120.",
+          "short": "Containers",
+          "synonyms": {
+            "ar": [
+              "حاويات ألمنيوم",
+              "علب ألمنيوم",
+              "حاويات طعام",
+              "علب سفري"
+            ],
+            "en": [
+              "aluminium containers",
+              "foil containers",
+              "takeaway containers",
+              "food containers",
+              "containers with lids",
+              "trays with lids"
+            ]
+          }
+        },
+        "draft": false
+      },
+      {
+        "collection": "families",
+        "key": "foil",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.346833Z",
+        "data": {
+          "clip": "foil-roll",
+          "name": "Aluminium Foil",
+          "blurb": "Kitchen rolls in 30 cm and 45 cm widths, plain and Blue Line.",
+          "short": "Foil",
+          "synonyms": {
+            "ar": [
+              "ورق ألمنيوم",
+              "ورق القصدير",
+              "رول ألمنيوم",
+              "رقائق الألمنيوم"
+            ],
+            "en": [
+              "aluminium foil",
+              "foil roll",
+              "kitchen foil",
+              "blue line foil",
+              "tin foil"
+            ]
+          }
+        },
+        "draft": false
+      },
+      {
+        "collection": "families",
+        "key": "platters",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.355578Z",
+        "data": {
+          "clip": "showroom-shelf",
+          "name": "Aluminium Platters",
+          "blurb": "Serving platters for catering and events.",
+          "short": "Platters",
+          "synonyms": {
+            "ar": [
+              "صواني ألمنيوم",
+              "صواني تقديم",
+              "أطباق ألمنيوم"
+            ],
+            "en": [
+              "aluminium platters",
+              "serving platters",
+              "catering platters",
+              "round platters"
+            ]
+          }
+        },
+        "draft": false
+      },
+      {
+        "collection": "families",
+        "key": "cups-trays",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.362576Z",
+        "data": {
+          "clip": "pack-sleeve",
+          "name": "Cups & Trays",
+          "blurb": "Round cups and trays for portioning, baking and serving.",
+          "short": "Cups & trays",
+          "synonyms": {
+            "ar": [
+              "أكواب ألمنيوم",
+              "صواني صغيرة",
+              "أكواب خبز"
+            ],
+            "en": [
+              "cups",
+              "trays",
+              "baking cups",
+              "round cups",
+              "cake trays"
+            ]
+          }
+        },
+        "draft": false
+      },
+      {
+        "collection": "families",
+        "key": "pots",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.370412Z",
+        "data": {
+          "name": "Aluminium Pots",
+          "blurb": "Pot and lid in five sizes, XS to XL.",
+          "short": "Pots",
+          "synonyms": {
+            "ar": [
+              "قدور ألمنيوم",
+              "قدور دائرية"
+            ],
+            "en": [
+              "aluminium pots",
+              "round pots",
+              "cooking pots",
+              "deep pots"
+            ]
+          }
+        },
+        "draft": false
+      },
+      {
+        "collection": "families",
+        "key": "microwave",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.377965Z",
+        "data": {
+          "clip": "moulding-plastic",
+          "name": "Microwave Products",
+          "blurb": "Plastic containers in black and clear, 500 cc to 1000 cc.",
+          "short": "Microwave",
+          "synonyms": {
+            "ar": [
+              "حاويات ميكروويف",
+              "علب بلاستيك",
+              "حاويات بلاستيكية"
+            ],
+            "en": [
+              "microwave containers",
+              "plastic containers",
+              "black containers",
+              "clear containers",
+              "pp containers"
+            ]
+          }
+        },
+        "draft": false
+      },
+      {
+        "collection": "families",
+        "key": "cutlery",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.385238Z",
+        "data": {
+          "clip": "moulding-cutlery",
+          "name": "Cutlery",
+          "blurb": "Heavy-duty spoons, forks and knives in black, clear and white.",
+          "short": "Cutlery",
+          "synonyms": {
+            "ar": [
+              "أدوات المائدة",
+              "ملاعق",
+              "شوك",
+              "سكاكين",
+              "ملعقة",
+              "شوكة",
+              "سكين"
+            ],
+            "en": [
+              "cutlery",
+              "plastic cutlery",
+              "spoons",
+              "forks",
+              "knives",
+              "spoon",
+              "fork",
+              "knife"
+            ]
+          }
+        },
+        "draft": false
+      },
+      {
+        "collection": "families",
+        "key": "cling-film",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.392293Z",
+        "data": {
+          "name": "Cling Film",
+          "blurb": "Food-wrap film on a 30 cm roll.",
+          "short": "Cling film",
+          "synonyms": {
+            "ar": [
+              "نايلون تغليف",
+              "غلاف بلاستيكي",
+              "سلوفان",
+              "فيلم تغليف"
+            ],
+            "en": [
+              "cling film",
+              "food wrap",
+              "plastic wrap",
+              "stretch film",
+              "wrapping film"
+            ]
+          }
+        },
+        "draft": false
+      }
+    ]
+  },
+  "GET /v1/content/products?locale=en": {
+    "collection": "products",
+    "locale": "en",
+    "revision": 139,
+    "items": [
+      {
+        "collection": "products",
+        "key": "ac-8325",
+        "version": 3,
+        "published_at": "2026-11-21T12:10:11.081215Z",
+        "data": {
+          "qty": "1 × 1000 pcs",
+          "ref": "8325",
+          "code": "AC-1",
+          "name": "Aluminium Container ",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8325",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8325.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8325.webp"
+            }
+          ],
+          "description": "Ideal for takeaway curries",
+          "legacy_paths": [
+            "/8325.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-8342",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.411278Z",
+        "data": {
+          "qty": "1 × 1000 pcs",
+          "ref": "8342",
+          "code": "AC-2",
+          "name": "Aluminium Container & Lid",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8342",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8342.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8342.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/8342.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-8357",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.421502Z",
+        "data": {
+          "qty": "1 × 750 pcs",
+          "ref": "8357",
+          "code": "AC-16",
+          "name": "Aluminium Container & Lid",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8357",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8357.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8357.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/8357.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-8367",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.429554Z",
+        "data": {
+          "qty": "1 × 500 pcs",
+          "ref": "8367",
+          "code": "AC-13",
+          "name": "Aluminium Container & Lid",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8367",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8367.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8367.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/8367.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-8368",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.437168Z",
+        "data": {
+          "qty": "1 × 900 pcs",
+          "ref": "8368",
+          "code": "AC-7",
+          "name": "Aluminium Container & Lid",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8368",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8368.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8368.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/8368.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-8389-e",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.445216Z",
+        "data": {
+          "qty": "1 × 1000 pcs",
+          "ref": "8389 E",
+          "code": "AC-14",
+          "name": "Aluminium Container & Lid",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8389 E",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8389-e.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8389-e.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/8389e.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-8389-ls",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.454162Z",
+        "data": {
+          "qty": "1 × 1000 pcs",
+          "ref": "8389 LS",
+          "code": "AC-22",
+          "name": "Aluminium Container & Lid",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8389 LS",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8389-ls.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8389-ls.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/8389ls.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-8389-r",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.462008Z",
+        "data": {
+          "qty": "1 × 1000 pcs",
+          "ref": "8389 R",
+          "code": "AC-3",
+          "name": "Aluminium Container & Lid",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8389 R",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8389-r.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8389-r.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/8389r.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-8390",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.470002Z",
+        "data": {
+          "qty": "1 × 800 pcs",
+          "ref": "8390",
+          "code": "AC-15",
+          "name": "Aluminium Container & Lid",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8390",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8390.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8390.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/8390.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-8576",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.477974Z",
+        "data": {
+          "qty": "1 × 500 pcs",
+          "ref": "8576",
+          "code": "AC-6",
+          "name": "Aluminium Container & Lid",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8576",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8576.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8576.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/8576.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-8582",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.486327Z",
+        "data": {
+          "qty": "1 × 500 pcs",
+          "ref": "8582",
+          "code": "AC-12",
+          "name": "Aluminium Container & Lid",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8582",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8582.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8582.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/8582.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-73365",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.494689Z",
+        "data": {
+          "qty": "1 × 100 pcs",
+          "ref": "73365",
+          "code": "AC-8",
+          "name": "Aluminium Container",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container 73365",
+              "url": "https://www.arifapack.com/images/catalogue/ac-73365.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-73365.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/73365.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-83120",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.503150Z",
+        "data": {
+          "qty": "1 × 400 pcs",
+          "ref": "83120",
+          "code": "AC-4",
+          "name": "Aluminium Container",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container 83120",
+              "url": "https://www.arifapack.com/images/catalogue/ac-83120.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-83120.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/83120.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-83160",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.511735Z",
+        "data": {
+          "qty": "1 × 800 pcs",
+          "ref": "83160",
+          "code": "AC-11",
+          "name": "Aluminium Container",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container 83160",
+              "url": "https://www.arifapack.com/images/catalogue/ac-83160.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-83160.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/83160.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-83185-n",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.520658Z",
+        "data": {
+          "qty": "1 × 400 pcs",
+          "ref": "83185 N",
+          "code": "AC-5",
+          "name": "Aluminium Container",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container 83185 N",
+              "url": "https://www.arifapack.com/images/catalogue/ac-83185-n.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-83185-n.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/83185n.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-83185-r",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.528850Z",
+        "data": {
+          "qty": "1 × 400 pcs",
+          "ref": "83185 R",
+          "code": "AC-5",
+          "name": "Aluminium Container",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container 83185 R",
+              "url": "https://www.arifapack.com/images/catalogue/ac-83185-r.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-83185-r.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/83185r.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-83190",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.537418Z",
+        "data": {
+          "qty": "1 × 250 pcs",
+          "ref": "83190",
+          "code": "AC-9",
+          "name": "Aluminium Container",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container 83190",
+              "url": "https://www.arifapack.com/images/catalogue/ac-83190.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-83190.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/83190.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-83241",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.545392Z",
+        "data": {
+          "qty": "1 × 200 pcs",
+          "ref": "83241",
+          "code": "AC-10",
+          "name": "Aluminium Container",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container 83241",
+              "url": "https://www.arifapack.com/images/catalogue/ac-83241.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-83241.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/83241.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-831120",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.553857Z",
+        "data": {
+          "qty": "1 × 400 pcs",
+          "ref": "831120",
+          "code": "AC-24",
+          "name": "Aluminium Container",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container 831120",
+              "url": "https://www.arifapack.com/images/catalogue/ac-831120.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-831120.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/831120.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-con-8342",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.561558Z",
+        "data": {
+          "qty": "10 pcs × 100 pkt",
+          "ref": "8342",
+          "code": "ARF-8342",
+          "name": "Aluminium Containers & Lid Pack",
+          "range": "self",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Containers & Lid Pack 8342",
+              "url": "https://www.arifapack.com/images/catalogue/sr-con-8342.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-con-8342.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/sr-alu-con-8342.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-con-8389",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.569293Z",
+        "data": {
+          "qty": "10 pcs × 50 pkt",
+          "ref": "8389",
+          "code": "ARF-8389",
+          "name": "Aluminium Containers & Lid Pack",
+          "range": "self",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Containers & Lid Pack 8389",
+              "url": "https://www.arifapack.com/images/catalogue/sr-con-8389.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-con-8389.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/sr-alu-con-8389.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-con-73365",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.577119Z",
+        "data": {
+          "qty": "10 pcs × 8 pkt",
+          "ref": "73365",
+          "code": "ARF-73365",
+          "name": "Aluminium Containers & Lid Pack",
+          "range": "self",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Containers & Lid Pack 73365",
+              "url": "https://www.arifapack.com/images/catalogue/sr-con-73365.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-con-73365.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/sr-alu-con-73365.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-con-83120",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.584696Z",
+        "data": {
+          "qty": "10 pcs × 40 pkt",
+          "ref": "83120",
+          "code": "ARF-83120",
+          "name": "Aluminium Containers & Lid Pack",
+          "range": "self",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Containers & Lid Pack 83120",
+              "url": "https://www.arifapack.com/images/catalogue/sr-con-83120.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-con-83120.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/sr-alu-con-83120.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-con-83185",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.592406Z",
+        "data": {
+          "qty": "10 pcs × 25 pkt",
+          "ref": "83185",
+          "code": "ARF-83185",
+          "name": "Aluminium Containers & Lid Pack",
+          "range": "self",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Containers & Lid Pack 83185",
+              "url": "https://www.arifapack.com/images/catalogue/sr-con-83185.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-con-83185.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/sr-alu-con-83185.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-con-83190",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.599907Z",
+        "data": {
+          "qty": "10 pcs × 20 pkt",
+          "ref": "83190",
+          "code": "ARF-83190",
+          "name": "Aluminium Containers & Lid Pack",
+          "range": "self",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Containers & Lid Pack 83190",
+              "url": "https://www.arifapack.com/images/catalogue/sr-con-83190.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-con-83190.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/sr-alu-con-83190.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "foil-30",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.608088Z",
+        "data": {
+          "qty": "",
+          "ref": "30 cm",
+          "name": "Aluminium Foil",
+          "range": "trade",
+          "family": "foil",
+          "photos": [
+            {
+              "alt": "Aluminium Foil 30 cm",
+              "url": "https://www.arifapack.com/images/catalogue/foil-30.webp",
+              "src": "https://www.arifapack.com/images/catalogue/foil-30.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/30cm-foil.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "foil-45",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.615303Z",
+        "data": {
+          "qty": "",
+          "ref": "45 cm",
+          "name": "Aluminium Foil",
+          "range": "trade",
+          "family": "foil",
+          "photos": [
+            {
+              "alt": "Aluminium Foil 45 cm",
+              "url": "https://www.arifapack.com/images/catalogue/foil-45.webp",
+              "src": "https://www.arifapack.com/images/catalogue/foil-45.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/45cm-foil.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "foil-30-blue",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.623637Z",
+        "data": {
+          "qty": "",
+          "ref": "30 cm",
+          "name": "Aluminium Foil Blue Line",
+          "range": "trade",
+          "family": "foil",
+          "photos": [
+            {
+              "alt": "Aluminium Foil Blue Line 30 cm",
+              "url": "https://www.arifapack.com/images/catalogue/foil-30-blue.webp",
+              "src": "https://www.arifapack.com/images/catalogue/foil-30-blue.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/30cm-blueline.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "foil-45-blue",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.631003Z",
+        "data": {
+          "qty": "",
+          "ref": "45 cm",
+          "name": "Aluminium Foil Blue Line",
+          "range": "trade",
+          "family": "foil",
+          "photos": [
+            {
+              "alt": "Aluminium Foil Blue Line 45 cm",
+              "url": "https://www.arifapack.com/images/catalogue/foil-45-blue.webp",
+              "src": "https://www.arifapack.com/images/catalogue/foil-45-blue.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/45cm-blueline.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ap-6550",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.639102Z",
+        "data": {
+          "qty": "1 × 150 pcs",
+          "ref": "6550",
+          "code": "AP-4",
+          "name": "Aluminium Platter",
+          "range": "trade",
+          "family": "platters",
+          "photos": [
+            {
+              "alt": "Aluminium Platter 6550",
+              "url": "https://www.arifapack.com/images/catalogue/ap-6550.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ap-6550.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/platter-6550.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ap-6586",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.646494Z",
+        "data": {
+          "qty": "1 × 100 pcs",
+          "ref": "6586",
+          "code": "AP-1",
+          "name": "Aluminium Platter",
+          "range": "trade",
+          "family": "platters",
+          "photos": [
+            {
+              "alt": "Aluminium Platter 6586",
+              "url": "https://www.arifapack.com/images/catalogue/ap-6586.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ap-6586.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/platter-6586.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ap-65180",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.654678Z",
+        "data": {
+          "qty": "1 × 50 pcs",
+          "ref": "65180",
+          "code": "AP-2",
+          "name": "Aluminium Platter",
+          "range": "trade",
+          "family": "platters",
+          "photos": [
+            {
+              "alt": "Aluminium Platter 65180",
+              "url": "https://www.arifapack.com/images/catalogue/ap-65180.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ap-65180.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/platter-65180.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ap-65220",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.662381Z",
+        "data": {
+          "qty": "1 × 50 pcs",
+          "ref": "65220",
+          "code": "AP-3",
+          "name": "Aluminium Platter",
+          "range": "trade",
+          "family": "platters",
+          "photos": [
+            {
+              "alt": "Aluminium Platter 65220",
+              "url": "https://www.arifapack.com/images/catalogue/ap-65220.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ap-65220.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/platter-65220.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-pla-6550",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.670906Z",
+        "data": {
+          "qty": "10 pcs × 15 pkt",
+          "ref": "6550",
+          "code": "ARF-6550",
+          "name": "Aluminium Platter Pack",
+          "range": "self",
+          "family": "platters",
+          "photos": [
+            {
+              "alt": "Aluminium Platter Pack 6550",
+              "url": "https://www.arifapack.com/images/catalogue/sr-pla-6550.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-pla-6550.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/sr-alu-pla-6550.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-pla-6586",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.678569Z",
+        "data": {
+          "qty": "10 pcs × 10 pkt",
+          "ref": "6586",
+          "code": "ARF-6586",
+          "name": "Aluminium Platter Pack",
+          "range": "self",
+          "family": "platters",
+          "photos": [
+            {
+              "alt": "Aluminium Platter Pack 6586",
+              "url": "https://www.arifapack.com/images/catalogue/sr-pla-6586.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-pla-6586.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/sr-alu-pla-6586.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-pla-65180",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.686438Z",
+        "data": {
+          "qty": "5 pcs × 10 pkt",
+          "ref": "65180",
+          "code": "ARF-65180",
+          "name": "Aluminium Platter Pack",
+          "range": "self",
+          "family": "platters",
+          "photos": [
+            {
+              "alt": "Aluminium Platter Pack 65180",
+              "url": "https://www.arifapack.com/images/catalogue/sr-pla-65180.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-pla-65180.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/sr-alu-pla-65180.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-pla-65220",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.694316Z",
+        "data": {
+          "qty": "5 pcs × 10 pkt",
+          "ref": "65220",
+          "code": "ARF-65220",
+          "name": "Aluminium Platter Pack",
+          "range": "self",
+          "family": "platters",
+          "photos": [
+            {
+              "alt": "Aluminium Platter Pack 65220",
+              "url": "https://www.arifapack.com/images/catalogue/sr-pla-65220.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-pla-65220.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/sr-alu-pla-65220.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "cup-14082",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.701678Z",
+        "data": {
+          "qty": "1 × 1500 pcs",
+          "ref": "14082",
+          "code": "AP-19",
+          "name": "Aluminium Cup",
+          "range": "trade",
+          "family": "cups-trays",
+          "photos": [
+            {
+              "alt": "Aluminium Cup 14082",
+              "url": "https://www.arifapack.com/images/catalogue/cup-14082.webp",
+              "src": "https://www.arifapack.com/images/catalogue/cup-14082.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/14082-cup.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "tray-3180",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.709364Z",
+        "data": {
+          "qty": "1 × 500 pcs",
+          "ref": "3180",
+          "code": "AP-17",
+          "name": "Aluminium Tray",
+          "range": "trade",
+          "family": "cups-trays",
+          "photos": [
+            {
+              "alt": "Aluminium Tray 3180",
+              "url": "https://www.arifapack.com/images/catalogue/tray-3180.webp",
+              "src": "https://www.arifapack.com/images/catalogue/tray-3180.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/3180-tray.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "tray-5186",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.716626Z",
+        "data": {
+          "qty": "1 × 400 pcs",
+          "ref": "5186",
+          "code": "AP-6",
+          "name": "Aluminium Tray",
+          "range": "trade",
+          "family": "cups-trays",
+          "photos": [
+            {
+              "alt": "Aluminium Tray 5186",
+              "url": "https://www.arifapack.com/images/catalogue/tray-5186.webp",
+              "src": "https://www.arifapack.com/images/catalogue/tray-5186.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/5186-tray.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "tray-7148",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.724636Z",
+        "data": {
+          "qty": "1 × 500 pcs",
+          "ref": "7148",
+          "code": "AP-18",
+          "name": "Aluminium Tray",
+          "range": "trade",
+          "family": "cups-trays",
+          "photos": [
+            {
+              "alt": "Aluminium Tray 7148",
+              "url": "https://www.arifapack.com/images/catalogue/tray-7148.webp",
+              "src": "https://www.arifapack.com/images/catalogue/tray-7148.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/7148-tray.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "tray-6175",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.731983Z",
+        "data": {
+          "qty": "1 × 50 pcs",
+          "ref": "6175",
+          "code": "AP-5",
+          "name": "Aluminium Tray",
+          "range": "trade",
+          "family": "cups-trays",
+          "photos": [
+            {
+              "alt": "Aluminium Tray 6175",
+              "url": "https://www.arifapack.com/images/catalogue/tray-6175.webp",
+              "src": "https://www.arifapack.com/images/catalogue/tray-6175.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/6175-tray.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "pot-22",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.740598Z",
+        "data": {
+          "qty": "50 pcs × 4 pkt",
+          "ref": "XS",
+          "code": "APLS-22",
+          "name": "Aluminium Pot & Lid",
+          "range": "trade",
+          "family": "pots",
+          "photos": [
+            {
+              "alt": "Aluminium Pot & Lid XS",
+              "url": "https://www.arifapack.com/images/catalogue/pot-22.webp",
+              "src": "https://www.arifapack.com/images/catalogue/pot-22.webp"
+            }
+          ],
+          "erp_match": [
+            "22",
+            "POT"
+          ],
+          "legacy_paths": [
+            "/pot-22.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "pot-25",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.747915Z",
+        "data": {
+          "qty": "75 pcs × 2 pkt",
+          "ref": "S",
+          "code": "APLS-25",
+          "name": "Aluminium Pot & Lid",
+          "range": "trade",
+          "family": "pots",
+          "photos": [
+            {
+              "alt": "Aluminium Pot & Lid S",
+              "url": "https://www.arifapack.com/images/catalogue/pot-25.webp",
+              "src": "https://www.arifapack.com/images/catalogue/pot-25.webp"
+            }
+          ],
+          "erp_match": [
+            "25",
+            "POT"
+          ],
+          "legacy_paths": [
+            "/pot-25.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "pot-29",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.755805Z",
+        "data": {
+          "qty": "50 pcs × 2 pkt",
+          "ref": "M",
+          "code": "APLS-29",
+          "name": "Aluminium Pot & Lid",
+          "range": "trade",
+          "family": "pots",
+          "photos": [
+            {
+              "alt": "Aluminium Pot & Lid M",
+              "url": "https://www.arifapack.com/images/catalogue/pot-29.webp",
+              "src": "https://www.arifapack.com/images/catalogue/pot-29.webp"
+            }
+          ],
+          "erp_match": [
+            "29",
+            "POT"
+          ],
+          "legacy_paths": [
+            "/pot-29.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "pot-34",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.763557Z",
+        "data": {
+          "qty": "34 pcs × 1 pkt",
+          "ref": "L",
+          "code": "APLS-34",
+          "name": "Aluminium Pot & Lid",
+          "range": "trade",
+          "family": "pots",
+          "photos": [
+            {
+              "alt": "Aluminium Pot & Lid L",
+              "url": "https://www.arifapack.com/images/catalogue/pot-34.webp",
+              "src": "https://www.arifapack.com/images/catalogue/pot-34.webp"
+            }
+          ],
+          "erp_match": [
+            "34",
+            "POT"
+          ],
+          "legacy_paths": [
+            "/pot-34.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "pot-39",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.771755Z",
+        "data": {
+          "qty": "50 pcs × 1 pkt",
+          "ref": "XL",
+          "code": "APLS-39",
+          "name": "Aluminium Pot & Lid",
+          "range": "trade",
+          "family": "pots",
+          "photos": [
+            {
+              "alt": "Aluminium Pot & Lid XL",
+              "url": "https://www.arifapack.com/images/catalogue/pot-39.webp",
+              "src": "https://www.arifapack.com/images/catalogue/pot-39.webp"
+            }
+          ],
+          "erp_match": [
+            "39",
+            "POT"
+          ],
+          "legacy_paths": [
+            "/pot-39.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-pot-22",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.779119Z",
+        "data": {
+          "qty": "5 pcs × 14 pkt",
+          "ref": "22 cm",
+          "code": "ARF-APLS-22",
+          "name": "Aluminium Pot with Hood",
+          "range": "self",
+          "family": "pots",
+          "photos": [
+            {
+              "alt": "Aluminium Pot with Hood 22 cm",
+              "url": "https://www.arifapack.com/images/catalogue/sr-pot-22.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-pot-22.webp"
+            }
+          ],
+          "erp_match": [
+            "22",
+            "POT"
+          ],
+          "legacy_paths": [
+            "/sr-alu-pot22.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-pot-25",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.787077Z",
+        "data": {
+          "qty": "5 pcs × 14 pkt",
+          "ref": "25 cm",
+          "code": "ARF-APLS-25",
+          "name": "Aluminium Pot with Hood",
+          "range": "self",
+          "family": "pots",
+          "photos": [
+            {
+              "alt": "Aluminium Pot with Hood 25 cm",
+              "url": "https://www.arifapack.com/images/catalogue/sr-pot-25.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-pot-25.webp"
+            }
+          ],
+          "erp_match": [
+            "25",
+            "POT"
+          ],
+          "legacy_paths": [
+            "/sr-alu-pot25.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-pot-29",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.795041Z",
+        "data": {
+          "qty": "5 pcs × 6 pkt",
+          "ref": "29 cm",
+          "code": "ARF-APLS-29",
+          "name": "Aluminium Pot with Hood",
+          "range": "self",
+          "family": "pots",
+          "erp_match": [
+            "29",
+            "POT"
+          ],
+          "legacy_paths": [
+            "/sr-alu-pot29.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-pot-34",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.804347Z",
+        "data": {
+          "qty": "5 pcs × 6 pkt",
+          "ref": "34 cm",
+          "code": "ARF-APLS-34",
+          "name": "Aluminium Pot with Hood",
+          "range": "self",
+          "family": "pots",
+          "photos": [
+            {
+              "alt": "Aluminium Pot with Hood 34 cm",
+              "url": "https://www.arifapack.com/images/catalogue/sr-pot-34.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-pot-34.webp"
+            }
+          ],
+          "erp_match": [
+            "34",
+            "POT"
+          ],
+          "legacy_paths": [
+            "/sr-alu-pot34.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-pot-39",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.814088Z",
+        "data": {
+          "qty": "5 pcs × 6 pkt",
+          "ref": "39 cm",
+          "code": "ARF-APLS-39",
+          "name": "Aluminium Pot with Hood",
+          "range": "self",
+          "family": "pots",
+          "photos": [
+            {
+              "alt": "Aluminium Pot with Hood 39 cm",
+              "url": "https://www.arifapack.com/images/catalogue/sr-pot-39.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-pot-39.webp"
+            }
+          ],
+          "erp_match": [
+            "39",
+            "POT"
+          ],
+          "legacy_paths": [
+            "/sr-alu-pot39.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "mw-500-black",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.822942Z",
+        "data": {
+          "qty": "1 × 500 pcs",
+          "ref": "500 cc",
+          "code": "ARF-PLA CONTAINER",
+          "name": "Plastic Container Black",
+          "range": "trade",
+          "family": "microwave",
+          "photos": [
+            {
+              "alt": "Plastic Container Black 500 cc",
+              "url": "https://www.arifapack.com/images/catalogue/mw-500-black.webp",
+              "src": "https://www.arifapack.com/images/catalogue/mw-500-black.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/500ccblack.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "mw-650-black",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.830882Z",
+        "data": {
+          "qty": "1 × 500 pcs",
+          "ref": "650 cc",
+          "code": "ARF-PLA CONTAINER",
+          "name": "Plastic Container Black",
+          "range": "trade",
+          "family": "microwave",
+          "photos": [
+            {
+              "alt": "Plastic Container Black 650 cc",
+              "url": "https://www.arifapack.com/images/catalogue/mw-650-black.webp",
+              "src": "https://www.arifapack.com/images/catalogue/mw-650-black.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/650ccblack.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "mw-750-black",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.839567Z",
+        "data": {
+          "qty": "1 × 500 pcs",
+          "ref": "750 cc",
+          "code": "ARF-PLA CONTAINER",
+          "name": "Plastic Container Black",
+          "range": "trade",
+          "family": "microwave",
+          "photos": [
+            {
+              "alt": "Plastic Container Black 750 cc",
+              "url": "https://www.arifapack.com/images/catalogue/mw-750-black.webp",
+              "src": "https://www.arifapack.com/images/catalogue/mw-750-black.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/750ccblack.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "mw-1000-black",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.846824Z",
+        "data": {
+          "qty": "1 × 500 pcs",
+          "ref": "1000 cc",
+          "code": "ARF-PLA CONTAINER",
+          "name": "Plastic Container Black",
+          "range": "trade",
+          "family": "microwave",
+          "photos": [
+            {
+              "alt": "Plastic Container Black 1000 cc",
+              "url": "https://www.arifapack.com/images/catalogue/mw-1000-black.webp",
+              "src": "https://www.arifapack.com/images/catalogue/mw-1000-black.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/1000ccblack.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "mw-500-clear",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.855403Z",
+        "data": {
+          "qty": "1 × 500 pcs",
+          "ref": "500 cc",
+          "code": "ARF-PLA CONTAINER",
+          "name": "Plastic Container Clear",
+          "range": "trade",
+          "family": "microwave",
+          "photos": [
+            {
+              "alt": "Plastic Container Clear 500 cc",
+              "url": "https://www.arifapack.com/images/catalogue/mw-500-clear.webp",
+              "src": "https://www.arifapack.com/images/catalogue/mw-500-clear.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/500ccclear.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "mw-650-clear",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.862847Z",
+        "data": {
+          "qty": "1 × 500 pcs",
+          "ref": "650 cc",
+          "code": "ARF-PLA CONTAINER",
+          "name": "Plastic Container Clear",
+          "range": "trade",
+          "family": "microwave",
+          "photos": [
+            {
+              "alt": "Plastic Container Clear 650 cc",
+              "url": "https://www.arifapack.com/images/catalogue/mw-650-clear.webp",
+              "src": "https://www.arifapack.com/images/catalogue/mw-650-clear.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/650ccclear.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "mw-750-clear",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.870506Z",
+        "data": {
+          "qty": "1 × 500 pcs",
+          "ref": "750 cc",
+          "code": "ARF-PLA CONTAINER",
+          "name": "Plastic Container Clear",
+          "range": "trade",
+          "family": "microwave",
+          "photos": [
+            {
+              "alt": "Plastic Container Clear 750 cc",
+              "url": "https://www.arifapack.com/images/catalogue/mw-750-clear.webp",
+              "src": "https://www.arifapack.com/images/catalogue/mw-750-clear.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/750ccclear.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "mw-1000-clear",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.878018Z",
+        "data": {
+          "qty": "1 × 500 pcs",
+          "ref": "1000 cc",
+          "code": "ARF-PLA CONTAINER",
+          "name": "Plastic Container Clear",
+          "range": "trade",
+          "family": "microwave",
+          "photos": [
+            {
+              "alt": "Plastic Container Clear 1000 cc",
+              "url": "https://www.arifapack.com/images/catalogue/mw-1000-clear.webp",
+              "src": "https://www.arifapack.com/images/catalogue/mw-1000-clear.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/1000ccclear.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-mw-500-black",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.885589Z",
+        "data": {
+          "qty": "5 pcs × 50 pkt",
+          "ref": "500 cc",
+          "code": "ARF-MWB-500CC",
+          "name": "Microwave Container with Lid, Black",
+          "range": "self",
+          "family": "microwave",
+          "photos": [
+            {
+              "alt": "Microwave Container with Lid, Black 500 cc",
+              "url": "https://www.arifapack.com/images/catalogue/sr-mw-500-black.webp",
+              "src": "https://www.arifapack.com/images/catalogue/sr-mw-500-black.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/sr-pla-500-blk.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-mw-650-black",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.893020Z",
+        "data": {
+          "qty": "5 pcs × 50 pkt",
+          "ref": "650 cc",
+          "code": "ARF-MWB-650CC",
+          "name": "Microwave Container with Lid, Black",
+          "range": "self",
+          "family": "microwave",
+          "legacy_paths": [
+            "/sr-pla-650-blk.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-mw-750-black",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.900147Z",
+        "data": {
+          "qty": "5 pcs × 45 pkt",
+          "ref": "750 cc",
+          "code": "ARF-MWB-750CC",
+          "name": "Microwave Container with Lid, Black",
+          "range": "self",
+          "family": "microwave",
+          "legacy_paths": [
+            "/sr-pla-750-blk.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-mw-1000-black",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.907978Z",
+        "data": {
+          "qty": "5 pcs × 45 pkt",
+          "ref": "1000 cc",
+          "code": "ARF-MWB-1000CC",
+          "name": "Microwave Container with Lid, Black",
+          "range": "self",
+          "family": "microwave",
+          "legacy_paths": [
+            "/sr-pla-1000-blk.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-mw-500-clear",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.915479Z",
+        "data": {
+          "qty": "5 pcs × 50 pkt",
+          "ref": "500 cc",
+          "code": "ARF-MWC-500CC",
+          "name": "Microwave Container with Lid, Clear",
+          "range": "self",
+          "family": "microwave",
+          "legacy_paths": [
+            "/sr-pla-500-clr.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-mw-650-clear",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.923757Z",
+        "data": {
+          "qty": "5 pcs × 50 pkt",
+          "ref": "650 cc",
+          "code": "ARF-MWC-650CC",
+          "name": "Microwave Container with Lid, Clear",
+          "range": "self",
+          "family": "microwave",
+          "legacy_paths": [
+            "/sr-pla-650-clr.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-mw-750-clear",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.931255Z",
+        "data": {
+          "qty": "5 pcs × 45 pkt",
+          "ref": "750 cc",
+          "code": "ARF-MWC-750CC",
+          "name": "Microwave Container with Lid, Clear",
+          "range": "self",
+          "family": "microwave",
+          "legacy_paths": [
+            "/sr-pla-750-clr.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "sr-mw-1000-clear",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.942591Z",
+        "data": {
+          "qty": "5 pcs × 45 pkt",
+          "ref": "1000 cc",
+          "code": "ARF-MWC-1000CC",
+          "name": "Microwave Container with Lid, Clear",
+          "range": "self",
+          "family": "microwave",
+          "legacy_paths": [
+            "/sr-pla-1000-clr.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "cut-black-spoon",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.949731Z",
+        "data": {
+          "qty": "",
+          "ref": "Spoon",
+          "code": "ARF-PLA HD SPOON",
+          "name": "Black Spoon-HD",
+          "range": "trade",
+          "family": "cutlery",
+          "photos": [
+            {
+              "alt": "Black Spoon-HD Spoon",
+              "url": "https://www.arifapack.com/images/catalogue/cut-black-spoon.webp",
+              "src": "https://www.arifapack.com/images/catalogue/cut-black-spoon.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/black-spoon.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "cut-black-fork",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.958012Z",
+        "data": {
+          "qty": "",
+          "ref": "Fork",
+          "code": "ARF-PLA HD FORK",
+          "name": "Black Fork-HD",
+          "range": "trade",
+          "family": "cutlery",
+          "photos": [
+            {
+              "alt": "Black Fork-HD Fork",
+              "url": "https://www.arifapack.com/images/catalogue/cut-black-fork.webp",
+              "src": "https://www.arifapack.com/images/catalogue/cut-black-fork.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/black-fork.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "cut-black-knife",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.965155Z",
+        "data": {
+          "qty": "",
+          "ref": "Knife",
+          "code": "ARF-PLA HD KNIEF",
+          "name": "Black Knife-HD",
+          "range": "trade",
+          "family": "cutlery",
+          "photos": [
+            {
+              "alt": "Black Knife-HD Knife",
+              "url": "https://www.arifapack.com/images/catalogue/cut-black-knife.webp",
+              "src": "https://www.arifapack.com/images/catalogue/cut-black-knife.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/black-knief.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "cut-clear-spoon",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.974063Z",
+        "data": {
+          "qty": "",
+          "ref": "Spoon",
+          "code": "ARF-PLA HD SPOON",
+          "name": "Clear Spoon-HD",
+          "range": "trade",
+          "family": "cutlery",
+          "photos": [
+            {
+              "alt": "Clear Spoon-HD Spoon",
+              "url": "https://www.arifapack.com/images/catalogue/cut-clear-spoon.webp",
+              "src": "https://www.arifapack.com/images/catalogue/cut-clear-spoon.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/clear-spoon.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "cut-clear-fork",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.981620Z",
+        "data": {
+          "qty": "",
+          "ref": "Fork",
+          "code": "ARF-PLA HD FORK",
+          "name": "Clear Fork-HD",
+          "range": "trade",
+          "family": "cutlery",
+          "photos": [
+            {
+              "alt": "Clear Fork-HD Fork",
+              "url": "https://www.arifapack.com/images/catalogue/cut-clear-fork.webp",
+              "src": "https://www.arifapack.com/images/catalogue/cut-clear-fork.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/clear-fork.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "cut-clear-knife",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.989753Z",
+        "data": {
+          "qty": "",
+          "ref": "Knife",
+          "code": "ARF-PLA HD KNIEF",
+          "name": "Clear Knife-HD",
+          "range": "trade",
+          "family": "cutlery",
+          "photos": [
+            {
+              "alt": "Clear Knife-HD Knife",
+              "url": "https://www.arifapack.com/images/catalogue/cut-clear-knife.webp",
+              "src": "https://www.arifapack.com/images/catalogue/cut-clear-knife.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/clear-knief.php"
+          ]
+        },
+        "draft": false
+      }
+    ]
+  },
+  "GET /v1/content/products/ac-8325?locale=en": {
+    "product": {
+      "collection": "products",
+      "key": "ac-8325",
+      "version": 3,
+      "published_at": "2026-11-21T12:10:11.081215Z",
+      "data": {
+        "qty": "1 × 1000 pcs",
+        "ref": "8325",
+        "code": "AC-1",
+        "name": "Aluminium Container ",
+        "range": "trade",
+        "family": "containers",
+        "photos": [
+          {
+            "alt": "Aluminium Container & Lid 8325",
+            "url": "https://www.arifapack.com/images/catalogue/ac-8325.webp",
+            "src": "https://www.arifapack.com/images/catalogue/ac-8325.webp"
+          }
+        ],
+        "description": "Ideal for takeaway curries",
+        "legacy_paths": [
+          "/8325.php"
+        ]
+      },
+      "draft": false
+    },
+    "family": {
+      "collection": "families",
+      "key": "containers",
+      "version": 1,
+      "published_at": "2026-11-20T12:09:19.338811Z",
+      "data": {
+        "clip": "line-stack",
+        "name": "Aluminium Containers",
+        "blurb": "Containers and lids for hot and cold food, from 8325 to 831120.",
+        "short": "Containers",
+        "synonyms": {
+          "ar": [
+            "حاويات ألمنيوم",
+            "علب ألمنيوم",
+            "حاويات طعام",
+            "علب سفري"
+          ],
+          "en": [
+            "aluminium containers",
+            "foil containers",
+            "takeaway containers",
+            "food containers",
+            "containers with lids",
+            "trays with lids"
+          ]
+        }
+      },
+      "draft": false
+    },
+    "previous": null,
+    "next": {
+      "key": "ac-8342",
+      "ref": "8342",
+      "name": "Aluminium Container & Lid"
+    },
+    "more_from_family": [
+      {
+        "collection": "products",
+        "key": "ac-8342",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.411278Z",
+        "data": {
+          "qty": "1 × 1000 pcs",
+          "ref": "8342",
+          "code": "AC-2",
+          "name": "Aluminium Container & Lid",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8342",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8342.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8342.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/8342.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-8357",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.421502Z",
+        "data": {
+          "qty": "1 × 750 pcs",
+          "ref": "8357",
+          "code": "AC-16",
+          "name": "Aluminium Container & Lid",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8357",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8357.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8357.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/8357.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-8367",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.429554Z",
+        "data": {
+          "qty": "1 × 500 pcs",
+          "ref": "8367",
+          "code": "AC-13",
+          "name": "Aluminium Container & Lid",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8367",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8367.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8367.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/8367.php"
+          ]
+        },
+        "draft": false
+      },
+      {
+        "collection": "products",
+        "key": "ac-8368",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:19.437168Z",
+        "data": {
+          "qty": "1 × 900 pcs",
+          "ref": "8368",
+          "code": "AC-7",
+          "name": "Aluminium Container & Lid",
+          "range": "trade",
+          "family": "containers",
+          "photos": [
+            {
+              "alt": "Aluminium Container & Lid 8368",
+              "url": "https://www.arifapack.com/images/catalogue/ac-8368.webp",
+              "src": "https://www.arifapack.com/images/catalogue/ac-8368.webp"
+            }
+          ],
+          "legacy_paths": [
+            "/8368.php"
+          ]
+        },
+        "draft": false
+      }
+    ]
+  },
+  "GET /v1/content/collections/industries?locale=en": {
+    "collection": "industries",
+    "locale": "en",
+    "revision": 141,
+    "items": [
+      {
+        "collection": "industries",
+        "key": "bakeries",
+        "version": 3,
+        "published_at": "2026-11-23T14:21:16.011323Z",
+        "data": {
+          "kit": [
+            "containers",
+            "platters"
+          ],
+          "use": "Trays and containers for cakes, pastries and bread.",
+          "name": "Bakeries",
+          "label": "Bakery",
+          "short": "bakery",
+          "trade": "Bakery"
+        },
+        "draft": false
+      },
+      {
+        "collection": "industries",
+        "key": "hotels",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:20.181030Z",
+        "data": {
+          "kit": [
+            "cling-film",
+            "foil",
+            "pots",
+            "cutlery"
+          ],
+          "use": "Hotel kitchens and room service: film, foil and pots for prep and storage, cutlery for the tray.",
+          "name": "Hotels & hospitality",
+          "label": "Hotel",
+          "short": "hotels",
+          "trade": "Hotel or hospitality"
+        },
+        "draft": false
+      },
+      {
+        "collection": "industries",
+        "key": "restaurants",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:20.187725Z",
+        "data": {
+          "kit": [
+            "containers",
+            "microwave",
+            "cutlery",
+            "foil"
+          ],
+          "use": "Takeaway and delivery: containers that seal, stack and travel, with cutlery to match.",
+          "name": "Restaurants & cloud kitchens",
+          "label": "Restaurant",
+          "short": "restaurants",
+          "trade": "Restaurant or cloud kitchen"
+        },
+        "draft": false
+      },
+      {
+        "collection": "industries",
+        "key": "retail",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:20.193613Z",
+        "data": {
+          "kit": [
+            "containers",
+            "platters",
+            "pots",
+            "microwave"
+          ],
+          "use": "On the shelf: Arifa self-range retail packs of containers, platters, pots and microwave containers.",
+          "name": "Retail & supermarkets",
+          "label": "Supermarket",
+          "short": "retail",
+          "trade": "Retail or supermarket"
+        },
+        "draft": false
+      },
+      {
+        "collection": "industries",
+        "key": "catering",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:20.199650Z",
+        "data": {
+          "kit": [
+            "platters",
+            "pots",
+            "containers",
+            "cling-film"
+          ],
+          "use": "Buffets and events: platters and pots to cook, carry and serve, and film to keep it covered.",
+          "name": "Catering & events",
+          "label": "Events",
+          "short": "catering",
+          "trade": "Catering"
+        },
+        "draft": false
+      },
+      {
+        "collection": "industries",
+        "key": "distributors",
+        "version": 1,
+        "published_at": "2026-11-20T12:09:20.207801Z",
+        "data": {
+          "kit": [
+            "containers",
+            "foil",
+            "platters",
+            "cups-trays",
+            "pots",
+            "microwave",
+            "cutlery",
+            "cling-film"
+          ],
+          "use": "The full range, by the carton and by the pallet, for wholesale and trading.",
+          "name": "Distributors & traders",
+          "label": "Distributor",
+          "short": "distributors",
+          "trade": "Distributor or trader"
+        },
+        "draft": false
+      }
+    ]
+  },
+  "GET /v1/content/manifest": {
+    "revision": 139,
+    "built_at": "2026-11-25T10:49:23.874159Z",
+    "pages": [
+      {
+        "key": "home",
+        "title": "Home",
+        "names": {
+          "en": "Home",
+          "ar": "الرئيسية"
+        },
+        "path_en": "/",
+        "path_ar": "/ar",
+        "sections": [
+          {
+            "id": "top",
+            "design_id": "HM-01",
+            "title": "Considered in detail. Made to perform.",
+            "purpose": "hero",
+            "keywords": [
+              "home",
+              "start",
+              "range",
+              "الرئيسية",
+              "البداية"
+            ]
+          },
+          {
+            "id": "intro",
+            "design_id": "HM-02",
+            "title": "The company",
+            "purpose": "(01)",
+            "keywords": [
+              "company",
+              "who are you",
+              "what do you make",
+              "من أنتم",
+              "ماذا تصنعون"
+            ]
+          },
+          {
+            "id": "factory",
+            "design_id": "HM-03",
+            "title": "The line",
+            "purpose": "(02)",
+            "keywords": [
+              "how it is made",
+              "press",
+              "production line",
+              "making",
+              "كيف تصنع",
+              "خط الإنتاج",
+              "التصنيع"
+            ]
+          },
+          {
+            "id": "range",
+            "design_id": "HM-04",
+            "title": "Products",
+            "purpose": "(03)",
+            "keywords": [
+              "families",
+              "range",
+              "categories",
+              "الفئات",
+              "التشكيلة"
+            ]
+          },
+          {
+            "id": "floor",
+            "design_id": "HM-05",
+            "title": "Walk the floor",
+            "purpose": "(04)",
+            "keywords": [
+              "factory film",
+              "video",
+              "tour",
+              "factory tour",
+              "فيديو المصنع",
+              "جولة المصنع"
+            ]
+          },
+          {
+            "id": "company",
+            "design_id": "HM-06",
+            "title": "What we do",
+            "purpose": "(05)",
+            "keywords": [
+              "services",
+              "directors",
+              "custom printing",
+              "branding",
+              "الخدمات",
+              "طباعة مخصصة"
+            ]
+          },
+          {
+            "id": "contact",
+            "design_id": "HM-07",
+            "title": "Request a quote",
+            "purpose": "cta",
+            "keywords": [
+              "quote",
+              "quotation",
+              "enquiry",
+              "عرض سعر"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "products",
+        "title": "Products",
+        "names": {
+          "en": "Products",
+          "ar": "المنتجات"
+        },
+        "path_en": "/products",
+        "path_ar": "/ar/products",
+        "sections": [
+          {
+            "id": "top",
+            "design_id": "PR-01",
+            "title": "Every code, every carton.",
+            "purpose": "hero",
+            "keywords": [
+              "all products",
+              "catalogue",
+              "كل المنتجات",
+              "الكتالوج"
+            ]
+          },
+          {
+            "id": "families",
+            "design_id": "PR-02",
+            "title": "Browse by family",
+            "purpose": "cards",
+            "keywords": [
+              "family",
+              "families",
+              "categories",
+              "الفئات"
+            ]
+          },
+          {
+            "id": "catalogue",
+            "design_id": "PR-03",
+            "title": "Catalogue",
+            "purpose": "list",
+            "keywords": [
+              "search",
+              "code",
+              "product list",
+              "self range",
+              "رمز المنتج"
+            ]
+          },
+          {
+            "id": "not-listed",
+            "design_id": "PR-06",
+            "title": "Not listed?",
+            "purpose": "cta",
+            "keywords": [
+              "other size",
+              "custom size",
+              "not listed",
+              "مقاس آخر",
+              "مقاس خاص"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "about",
+        "title": "About",
+        "names": {
+          "en": "About",
+          "ar": "من نحن"
+        },
+        "path_en": "/about",
+        "path_ar": "/ar/about",
+        "sections": [
+          {
+            "id": "top",
+            "design_id": "AB-01",
+            "title": "Packaging that protects, presents and performs.",
+            "purpose": "hero",
+            "keywords": [
+              "about",
+              "company",
+              "من نحن",
+              "الشركة"
+            ]
+          },
+          {
+            "id": "story",
+            "design_id": "AB-02",
+            "title": "Heritage",
+            "purpose": "(01)",
+            "keywords": [
+              "history",
+              "since 1997",
+              "heritage",
+              "تاريخ الشركة",
+              "منذ 1997"
+            ]
+          },
+          {
+            "id": "values",
+            "design_id": "AB-03",
+            "title": "Core values",
+            "purpose": "(02)",
+            "keywords": [
+              "values",
+              "قيمنا"
+            ]
+          },
+          {
+            "id": "reach",
+            "design_id": "AB-04",
+            "title": "From Ajman to the world",
+            "purpose": "(03)",
+            "keywords": [
+              "export",
+              "worldwide",
+              "countries",
+              "delivery",
+              "التصدير",
+              "الدول"
+            ]
+          },
+          {
+            "id": "chairman",
+            "design_id": "AB-05",
+            "title": "From the President / CEO",
+            "purpose": "(04)",
+            "keywords": [
+              "ceo",
+              "president",
+              "message",
+              "كلمة الرئيس"
+            ]
+          },
+          {
+            "id": "leadership",
+            "design_id": "AB-06",
+            "title": "Leadership",
+            "purpose": "(05)",
+            "keywords": [
+              "directors",
+              "management",
+              "team",
+              "الإدارة",
+              "الفريق"
+            ]
+          },
+          {
+            "id": "what-we-do",
+            "design_id": "AB-07",
+            "title": "What we do",
+            "purpose": "(06)",
+            "keywords": [
+              "services",
+              "الخدمات"
+            ]
+          },
+          {
+            "id": "visit",
+            "design_id": "AB-08",
+            "title": "Visit",
+            "purpose": "(07)",
+            "keywords": [
+              "address",
+              "visit",
+              "location",
+              "hours",
+              "زيارة المصنع",
+              "ساعات العمل"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "quality",
+        "title": "Quality",
+        "names": {
+          "en": "Quality",
+          "ar": "الجودة"
+        },
+        "path_en": "/quality",
+        "path_ar": "/ar/quality",
+        "sections": [
+          {
+            "id": "top",
+            "design_id": "QA-01",
+            "title": "Shown, not claimed.",
+            "purpose": "hero",
+            "keywords": [
+              "quality",
+              "inspection",
+              "الجودة",
+              "الفحص"
+            ]
+          },
+          {
+            "id": "line",
+            "design_id": "QA-02",
+            "title": "The line, checked",
+            "purpose": "(01)",
+            "keywords": [
+              "checks",
+              "quality control",
+              "process",
+              "مراقبة الجودة"
+            ]
+          },
+          {
+            "id": "hygiene",
+            "design_id": "QA-03",
+            "title": "Hygiene you can see",
+            "purpose": "(02)",
+            "keywords": [
+              "hygiene",
+              "food safety",
+              "clean",
+              "النظافة",
+              "سلامة الغذاء"
+            ]
+          },
+          {
+            "id": "documents",
+            "design_id": "QA-04",
+            "title": "Certificates and documents",
+            "purpose": "(03)",
+            "keywords": [
+              "certificates",
+              "iso",
+              "test reports",
+              "specifications",
+              "الشهادات",
+              "شهادات",
+              "شهادة",
+              "أيزو"
+            ]
+          },
+          {
+            "id": "sustainability",
+            "design_id": "QA-05",
+            "title": "Sustainability",
+            "purpose": "(04)",
+            "keywords": [
+              "recycling",
+              "aluminium",
+              "sustainability",
+              "إعادة التدوير",
+              "الاستدامة"
+            ]
+          },
+          {
+            "id": "see-it",
+            "design_id": "QA-06",
+            "title": "See it for yourself",
+            "purpose": "cta",
+            "keywords": [
+              "film",
+              "range",
+              "الفيلم"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "clients",
+        "title": "Clients",
+        "names": {
+          "en": "Clients",
+          "ar": "العملاء"
+        },
+        "path_en": "/clients",
+        "path_ar": "/ar/clients",
+        "sections": [
+          {
+            "id": "industries",
+            "design_id": "CL-01",
+            "title": "Delivery route",
+            "purpose": "map",
+            "keywords": [
+              "industries",
+              "bakeries",
+              "hotels",
+              "restaurants",
+              "supermarkets",
+              "caterers",
+              "distributors",
+              "القطاعات",
+              "المخابز",
+              "الفنادق",
+              "المطاعم"
+            ]
+          },
+          {
+            "id": "clients",
+            "design_id": "CL-02",
+            "title": "Our clients",
+            "purpose": "(01)",
+            "keywords": [
+              "clients",
+              "customers",
+              "logos",
+              "العملاء",
+              "عملاؤكم",
+              "الزبائن"
+            ]
+          },
+          {
+            "id": "reviews",
+            "design_id": "CL-03",
+            "title": "Customer stories",
+            "purpose": "(02)",
+            "keywords": [
+              "stories",
+              "testimonials",
+              "case studies",
+              "آراء العملاء",
+              "قصص"
+            ]
+          },
+          {
+            "id": "your-business",
+            "design_id": "CL-04",
+            "title": "Your business",
+            "purpose": "(03)",
+            "keywords": [
+              "my business",
+              "what we pack",
+              "نشاطي"
+            ]
+          }
+        ]
+      },
+      {
+        "key": "contact",
+        "title": "Contact",
+        "names": {
+          "en": "Contact",
+          "ar": "تواصل معنا"
+        },
+        "path_en": "/contact",
+        "path_ar": "/ar/contact",
+        "sections": [
+          {
+            "id": "enquiry",
+            "design_id": "CT-01",
+            "title": "Enquiry desk",
+            "purpose": "form",
+            "keywords": [
+              "quote",
+              "enquiry",
+              "order",
+              "request",
+              "enquiry form",
+              "form",
+              "استفسار",
+              "نموذج الطلب",
+              "عرض سعر"
+            ]
+          },
+          {
+            "id": "call",
+            "design_id": "CT-02",
+            "title": "Rather talk?",
+            "purpose": "(01)",
+            "keywords": [
+              "phone",
+              "call",
+              "whatsapp",
+              "email",
+              "هاتف",
+              "اتصال",
+              "واتساب",
+              "البريد"
+            ]
+          },
+          {
+            "id": "where",
+            "design_id": "CT-03",
+            "title": "Where we are",
+            "purpose": "(02)",
+            "keywords": [
+              "address",
+              "map",
+              "directions",
+              "location",
+              "find you",
+              "where are you",
+              "how to reach",
+              "العنوان",
+              "خريطة",
+              "موقعكم",
+              "الاتجاهات"
+            ]
+          }
+        ]
+      }
+    ],
+    "families": [
+      {
+        "id": "containers",
+        "name": "Aluminium Containers",
+        "names": {
+          "en": "Aluminium Containers",
+          "ar": "حاويات الألمنيوم"
+        },
+        "synonyms": {
+          "ar": [
+            "حاويات ألمنيوم",
+            "علب ألمنيوم",
+            "حاويات طعام",
+            "علب سفري"
+          ],
+          "en": [
+            "aluminium containers",
+            "foil containers",
+            "takeaway containers",
+            "food containers",
+            "containers with lids",
+            "trays with lids"
+          ]
+        },
+        "path_en": "/products?family=containers",
+        "path_ar": "/ar/products?family=containers"
+      },
+      {
+        "id": "foil",
+        "name": "Aluminium Foil",
+        "names": {
+          "en": "Aluminium Foil",
+          "ar": "ورق الألمنيوم"
+        },
+        "synonyms": {
+          "ar": [
+            "ورق ألمنيوم",
+            "ورق القصدير",
+            "رول ألمنيوم",
+            "رقائق الألمنيوم"
+          ],
+          "en": [
+            "aluminium foil",
+            "foil roll",
+            "kitchen foil",
+            "blue line foil",
+            "tin foil"
+          ]
+        },
+        "path_en": "/products?family=foil",
+        "path_ar": "/ar/products?family=foil"
+      },
+      {
+        "id": "platters",
+        "name": "Aluminium Platters",
+        "names": {
+          "en": "Aluminium Platters",
+          "ar": "صواني الألمنيوم"
+        },
+        "synonyms": {
+          "ar": [
+            "صواني ألمنيوم",
+            "صواني تقديم",
+            "أطباق ألمنيوم"
+          ],
+          "en": [
+            "aluminium platters",
+            "serving platters",
+            "catering platters",
+            "round platters"
+          ]
+        },
+        "path_en": "/products?family=platters",
+        "path_ar": "/ar/products?family=platters"
+      },
+      {
+        "id": "cups-trays",
+        "name": "Cups & Trays",
+        "names": {
+          "en": "Cups & Trays",
+          "ar": "أكواب وصواني"
+        },
+        "synonyms": {
+          "ar": [
+            "أكواب ألمنيوم",
+            "صواني صغيرة",
+            "أكواب خبز"
+          ],
+          "en": [
+            "cups",
+            "trays",
+            "baking cups",
+            "round cups",
+            "cake trays"
+          ]
+        },
+        "path_en": "/products?family=cups-trays",
+        "path_ar": "/ar/products?family=cups-trays"
+      },
+      {
+        "id": "pots",
+        "name": "Aluminium Pots",
+        "names": {
+          "en": "Aluminium Pots",
+          "ar": "قدور الألمنيوم"
+        },
+        "synonyms": {
+          "ar": [
+            "قدور ألمنيوم",
+            "قدور دائرية"
+          ],
+          "en": [
+            "aluminium pots",
+            "round pots",
+            "cooking pots",
+            "deep pots"
+          ]
+        },
+        "path_en": "/products?family=pots",
+        "path_ar": "/ar/products?family=pots"
+      },
+      {
+        "id": "microwave",
+        "name": "Microwave Products",
+        "names": {
+          "en": "Microwave Products",
+          "ar": "منتجات المايكرويف"
+        },
+        "synonyms": {
+          "ar": [
+            "حاويات ميكروويف",
+            "علب بلاستيك",
+            "حاويات بلاستيكية"
+          ],
+          "en": [
+            "microwave containers",
+            "plastic containers",
+            "black containers",
+            "clear containers",
+            "pp containers"
+          ]
+        },
+        "path_en": "/products?family=microwave",
+        "path_ar": "/ar/products?family=microwave"
+      },
+      {
+        "id": "cutlery",
+        "name": "Cutlery",
+        "names": {
+          "en": "Cutlery",
+          "ar": "أدوات المائدة"
+        },
+        "synonyms": {
+          "ar": [
+            "أدوات المائدة",
+            "ملاعق",
+            "شوك",
+            "سكاكين",
+            "ملعقة",
+            "شوكة",
+            "سكين"
+          ],
+          "en": [
+            "cutlery",
+            "plastic cutlery",
+            "spoons",
+            "forks",
+            "knives",
+            "spoon",
+            "fork",
+            "knife"
+          ]
+        },
+        "path_en": "/products?family=cutlery",
+        "path_ar": "/ar/products?family=cutlery"
+      },
+      {
+        "id": "cling-film",
+        "name": "Cling Film",
+        "names": {
+          "en": "Cling Film",
+          "ar": "السلوفان"
+        },
+        "synonyms": {
+          "ar": [
+            "نايلون تغليف",
+            "غلاف بلاستيكي",
+            "سلوفان",
+            "فيلم تغليف"
+          ],
+          "en": [
+            "cling film",
+            "food wrap",
+            "plastic wrap",
+            "stretch film",
+            "wrapping film"
+          ]
+        },
+        "path_en": "/products?family=cling-film",
+        "path_ar": "/ar/products?family=cling-film"
+      }
+    ],
+    "products": [
+      {
+        "id": "ac-8325",
+        "ref": "8325",
+        "catalogue_code": "AC-1",
+        "family": "containers",
+        "name": "Aluminium Container ",
+        "packing": "1 × 1000 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-8325",
+        "path_ar": "/ar/products?p=ac-8325",
+        "has_photo": true
+      },
+      {
+        "id": "ac-8342",
+        "ref": "8342",
+        "catalogue_code": "AC-2",
+        "family": "containers",
+        "name": "Aluminium Container & Lid",
+        "packing": "1 × 1000 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-8342",
+        "path_ar": "/ar/products?p=ac-8342",
+        "has_photo": true
+      },
+      {
+        "id": "ac-8357",
+        "ref": "8357",
+        "catalogue_code": "AC-16",
+        "family": "containers",
+        "name": "Aluminium Container & Lid",
+        "packing": "1 × 750 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-8357",
+        "path_ar": "/ar/products?p=ac-8357",
+        "has_photo": true
+      },
+      {
+        "id": "ac-8367",
+        "ref": "8367",
+        "catalogue_code": "AC-13",
+        "family": "containers",
+        "name": "Aluminium Container & Lid",
+        "packing": "1 × 500 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-8367",
+        "path_ar": "/ar/products?p=ac-8367",
+        "has_photo": true
+      },
+      {
+        "id": "ac-8368",
+        "ref": "8368",
+        "catalogue_code": "AC-7",
+        "family": "containers",
+        "name": "Aluminium Container & Lid",
+        "packing": "1 × 900 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-8368",
+        "path_ar": "/ar/products?p=ac-8368",
+        "has_photo": true
+      },
+      {
+        "id": "ac-8389-e",
+        "ref": "8389 E",
+        "catalogue_code": "AC-14",
+        "family": "containers",
+        "name": "Aluminium Container & Lid",
+        "packing": "1 × 1000 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-8389-e",
+        "path_ar": "/ar/products?p=ac-8389-e",
+        "has_photo": true
+      },
+      {
+        "id": "ac-8389-ls",
+        "ref": "8389 LS",
+        "catalogue_code": "AC-22",
+        "family": "containers",
+        "name": "Aluminium Container & Lid",
+        "packing": "1 × 1000 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-8389-ls",
+        "path_ar": "/ar/products?p=ac-8389-ls",
+        "has_photo": true
+      },
+      {
+        "id": "ac-8389-r",
+        "ref": "8389 R",
+        "catalogue_code": "AC-3",
+        "family": "containers",
+        "name": "Aluminium Container & Lid",
+        "packing": "1 × 1000 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-8389-r",
+        "path_ar": "/ar/products?p=ac-8389-r",
+        "has_photo": true
+      },
+      {
+        "id": "ac-8390",
+        "ref": "8390",
+        "catalogue_code": "AC-15",
+        "family": "containers",
+        "name": "Aluminium Container & Lid",
+        "packing": "1 × 800 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-8390",
+        "path_ar": "/ar/products?p=ac-8390",
+        "has_photo": true
+      },
+      {
+        "id": "ac-8576",
+        "ref": "8576",
+        "catalogue_code": "AC-6",
+        "family": "containers",
+        "name": "Aluminium Container & Lid",
+        "packing": "1 × 500 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-8576",
+        "path_ar": "/ar/products?p=ac-8576",
+        "has_photo": true
+      },
+      {
+        "id": "ac-8582",
+        "ref": "8582",
+        "catalogue_code": "AC-12",
+        "family": "containers",
+        "name": "Aluminium Container & Lid",
+        "packing": "1 × 500 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-8582",
+        "path_ar": "/ar/products?p=ac-8582",
+        "has_photo": true
+      },
+      {
+        "id": "ac-73365",
+        "ref": "73365",
+        "catalogue_code": "AC-8",
+        "family": "containers",
+        "name": "Aluminium Container",
+        "packing": "1 × 100 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-73365",
+        "path_ar": "/ar/products?p=ac-73365",
+        "has_photo": true
+      },
+      {
+        "id": "ac-83120",
+        "ref": "83120",
+        "catalogue_code": "AC-4",
+        "family": "containers",
+        "name": "Aluminium Container",
+        "packing": "1 × 400 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-83120",
+        "path_ar": "/ar/products?p=ac-83120",
+        "has_photo": true
+      },
+      {
+        "id": "ac-83160",
+        "ref": "83160",
+        "catalogue_code": "AC-11",
+        "family": "containers",
+        "name": "Aluminium Container",
+        "packing": "1 × 800 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-83160",
+        "path_ar": "/ar/products?p=ac-83160",
+        "has_photo": true
+      },
+      {
+        "id": "ac-83185-n",
+        "ref": "83185 N",
+        "catalogue_code": "AC-5",
+        "family": "containers",
+        "name": "Aluminium Container",
+        "packing": "1 × 400 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-83185-n",
+        "path_ar": "/ar/products?p=ac-83185-n",
+        "has_photo": true
+      },
+      {
+        "id": "ac-83185-r",
+        "ref": "83185 R",
+        "catalogue_code": "AC-5",
+        "family": "containers",
+        "name": "Aluminium Container",
+        "packing": "1 × 400 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-83185-r",
+        "path_ar": "/ar/products?p=ac-83185-r",
+        "has_photo": true
+      },
+      {
+        "id": "ac-83190",
+        "ref": "83190",
+        "catalogue_code": "AC-9",
+        "family": "containers",
+        "name": "Aluminium Container",
+        "packing": "1 × 250 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-83190",
+        "path_ar": "/ar/products?p=ac-83190",
+        "has_photo": true
+      },
+      {
+        "id": "ac-83241",
+        "ref": "83241",
+        "catalogue_code": "AC-10",
+        "family": "containers",
+        "name": "Aluminium Container",
+        "packing": "1 × 200 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-83241",
+        "path_ar": "/ar/products?p=ac-83241",
+        "has_photo": true
+      },
+      {
+        "id": "ac-831120",
+        "ref": "831120",
+        "catalogue_code": "AC-24",
+        "family": "containers",
+        "name": "Aluminium Container",
+        "packing": "1 × 400 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ac-831120",
+        "path_ar": "/ar/products?p=ac-831120",
+        "has_photo": true
+      },
+      {
+        "id": "sr-con-8342",
+        "ref": "8342",
+        "catalogue_code": "ARF-8342",
+        "family": "containers",
+        "name": "Aluminium Containers & Lid Pack",
+        "packing": "10 pcs × 100 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-con-8342",
+        "path_ar": "/ar/products?p=sr-con-8342",
+        "has_photo": true
+      },
+      {
+        "id": "sr-con-8389",
+        "ref": "8389",
+        "catalogue_code": "ARF-8389",
+        "family": "containers",
+        "name": "Aluminium Containers & Lid Pack",
+        "packing": "10 pcs × 50 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-con-8389",
+        "path_ar": "/ar/products?p=sr-con-8389",
+        "has_photo": true
+      },
+      {
+        "id": "sr-con-73365",
+        "ref": "73365",
+        "catalogue_code": "ARF-73365",
+        "family": "containers",
+        "name": "Aluminium Containers & Lid Pack",
+        "packing": "10 pcs × 8 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-con-73365",
+        "path_ar": "/ar/products?p=sr-con-73365",
+        "has_photo": true
+      },
+      {
+        "id": "sr-con-83120",
+        "ref": "83120",
+        "catalogue_code": "ARF-83120",
+        "family": "containers",
+        "name": "Aluminium Containers & Lid Pack",
+        "packing": "10 pcs × 40 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-con-83120",
+        "path_ar": "/ar/products?p=sr-con-83120",
+        "has_photo": true
+      },
+      {
+        "id": "sr-con-83185",
+        "ref": "83185",
+        "catalogue_code": "ARF-83185",
+        "family": "containers",
+        "name": "Aluminium Containers & Lid Pack",
+        "packing": "10 pcs × 25 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-con-83185",
+        "path_ar": "/ar/products?p=sr-con-83185",
+        "has_photo": true
+      },
+      {
+        "id": "sr-con-83190",
+        "ref": "83190",
+        "catalogue_code": "ARF-83190",
+        "family": "containers",
+        "name": "Aluminium Containers & Lid Pack",
+        "packing": "10 pcs × 20 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-con-83190",
+        "path_ar": "/ar/products?p=sr-con-83190",
+        "has_photo": true
+      },
+      {
+        "id": "foil-30",
+        "ref": "30 cm",
+        "catalogue_code": null,
+        "family": "foil",
+        "name": "Aluminium Foil",
+        "packing": "",
+        "range": "trade",
+        "path_en": "/products?p=foil-30",
+        "path_ar": "/ar/products?p=foil-30",
+        "has_photo": true
+      },
+      {
+        "id": "foil-45",
+        "ref": "45 cm",
+        "catalogue_code": null,
+        "family": "foil",
+        "name": "Aluminium Foil",
+        "packing": "",
+        "range": "trade",
+        "path_en": "/products?p=foil-45",
+        "path_ar": "/ar/products?p=foil-45",
+        "has_photo": true
+      },
+      {
+        "id": "foil-30-blue",
+        "ref": "30 cm",
+        "catalogue_code": null,
+        "family": "foil",
+        "name": "Aluminium Foil Blue Line",
+        "packing": "",
+        "range": "trade",
+        "path_en": "/products?p=foil-30-blue",
+        "path_ar": "/ar/products?p=foil-30-blue",
+        "has_photo": true
+      },
+      {
+        "id": "foil-45-blue",
+        "ref": "45 cm",
+        "catalogue_code": null,
+        "family": "foil",
+        "name": "Aluminium Foil Blue Line",
+        "packing": "",
+        "range": "trade",
+        "path_en": "/products?p=foil-45-blue",
+        "path_ar": "/ar/products?p=foil-45-blue",
+        "has_photo": true
+      },
+      {
+        "id": "ap-6550",
+        "ref": "6550",
+        "catalogue_code": "AP-4",
+        "family": "platters",
+        "name": "Aluminium Platter",
+        "packing": "1 × 150 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ap-6550",
+        "path_ar": "/ar/products?p=ap-6550",
+        "has_photo": true
+      },
+      {
+        "id": "ap-6586",
+        "ref": "6586",
+        "catalogue_code": "AP-1",
+        "family": "platters",
+        "name": "Aluminium Platter",
+        "packing": "1 × 100 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ap-6586",
+        "path_ar": "/ar/products?p=ap-6586",
+        "has_photo": true
+      },
+      {
+        "id": "ap-65180",
+        "ref": "65180",
+        "catalogue_code": "AP-2",
+        "family": "platters",
+        "name": "Aluminium Platter",
+        "packing": "1 × 50 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ap-65180",
+        "path_ar": "/ar/products?p=ap-65180",
+        "has_photo": true
+      },
+      {
+        "id": "ap-65220",
+        "ref": "65220",
+        "catalogue_code": "AP-3",
+        "family": "platters",
+        "name": "Aluminium Platter",
+        "packing": "1 × 50 pcs",
+        "range": "trade",
+        "path_en": "/products?p=ap-65220",
+        "path_ar": "/ar/products?p=ap-65220",
+        "has_photo": true
+      },
+      {
+        "id": "sr-pla-6550",
+        "ref": "6550",
+        "catalogue_code": "ARF-6550",
+        "family": "platters",
+        "name": "Aluminium Platter Pack",
+        "packing": "10 pcs × 15 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-pla-6550",
+        "path_ar": "/ar/products?p=sr-pla-6550",
+        "has_photo": true
+      },
+      {
+        "id": "sr-pla-6586",
+        "ref": "6586",
+        "catalogue_code": "ARF-6586",
+        "family": "platters",
+        "name": "Aluminium Platter Pack",
+        "packing": "10 pcs × 10 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-pla-6586",
+        "path_ar": "/ar/products?p=sr-pla-6586",
+        "has_photo": true
+      },
+      {
+        "id": "sr-pla-65180",
+        "ref": "65180",
+        "catalogue_code": "ARF-65180",
+        "family": "platters",
+        "name": "Aluminium Platter Pack",
+        "packing": "5 pcs × 10 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-pla-65180",
+        "path_ar": "/ar/products?p=sr-pla-65180",
+        "has_photo": true
+      },
+      {
+        "id": "sr-pla-65220",
+        "ref": "65220",
+        "catalogue_code": "ARF-65220",
+        "family": "platters",
+        "name": "Aluminium Platter Pack",
+        "packing": "5 pcs × 10 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-pla-65220",
+        "path_ar": "/ar/products?p=sr-pla-65220",
+        "has_photo": true
+      },
+      {
+        "id": "cup-14082",
+        "ref": "14082",
+        "catalogue_code": "AP-19",
+        "family": "cups-trays",
+        "name": "Aluminium Cup",
+        "packing": "1 × 1500 pcs",
+        "range": "trade",
+        "path_en": "/products?p=cup-14082",
+        "path_ar": "/ar/products?p=cup-14082",
+        "has_photo": true
+      },
+      {
+        "id": "tray-3180",
+        "ref": "3180",
+        "catalogue_code": "AP-17",
+        "family": "cups-trays",
+        "name": "Aluminium Tray",
+        "packing": "1 × 500 pcs",
+        "range": "trade",
+        "path_en": "/products?p=tray-3180",
+        "path_ar": "/ar/products?p=tray-3180",
+        "has_photo": true
+      },
+      {
+        "id": "tray-5186",
+        "ref": "5186",
+        "catalogue_code": "AP-6",
+        "family": "cups-trays",
+        "name": "Aluminium Tray",
+        "packing": "1 × 400 pcs",
+        "range": "trade",
+        "path_en": "/products?p=tray-5186",
+        "path_ar": "/ar/products?p=tray-5186",
+        "has_photo": true
+      },
+      {
+        "id": "tray-7148",
+        "ref": "7148",
+        "catalogue_code": "AP-18",
+        "family": "cups-trays",
+        "name": "Aluminium Tray",
+        "packing": "1 × 500 pcs",
+        "range": "trade",
+        "path_en": "/products?p=tray-7148",
+        "path_ar": "/ar/products?p=tray-7148",
+        "has_photo": true
+      },
+      {
+        "id": "tray-6175",
+        "ref": "6175",
+        "catalogue_code": "AP-5",
+        "family": "cups-trays",
+        "name": "Aluminium Tray",
+        "packing": "1 × 50 pcs",
+        "range": "trade",
+        "path_en": "/products?p=tray-6175",
+        "path_ar": "/ar/products?p=tray-6175",
+        "has_photo": true
+      },
+      {
+        "id": "pot-22",
+        "ref": "XS",
+        "catalogue_code": "APLS-22",
+        "family": "pots",
+        "name": "Aluminium Pot & Lid",
+        "packing": "50 pcs × 4 pkt",
+        "range": "trade",
+        "path_en": "/products?p=pot-22",
+        "path_ar": "/ar/products?p=pot-22",
+        "has_photo": true
+      },
+      {
+        "id": "pot-25",
+        "ref": "S",
+        "catalogue_code": "APLS-25",
+        "family": "pots",
+        "name": "Aluminium Pot & Lid",
+        "packing": "75 pcs × 2 pkt",
+        "range": "trade",
+        "path_en": "/products?p=pot-25",
+        "path_ar": "/ar/products?p=pot-25",
+        "has_photo": true
+      },
+      {
+        "id": "pot-29",
+        "ref": "M",
+        "catalogue_code": "APLS-29",
+        "family": "pots",
+        "name": "Aluminium Pot & Lid",
+        "packing": "50 pcs × 2 pkt",
+        "range": "trade",
+        "path_en": "/products?p=pot-29",
+        "path_ar": "/ar/products?p=pot-29",
+        "has_photo": true
+      },
+      {
+        "id": "pot-34",
+        "ref": "L",
+        "catalogue_code": "APLS-34",
+        "family": "pots",
+        "name": "Aluminium Pot & Lid",
+        "packing": "34 pcs × 1 pkt",
+        "range": "trade",
+        "path_en": "/products?p=pot-34",
+        "path_ar": "/ar/products?p=pot-34",
+        "has_photo": true
+      },
+      {
+        "id": "pot-39",
+        "ref": "XL",
+        "catalogue_code": "APLS-39",
+        "family": "pots",
+        "name": "Aluminium Pot & Lid",
+        "packing": "50 pcs × 1 pkt",
+        "range": "trade",
+        "path_en": "/products?p=pot-39",
+        "path_ar": "/ar/products?p=pot-39",
+        "has_photo": true
+      },
+      {
+        "id": "sr-pot-22",
+        "ref": "22 cm",
+        "catalogue_code": "ARF-APLS-22",
+        "family": "pots",
+        "name": "Aluminium Pot with Hood",
+        "packing": "5 pcs × 14 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-pot-22",
+        "path_ar": "/ar/products?p=sr-pot-22",
+        "has_photo": true
+      },
+      {
+        "id": "sr-pot-25",
+        "ref": "25 cm",
+        "catalogue_code": "ARF-APLS-25",
+        "family": "pots",
+        "name": "Aluminium Pot with Hood",
+        "packing": "5 pcs × 14 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-pot-25",
+        "path_ar": "/ar/products?p=sr-pot-25",
+        "has_photo": true
+      },
+      {
+        "id": "sr-pot-29",
+        "ref": "29 cm",
+        "catalogue_code": "ARF-APLS-29",
+        "family": "pots",
+        "name": "Aluminium Pot with Hood",
+        "packing": "5 pcs × 6 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-pot-29",
+        "path_ar": "/ar/products?p=sr-pot-29",
+        "has_photo": false
+      },
+      {
+        "id": "sr-pot-34",
+        "ref": "34 cm",
+        "catalogue_code": "ARF-APLS-34",
+        "family": "pots",
+        "name": "Aluminium Pot with Hood",
+        "packing": "5 pcs × 6 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-pot-34",
+        "path_ar": "/ar/products?p=sr-pot-34",
+        "has_photo": true
+      },
+      {
+        "id": "sr-pot-39",
+        "ref": "39 cm",
+        "catalogue_code": "ARF-APLS-39",
+        "family": "pots",
+        "name": "Aluminium Pot with Hood",
+        "packing": "5 pcs × 6 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-pot-39",
+        "path_ar": "/ar/products?p=sr-pot-39",
+        "has_photo": true
+      },
+      {
+        "id": "mw-500-black",
+        "ref": "500 cc",
+        "catalogue_code": "ARF-PLA CONTAINER",
+        "family": "microwave",
+        "name": "Plastic Container Black",
+        "packing": "1 × 500 pcs",
+        "range": "trade",
+        "path_en": "/products?p=mw-500-black",
+        "path_ar": "/ar/products?p=mw-500-black",
+        "has_photo": true
+      },
+      {
+        "id": "mw-650-black",
+        "ref": "650 cc",
+        "catalogue_code": "ARF-PLA CONTAINER",
+        "family": "microwave",
+        "name": "Plastic Container Black",
+        "packing": "1 × 500 pcs",
+        "range": "trade",
+        "path_en": "/products?p=mw-650-black",
+        "path_ar": "/ar/products?p=mw-650-black",
+        "has_photo": true
+      },
+      {
+        "id": "mw-750-black",
+        "ref": "750 cc",
+        "catalogue_code": "ARF-PLA CONTAINER",
+        "family": "microwave",
+        "name": "Plastic Container Black",
+        "packing": "1 × 500 pcs",
+        "range": "trade",
+        "path_en": "/products?p=mw-750-black",
+        "path_ar": "/ar/products?p=mw-750-black",
+        "has_photo": true
+      },
+      {
+        "id": "mw-1000-black",
+        "ref": "1000 cc",
+        "catalogue_code": "ARF-PLA CONTAINER",
+        "family": "microwave",
+        "name": "Plastic Container Black",
+        "packing": "1 × 500 pcs",
+        "range": "trade",
+        "path_en": "/products?p=mw-1000-black",
+        "path_ar": "/ar/products?p=mw-1000-black",
+        "has_photo": true
+      },
+      {
+        "id": "mw-500-clear",
+        "ref": "500 cc",
+        "catalogue_code": "ARF-PLA CONTAINER",
+        "family": "microwave",
+        "name": "Plastic Container Clear",
+        "packing": "1 × 500 pcs",
+        "range": "trade",
+        "path_en": "/products?p=mw-500-clear",
+        "path_ar": "/ar/products?p=mw-500-clear",
+        "has_photo": true
+      },
+      {
+        "id": "mw-650-clear",
+        "ref": "650 cc",
+        "catalogue_code": "ARF-PLA CONTAINER",
+        "family": "microwave",
+        "name": "Plastic Container Clear",
+        "packing": "1 × 500 pcs",
+        "range": "trade",
+        "path_en": "/products?p=mw-650-clear",
+        "path_ar": "/ar/products?p=mw-650-clear",
+        "has_photo": true
+      },
+      {
+        "id": "mw-750-clear",
+        "ref": "750 cc",
+        "catalogue_code": "ARF-PLA CONTAINER",
+        "family": "microwave",
+        "name": "Plastic Container Clear",
+        "packing": "1 × 500 pcs",
+        "range": "trade",
+        "path_en": "/products?p=mw-750-clear",
+        "path_ar": "/ar/products?p=mw-750-clear",
+        "has_photo": true
+      },
+      {
+        "id": "mw-1000-clear",
+        "ref": "1000 cc",
+        "catalogue_code": "ARF-PLA CONTAINER",
+        "family": "microwave",
+        "name": "Plastic Container Clear",
+        "packing": "1 × 500 pcs",
+        "range": "trade",
+        "path_en": "/products?p=mw-1000-clear",
+        "path_ar": "/ar/products?p=mw-1000-clear",
+        "has_photo": true
+      },
+      {
+        "id": "sr-mw-500-black",
+        "ref": "500 cc",
+        "catalogue_code": "ARF-MWB-500CC",
+        "family": "microwave",
+        "name": "Microwave Container with Lid, Black",
+        "packing": "5 pcs × 50 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-mw-500-black",
+        "path_ar": "/ar/products?p=sr-mw-500-black",
+        "has_photo": true
+      },
+      {
+        "id": "sr-mw-650-black",
+        "ref": "650 cc",
+        "catalogue_code": "ARF-MWB-650CC",
+        "family": "microwave",
+        "name": "Microwave Container with Lid, Black",
+        "packing": "5 pcs × 50 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-mw-650-black",
+        "path_ar": "/ar/products?p=sr-mw-650-black",
+        "has_photo": false
+      },
+      {
+        "id": "sr-mw-750-black",
+        "ref": "750 cc",
+        "catalogue_code": "ARF-MWB-750CC",
+        "family": "microwave",
+        "name": "Microwave Container with Lid, Black",
+        "packing": "5 pcs × 45 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-mw-750-black",
+        "path_ar": "/ar/products?p=sr-mw-750-black",
+        "has_photo": false
+      },
+      {
+        "id": "sr-mw-1000-black",
+        "ref": "1000 cc",
+        "catalogue_code": "ARF-MWB-1000CC",
+        "family": "microwave",
+        "name": "Microwave Container with Lid, Black",
+        "packing": "5 pcs × 45 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-mw-1000-black",
+        "path_ar": "/ar/products?p=sr-mw-1000-black",
+        "has_photo": false
+      },
+      {
+        "id": "sr-mw-500-clear",
+        "ref": "500 cc",
+        "catalogue_code": "ARF-MWC-500CC",
+        "family": "microwave",
+        "name": "Microwave Container with Lid, Clear",
+        "packing": "5 pcs × 50 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-mw-500-clear",
+        "path_ar": "/ar/products?p=sr-mw-500-clear",
+        "has_photo": false
+      },
+      {
+        "id": "sr-mw-650-clear",
+        "ref": "650 cc",
+        "catalogue_code": "ARF-MWC-650CC",
+        "family": "microwave",
+        "name": "Microwave Container with Lid, Clear",
+        "packing": "5 pcs × 50 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-mw-650-clear",
+        "path_ar": "/ar/products?p=sr-mw-650-clear",
+        "has_photo": false
+      },
+      {
+        "id": "sr-mw-750-clear",
+        "ref": "750 cc",
+        "catalogue_code": "ARF-MWC-750CC",
+        "family": "microwave",
+        "name": "Microwave Container with Lid, Clear",
+        "packing": "5 pcs × 45 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-mw-750-clear",
+        "path_ar": "/ar/products?p=sr-mw-750-clear",
+        "has_photo": false
+      },
+      {
+        "id": "sr-mw-1000-clear",
+        "ref": "1000 cc",
+        "catalogue_code": "ARF-MWC-1000CC",
+        "family": "microwave",
+        "name": "Microwave Container with Lid, Clear",
+        "packing": "5 pcs × 45 pkt",
+        "range": "self",
+        "path_en": "/products?p=sr-mw-1000-clear",
+        "path_ar": "/ar/products?p=sr-mw-1000-clear",
+        "has_photo": false
+      },
+      {
+        "id": "cut-black-spoon",
+        "ref": "Spoon",
+        "catalogue_code": "ARF-PLA HD SPOON",
+        "family": "cutlery",
+        "name": "Black Spoon-HD",
+        "packing": "",
+        "range": "trade",
+        "path_en": "/products?p=cut-black-spoon",
+        "path_ar": "/ar/products?p=cut-black-spoon",
+        "has_photo": true
+      },
+      {
+        "id": "cut-black-fork",
+        "ref": "Fork",
+        "catalogue_code": "ARF-PLA HD FORK",
+        "family": "cutlery",
+        "name": "Black Fork-HD",
+        "packing": "",
+        "range": "trade",
+        "path_en": "/products?p=cut-black-fork",
+        "path_ar": "/ar/products?p=cut-black-fork",
+        "has_photo": true
+      },
+      {
+        "id": "cut-black-knife",
+        "ref": "Knife",
+        "catalogue_code": "ARF-PLA HD KNIEF",
+        "family": "cutlery",
+        "name": "Black Knife-HD",
+        "packing": "",
+        "range": "trade",
+        "path_en": "/products?p=cut-black-knife",
+        "path_ar": "/ar/products?p=cut-black-knife",
+        "has_photo": true
+      },
+      {
+        "id": "cut-clear-spoon",
+        "ref": "Spoon",
+        "catalogue_code": "ARF-PLA HD SPOON",
+        "family": "cutlery",
+        "name": "Clear Spoon-HD",
+        "packing": "",
+        "range": "trade",
+        "path_en": "/products?p=cut-clear-spoon",
+        "path_ar": "/ar/products?p=cut-clear-spoon",
+        "has_photo": true
+      },
+      {
+        "id": "cut-clear-fork",
+        "ref": "Fork",
+        "catalogue_code": "ARF-PLA HD FORK",
+        "family": "cutlery",
+        "name": "Clear Fork-HD",
+        "packing": "",
+        "range": "trade",
+        "path_en": "/products?p=cut-clear-fork",
+        "path_ar": "/ar/products?p=cut-clear-fork",
+        "has_photo": true
+      },
+      {
+        "id": "cut-clear-knife",
+        "ref": "Knife",
+        "catalogue_code": "ARF-PLA HD KNIEF",
+        "family": "cutlery",
+        "name": "Clear Knife-HD",
+        "packing": "",
+        "range": "trade",
+        "path_en": "/products?p=cut-clear-knife",
+        "path_ar": "/ar/products?p=cut-clear-knife",
+        "has_photo": true
+      },
+      {
+        "id": "cut-white-spoon",
+        "ref": "Spoon",
+        "catalogue_code": "ARF-PLA HD SPOON",
+        "family": "cutlery",
+        "name": "White Spoon-HD",
+        "packing": "",
+        "range": "trade",
+        "path_en": "/products?p=cut-white-spoon",
+        "path_ar": "/ar/products?p=cut-white-spoon",
+        "has_photo": true
+      },
+      {
+        "id": "cut-white-fork",
+        "ref": "Fork",
+        "catalogue_code": "ARF-PLA HD FORK",
+        "family": "cutlery",
+        "name": "White Fork-HD",
+        "packing": "",
+        "range": "trade",
+        "path_en": "/products?p=cut-white-fork",
+        "path_ar": "/ar/products?p=cut-white-fork",
+        "has_photo": true
+      },
+      {
+        "id": "cut-white-knife",
+        "ref": "Knife",
+        "catalogue_code": "ARF-PLA HD KNIEF",
+        "family": "cutlery",
+        "name": "White Knife-HD",
+        "packing": "",
+        "range": "trade",
+        "path_en": "/products?p=cut-white-knife",
+        "path_ar": "/ar/products?p=cut-white-knife",
+        "has_photo": true
+      },
+      {
+        "id": "cling-30",
+        "ref": "30 cm",
+        "catalogue_code": null,
+        "family": "cling-film",
+        "name": "Cling Film",
+        "packing": "",
+        "range": "trade",
+        "path_en": "/products?p=cling-30",
+        "path_ar": "/ar/products?p=cling-30",
+        "has_photo": true
+      }
+    ],
+    "chapters": [
+      {
+        "id": "arrival",
+        "title": "Arrival",
+        "seconds": 16.3,
+        "family": null
+      },
+      {
+        "id": "forming",
+        "title": "Forming",
+        "seconds": 24.2,
+        "family": "containers"
+      },
+      {
+        "id": "lids",
+        "title": "Lids",
+        "seconds": 73.4,
+        "family": null
+      },
+      {
+        "id": "foil",
+        "title": "Foil",
+        "seconds": 82.8,
+        "family": "foil"
+      },
+      {
+        "id": "packing",
+        "title": "Packing",
+        "seconds": 101.4,
+        "family": null
+      },
+      {
+        "id": "moulding",
+        "title": "Moulding",
+        "seconds": 112.1,
+        "family": "cutlery"
+      },
+      {
+        "id": "warehouse",
+        "title": "Warehouse",
+        "seconds": 120.1,
+        "family": null
+      }
+    ],
+    "product_pages": false
+  },
+  "GET /v1/content/sitemap": [
+    {
+      "path_en": "/",
+      "path_ar": "/ar",
+      "updated_at": "2026-11-25T11:02:26.003435Z",
+      "kind": "page"
+    },
+    {
+      "path_en": "/products",
+      "path_ar": "/ar/products",
+      "updated_at": "2026-11-20T12:09:20.037789Z",
+      "kind": "page"
+    },
+    {
+      "path_en": "/about",
+      "path_ar": "/ar/about",
+      "updated_at": "2026-11-20T12:09:20.044820Z",
+      "kind": "page"
+    },
+    {
+      "path_en": "/quality",
+      "path_ar": "/ar/quality",
+      "updated_at": "2026-11-20T12:09:20.052622Z",
+      "kind": "page"
+    },
+    {
+      "path_en": "/clients",
+      "path_ar": "/ar/clients",
+      "updated_at": "2026-11-20T12:09:20.059826Z",
+      "kind": "page"
+    },
+    {
+      "path_en": "/contact",
+      "path_ar": "/ar/contact",
+      "updated_at": "2026-11-20T12:09:20.066763Z",
+      "kind": "page"
+    },
+    {
+      "path_en": "/products?family=containers",
+      "path_ar": "/ar/products?family=containers",
+      "updated_at": "2026-11-20T12:09:19.338811Z",
+      "kind": "family"
+    },
+    {
+      "path_en": "/products?family=foil",
+      "path_ar": "/ar/products?family=foil",
+      "updated_at": "2026-11-20T12:09:19.346833Z",
+      "kind": "family"
+    },
+    {
+      "path_en": "/products?family=platters",
+      "path_ar": "/ar/products?family=platters",
+      "updated_at": "2026-11-20T12:09:19.355578Z",
+      "kind": "family"
+    },
+    {
+      "path_en": "/products?family=cups-trays",
+      "path_ar": "/ar/products?family=cups-trays",
+      "updated_at": "2026-11-20T12:09:19.362576Z",
+      "kind": "family"
+    },
+    {
+      "path_en": "/products?family=pots",
+      "path_ar": "/ar/products?family=pots",
+      "updated_at": "2026-11-20T12:09:19.370412Z",
+      "kind": "family"
+    },
+    {
+      "path_en": "/products?family=microwave",
+      "path_ar": "/ar/products?family=microwave",
+      "updated_at": "2026-11-20T12:09:19.377965Z",
+      "kind": "family"
+    },
+    {
+      "path_en": "/products?family=cutlery",
+      "path_ar": "/ar/products?family=cutlery",
+      "updated_at": "2026-11-20T12:09:19.385238Z",
+      "kind": "family"
+    },
+    {
+      "path_en": "/products?family=cling-film",
+      "path_ar": "/ar/products?family=cling-film",
+      "updated_at": "2026-11-20T12:09:19.392293Z",
+      "kind": "family"
+    }
+  ],
+  "GET /v1/content/redirects": [
+    {
+      "source": "/8325.php",
+      "destination": "/products?p=ac-8325",
+      "permanent": true
+    },
+    {
+      "source": "/8342.php",
+      "destination": "/products?p=ac-8342",
+      "permanent": true
+    },
+    {
+      "source": "/8357.php",
+      "destination": "/products?p=ac-8357",
+      "permanent": true
+    },
+    {
+      "source": "/8367.php",
+      "destination": "/products?p=ac-8367",
+      "permanent": true
+    },
+    {
+      "source": "/8368.php",
+      "destination": "/products?p=ac-8368",
+      "permanent": true
+    },
+    {
+      "source": "/8389e.php",
+      "destination": "/products?p=ac-8389-e",
+      "permanent": true
+    },
+    {
+      "source": "/8389ls.php",
+      "destination": "/products?p=ac-8389-ls",
+      "permanent": true
+    },
+    {
+      "source": "/8389r.php",
+      "destination": "/products?p=ac-8389-r",
+      "permanent": true
+    },
+    {
+      "source": "/8390.php",
+      "destination": "/products?p=ac-8390",
+      "permanent": true
+    },
+    {
+      "source": "/8576.php",
+      "destination": "/products?p=ac-8576",
+      "permanent": true
+    },
+    {
+      "source": "/8582.php",
+      "destination": "/products?p=ac-8582",
+      "permanent": true
+    },
+    {
+      "source": "/73365.php",
+      "destination": "/products?p=ac-73365",
+      "permanent": true
+    },
+    {
+      "source": "/83120.php",
+      "destination": "/products?p=ac-83120",
+      "permanent": true
+    },
+    {
+      "source": "/83160.php",
+      "destination": "/products?p=ac-83160",
+      "permanent": true
+    },
+    {
+      "source": "/83185n.php",
+      "destination": "/products?p=ac-83185-n",
+      "permanent": true
+    },
+    {
+      "source": "/83185r.php",
+      "destination": "/products?p=ac-83185-r",
+      "permanent": true
+    },
+    {
+      "source": "/83190.php",
+      "destination": "/products?p=ac-83190",
+      "permanent": true
+    },
+    {
+      "source": "/83241.php",
+      "destination": "/products?p=ac-83241",
+      "permanent": true
+    },
+    {
+      "source": "/831120.php",
+      "destination": "/products?p=ac-831120",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-con-8342.php",
+      "destination": "/products?p=sr-con-8342",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-con-8389.php",
+      "destination": "/products?p=sr-con-8389",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-con-73365.php",
+      "destination": "/products?p=sr-con-73365",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-con-83120.php",
+      "destination": "/products?p=sr-con-83120",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-con-83185.php",
+      "destination": "/products?p=sr-con-83185",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-con-83190.php",
+      "destination": "/products?p=sr-con-83190",
+      "permanent": true
+    },
+    {
+      "source": "/30cm-foil.php",
+      "destination": "/products?p=foil-30",
+      "permanent": true
+    },
+    {
+      "source": "/45cm-foil.php",
+      "destination": "/products?p=foil-45",
+      "permanent": true
+    },
+    {
+      "source": "/30cm-blueline.php",
+      "destination": "/products?p=foil-30-blue",
+      "permanent": true
+    },
+    {
+      "source": "/45cm-blueline.php",
+      "destination": "/products?p=foil-45-blue",
+      "permanent": true
+    },
+    {
+      "source": "/platter-6550.php",
+      "destination": "/products?p=ap-6550",
+      "permanent": true
+    },
+    {
+      "source": "/platter-6586.php",
+      "destination": "/products?p=ap-6586",
+      "permanent": true
+    },
+    {
+      "source": "/platter-65180.php",
+      "destination": "/products?p=ap-65180",
+      "permanent": true
+    },
+    {
+      "source": "/platter-65220.php",
+      "destination": "/products?p=ap-65220",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-pla-6550.php",
+      "destination": "/products?p=sr-pla-6550",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-pla-6586.php",
+      "destination": "/products?p=sr-pla-6586",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-pla-65180.php",
+      "destination": "/products?p=sr-pla-65180",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-pla-65220.php",
+      "destination": "/products?p=sr-pla-65220",
+      "permanent": true
+    },
+    {
+      "source": "/14082-cup.php",
+      "destination": "/products?p=cup-14082",
+      "permanent": true
+    },
+    {
+      "source": "/3180-tray.php",
+      "destination": "/products?p=tray-3180",
+      "permanent": true
+    },
+    {
+      "source": "/5186-tray.php",
+      "destination": "/products?p=tray-5186",
+      "permanent": true
+    },
+    {
+      "source": "/7148-tray.php",
+      "destination": "/products?p=tray-7148",
+      "permanent": true
+    },
+    {
+      "source": "/6175-tray.php",
+      "destination": "/products?p=tray-6175",
+      "permanent": true
+    },
+    {
+      "source": "/pot-22.php",
+      "destination": "/products?p=pot-22",
+      "permanent": true
+    },
+    {
+      "source": "/pot-25.php",
+      "destination": "/products?p=pot-25",
+      "permanent": true
+    },
+    {
+      "source": "/pot-29.php",
+      "destination": "/products?p=pot-29",
+      "permanent": true
+    },
+    {
+      "source": "/pot-34.php",
+      "destination": "/products?p=pot-34",
+      "permanent": true
+    },
+    {
+      "source": "/pot-39.php",
+      "destination": "/products?p=pot-39",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-pot22.php",
+      "destination": "/products?p=sr-pot-22",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-pot25.php",
+      "destination": "/products?p=sr-pot-25",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-pot29.php",
+      "destination": "/products?p=sr-pot-29",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-pot34.php",
+      "destination": "/products?p=sr-pot-34",
+      "permanent": true
+    },
+    {
+      "source": "/sr-alu-pot39.php",
+      "destination": "/products?p=sr-pot-39",
+      "permanent": true
+    },
+    {
+      "source": "/500ccblack.php",
+      "destination": "/products?p=mw-500-black",
+      "permanent": true
+    },
+    {
+      "source": "/650ccblack.php",
+      "destination": "/products?p=mw-650-black",
+      "permanent": true
+    },
+    {
+      "source": "/750ccblack.php",
+      "destination": "/products?p=mw-750-black",
+      "permanent": true
+    },
+    {
+      "source": "/1000ccblack.php",
+      "destination": "/products?p=mw-1000-black",
+      "permanent": true
+    },
+    {
+      "source": "/500ccclear.php",
+      "destination": "/products?p=mw-500-clear",
+      "permanent": true
+    },
+    {
+      "source": "/650ccclear.php",
+      "destination": "/products?p=mw-650-clear",
+      "permanent": true
+    },
+    {
+      "source": "/750ccclear.php",
+      "destination": "/products?p=mw-750-clear",
+      "permanent": true
+    },
+    {
+      "source": "/1000ccclear.php",
+      "destination": "/products?p=mw-1000-clear",
+      "permanent": true
+    },
+    {
+      "source": "/sr-pla-500-blk.php",
+      "destination": "/products?p=sr-mw-500-black",
+      "permanent": true
+    },
+    {
+      "source": "/sr-pla-650-blk.php",
+      "destination": "/products?p=sr-mw-650-black",
+      "permanent": true
+    },
+    {
+      "source": "/sr-pla-750-blk.php",
+      "destination": "/products?p=sr-mw-750-black",
+      "permanent": true
+    },
+    {
+      "source": "/sr-pla-1000-blk.php",
+      "destination": "/products?p=sr-mw-1000-black",
+      "permanent": true
+    },
+    {
+      "source": "/sr-pla-500-clr.php",
+      "destination": "/products?p=sr-mw-500-clear",
+      "permanent": true
+    },
+    {
+      "source": "/sr-pla-650-clr.php",
+      "destination": "/products?p=sr-mw-650-clear",
+      "permanent": true
+    },
+    {
+      "source": "/sr-pla-750-clr.php",
+      "destination": "/products?p=sr-mw-750-clear",
+      "permanent": true
+    },
+    {
+      "source": "/sr-pla-1000-clr.php",
+      "destination": "/products?p=sr-mw-1000-clear",
+      "permanent": true
+    },
+    {
+      "source": "/black-spoon.php",
+      "destination": "/products?p=cut-black-spoon",
+      "permanent": true
+    },
+    {
+      "source": "/black-fork.php",
+      "destination": "/products?p=cut-black-fork",
+      "permanent": true
+    },
+    {
+      "source": "/black-knief.php",
+      "destination": "/products?p=cut-black-knife",
+      "permanent": true
+    },
+    {
+      "source": "/clear-spoon.php",
+      "destination": "/products?p=cut-clear-spoon",
+      "permanent": true
+    },
+    {
+      "source": "/clear-fork.php",
+      "destination": "/products?p=cut-clear-fork",
+      "permanent": true
+    },
+    {
+      "source": "/clear-knief.php",
+      "destination": "/products?p=cut-clear-knife",
+      "permanent": true
+    },
+    {
+      "source": "/white-spoon.php",
+      "destination": "/products?p=cut-white-spoon",
+      "permanent": true
+    },
+    {
+      "source": "/white-fork.php",
+      "destination": "/products?p=cut-white-fork",
+      "permanent": true
+    },
+    {
+      "source": "/white-knief.php",
+      "destination": "/products?p=cut-white-knife",
+      "permanent": true
+    },
+    {
+      "source": "/30cm-film.php",
+      "destination": "/products?p=cling-30",
+      "permanent": true
+    }
+  ]
+}

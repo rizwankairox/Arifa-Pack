@@ -6,12 +6,12 @@
     POST /v1/public/sessions/{id}/messages         one chat turn
     POST /v1/public/sessions/{id}/voice            a LiveKit room token for live voice
     POST /v1/public/sessions/{id}/identify         the visitor typed their phone or email
-    POST /v1/public/sessions/{id}/contact          the chat's contact card, with the two consent ticks
+    POST /v1/public/sessions/{id}/contact          contact details the visitor gives in the chat (src/assistant/contactCapture.ts)
     POST /v1/public/sessions/{id}/events           the visitor moved (the assistant may offer help)
     POST /v1/public/enquiries                      the Contact page's enquiry desk
 
   Switched on by NEXT_PUBLIC_ARIFA_API_URL (e.g. https://api.arifapack.com, or
-  http://localhost:4011 for the mock). Without it the assistant keeps its built-in brain.
+  http://localhost:4011 for the mock). Without it the assistant says she isn't available and offers WhatsApp.
   NEXT_PUBLIC_TURNSTILE_SITE_KEY is the Cloudflare Turnstile widget's key; without it the token
   is sent empty, which only a local backend (no Turnstile secret) accepts.
 
@@ -185,10 +185,11 @@ async function withSession<T>(fn: (s: Session) => Promise<T>, opts: { voiceConse
  */
 export function sendMessage(
   text: string,
-  { language, voiceConsent = false, context, onAction }: { language?: string; voiceConsent?: boolean; context?: SiteContext; onAction?: (a: SiteAction) => void } = {},
+  { language, sessionLanguage, voiceConsent = false, context, onAction }: { language?: string; sessionLanguage?: string; voiceConsent?: boolean; context?: SiteContext; onAction?: (a: SiteAction) => void } = {},
 ) {
+  // `language`: only when the visitor chose one; null lets the backend answer in the language they write in
   const body = { text: text.slice(0, 2000), language: language ?? null, context: context || siteContext() };
-  return withSession((s) => streamTurn(`/v1/public/sessions/${s.session_id}/messages`, body, s.session_token, onAction), { voiceConsent, language });
+  return withSession((s) => streamTurn(`/v1/public/sessions/${s.session_id}/messages`, body, s.session_token, onAction), { voiceConsent, language: language ?? sessionLanguage });
 }
 
 async function streamTurn(path: string, body: unknown, token: string, onAction?: (a: SiteAction) => void): Promise<MessageOut> {
@@ -301,7 +302,7 @@ export function siteContext(extra: Partial<SiteContext> = {}): SiteContext {
   };
 }
 
-/** the chat's contact card (the `ask_contact` action): details and the two separate opt-ins. Always { ok: true }. */
+/** contact details from the chat (name, company, phone, email) and the two opt-ins (sent false unless ticked). Always { ok: true }. */
 export function sendContact(card: {
   name?: string; company?: string; phone?: string; email?: string;
   whatsapp_opt_in: boolean; email_opt_in: boolean; consent_wording?: string;

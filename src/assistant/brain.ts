@@ -34,15 +34,19 @@ export function createBrain() {
       if (!apiEnabled()) { online = false; return unavailable(); }
       const handedOver = tc('Our sales team is preparing your quotation; you’ll receive it on WhatsApp shortly.');
       try {
+        // the reply's language is the backend's to choose from what the visitor writes (six languages:
+        // WEBSITE_API.md §2); the page's own language goes in context.locale, and starts the session
         const r = await sendMessage(text, {
-          language: isArPage() ? 'ar' : 'en',
+          language: undefined,
+          sessionLanguage: isArPage() ? 'ar' : 'en',
           voiceConsent,
           context: siteContext({ input: opts.input || 'text' }),
           onAction: opts.onAction,
         });
         online = true;
         console.info('[Arifa] answered by the backend');
-        if (r.handed_over) return { say: r.reply ? `${r.reply}\n\n${handedOver}` : handedOver };
+        // handed over: a person takes it from here (or the site's AI budget is used up): WhatsApp is offered too (§4)
+        if (r.handed_over) return { say: r.reply ? `${r.reply}\n\n${handedOver}` : handedOver, whatsapp: whatsappLink() };
         return { say: r.reply || tc('One moment, a member of our team is with you.') };
       } catch (e) {
         const status = e instanceof ApiError ? e.status : 0;
