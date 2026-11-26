@@ -46,6 +46,8 @@ const VOICE_LABEL: Record<string, string> = Object.fromEntries(Object.entries({
   listening: 'Listening… go ahead',
   thinking: 'Thinking…',
   speaking: 'Speaking…',
+  rejoining: 'Reconnecting the call…',
+  tap: 'Tap the mic to hear Arifa',
   unavailable: 'Voice isn’t available right now. You can type instead.',
 }).map(([k, v]) => [k, tc(v)]));
 
@@ -704,28 +706,46 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
     noteAsk(text);
     cap.tween.then(() => cap.finish());
   };
-  async function toggleVoice() {
-    if (liveVoice) { const v = liveVoice; liveVoice = null; await v.stop(); setVoiceState('off'); return; }
+  // a call carries on across pages: while one is on, the next page rejoins it by itself
+  // (state.voice; a refresh or the visitor ending the call clears it)
+  let leaving = false; // (the page is going: the room dropping now is not the call ending)
+  ['pagehide', 'beforeunload'].forEach((ev) => window.addEventListener(ev, () => { leaving = true; }));
+  const rememberCall = (on: boolean) => { if (!!state.voice !== on) { state.voice = on; save(state); } };
+  let needTap = false;
+
+  async function toggleVoice({ rejoin = false } = {}) {
+    // the browser held the agent's voice back on a rejoined page: this tap plays it
+    if (liveVoice && needTap) { await liveVoice.resume(); return; }
+    if (liveVoice) { const v = liveVoice; liveVoice = null; rememberCall(false); await v.stop(); setVoiceState('off'); return; }
     keepOpen(true);
-    if (!apiEnabled() || currentSession()?.voice_available === false) { setVoiceState('unavailable'); return; }
-    setVoiceState('connecting');
+    if (!apiEnabled() || currentSession()?.voice_available === false) { rememberCall(false); setVoiceState('unavailable'); return; }
+    setVoiceState(rejoin ? 'rejoining' : 'connecting');
     try {
       brain.setVoiceConsent(true);
       const { startLiveVoice } = await import('@/assistant/liveVoice');
       liveVoice = await startLiveVoice(isArPage() ? 'ar' : 'en', {
-        onState: (st) => { if (st === 'off') { liveVoice = null; setVoiceState('off'); } else setVoiceState(st); },
+        onState: (st) => {
+          if (st !== 'off') { if (!needTap) setVoiceState(st); return; }
+          liveVoice = null;
+          if (!leaving) rememberCall(false); // (ended for real, not by moving to another page)
+          setVoiceState('off');
+        },
+        onNeedTap: (needed) => { needTap = needed; if (needed) setVoiceState('tap'); else setVoiceState('listening'); },
         onLine: (text, me) => { if (me) { bubble('you', text); captureContact(text); } else shown(text); },
         onLevel: (v) => { const x = v.toFixed(3); card.style.setProperty('--lvl', x); dock.style.setProperty('--lvl', x); },
         onAction: (a) => enqueue(a), // (the agent's site actions during the call)
       });
+      rememberCall(true);
       tag.textContent = tc('Live AI');
     } catch (e) {
       console.warn('[Arifa] live voice unavailable:', e instanceof ApiError ? `${e.status} ${e.reason || ''}` : e);
       liveVoice = null;
+      rememberCall(false);
       setVoiceState('unavailable');
     }
   }
   mic.addEventListener('click', () => { toggleVoice(); });
+  // ✕ closes her: a call that is on ends with her
 
   // the text box: what's typed is a turn. During a call it goes into the call (kx.chat.in), so voice
   // and text stay one conversation
@@ -743,6 +763,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
 
   card.querySelector<HTMLElement>('[data-assist-close]').addEventListener('click', () => {
     keepOpen(false); // (only ✕ closes her for good: the next page starts with her docked)
+    if (liveVoice) { const v = liveVoice; liveVoice = null; rememberCall(false); v.stop(); setVoiceState('off'); }
     gsap.to(card, { opacity: 0, y: 12, duration: 0.3, ease: 'power2.in', onComplete: () => { card.hidden = true; gsap.set(card, { clearProps: 'opacity,transform' }); } });
     if (!isDocked()) { dock.hidden = false; state.docked = true; save(state); gsap.from(leafBox, { scale: 0, duration: 0.6, ease: 'back.out(2)' }); }
   });
@@ -768,7 +789,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
   // (the backend conversation itself carries on, so a refresh doesn't use up one of the visitor's sessions)
   const navType = (performance.getEntriesByType?.('navigation')?.[0] as PerformanceNavigationTiming | undefined)?.type;
   if (navType === 'reload') {
-    Object.assign(state, { open: false, log: [], pending: null, docked: false, contact: state.contact });
+    Object.assign(state, { open: false, log: [], pending: null, docked: false, voice: false, contact: state.contact });
     save(state);
   }
 
@@ -796,6 +817,14 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
     });
     openCard(true);
     log.scrollTop = log.scrollHeight;
+  }
+
+  // a call was on when the visitor (or her action) moved to this page: rejoin it, once the page has settled
+  if (state.voice && apiEnabled()) {
+    state.open = true;
+    openCard(true);
+    dock.hidden = false;
+    setTimeout(() => { if (!liveVoice) toggleVoice({ rejoin: true }); }, 400);
   }
   // the header tag: "Live AI" once the backend has answered, "Offline" when it can't be reached
   const tag = card.querySelector<HTMLElement>('.assist__name .mono');

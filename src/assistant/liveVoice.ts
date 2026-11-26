@@ -13,6 +13,11 @@
     kx.site.context   page → agent   where the visitor is, when they move (sendContext)
 
   livekit-client is only downloaded when a visitor actually turns the mic on.
+
+  A call carries on across pages (assistant.ts rejoins it on the next page: same session, same room,
+  a fresh token; the backend neither replays the recording notice nor greets again). A rejoining page
+  hasn't been tapped yet: the mic is on again at once (that also lets most browsers play the agent's
+  voice), and if a browser still holds the sound back, `onNeedTap` asks for one tap and `resume()` plays it.
 */
 import { voiceRoom, siteContext, type SiteAction, type SiteContext } from '@/lib/arifaApi';
 
@@ -25,6 +30,8 @@ export type LiveVoice = {
   sendText: (text: string) => void;
   /** where the visitor is now (sent on its own when they open or close a product) */
   sendContext: (ctx?: SiteContext) => void;
+  /** play the agent's voice after the browser held it back (call from a tap) */
+  resume: () => Promise<void>;
 };
 
 type Handlers = {
@@ -36,6 +43,8 @@ type Handlers = {
   onLevel?: (v: number) => void;
   /** a site action from the agent (show a family, open a product, go to a page…) */
   onAction?: (a: SiteAction) => void;
+  /** the browser won't play the agent's voice until the visitor taps (a call rejoined on a new page) */
+  onNeedTap?: (needed: boolean) => void;
 };
 
 export async function startLiveVoice(language: string, h: Handlers): Promise<LiveVoice> {
@@ -90,14 +99,17 @@ export async function startLiveVoice(language: string, h: Handlers): Promise<Liv
     }
   });
   room.on(lk.RoomEvent.Disconnected, () => h.onState('off'));
+  room.on(lk.RoomEvent.AudioPlaybackStatusChanged, () => h.onNeedTap?.(!room.canPlaybackAudio));
 
   const send = (topic: string, data: unknown) => {
     room.localParticipant.publishData(new TextEncoder().encode(JSON.stringify(data)), { reliable: true, topic }).catch(() => { /* call ending */ });
   };
 
   await room.connect(creds.livekit_url, creds.token);
-  await room.startAudio(); // (allowed: we're inside the visitor's tap)
+  // the mic first: a page that is capturing the microphone may play sound without a tap
   await room.localParticipant.setMicrophoneEnabled(true);
+  try { await room.startAudio(); } catch { /* held back: onNeedTap below */ }
+  if (!room.canPlaybackAudio) h.onNeedTap?.(true);
   h.onState('listening');
   send('kx.site.context', siteContext({ input: 'voice' }));
 
@@ -111,5 +123,6 @@ export async function startLiveVoice(language: string, h: Handlers): Promise<Liv
     async mute(v) { await room.localParticipant.setMicrophoneEnabled(!v); },
     sendText(text) { send('kx.chat.in', { text, context: siteContext({ input: 'text' }) }); },
     sendContext(ctx) { send('kx.site.context', ctx || siteContext({ input: 'voice' })); },
+    async resume() { await room.startAudio(); h.onNeedTap?.(!room.canPlaybackAudio); },
   };
 }

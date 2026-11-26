@@ -189,6 +189,8 @@ export const arClient: Dict = {
   "Send": "إرسال",
   "Add a phone number or an email.": "أضف رقم هاتف أو بريداً إلكترونياً.",
   "Thank you. We have your details.": "شكراً لك. وصلتنا بياناتك.",
+  "Reconnecting the call…": "جارٍ إعادة الاتصال…",
+  "Tap the mic to hear Arifa": "اضغط الميكروفون لسماع عارفة",
   "That phone number or email doesn’t look right.": "يبدو أن رقم الهاتف أو البريد الإلكتروني غير صحيح.",
   "Couldn’t send that just now. Please try again.": "تعذر الإرسال الآن. يُرجى المحاولة مرة أخرى.",
   "Sealed and ready.": "مختوم وجاهز.",
