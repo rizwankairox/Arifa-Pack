@@ -72,7 +72,11 @@ const store = cache((): Store => ({ page: null, pageDoc: null, site: null, famil
 
 /** every product, trade and self range, once each, in catalogue order */
 async function allProducts(locale: Locale): Promise<ContentDoc[] | null> {
-  const [all, self] = await Promise.all([getProducts({ locale }), getProducts({ locale, range: 'self' })]);
+  // the unfiltered list already holds both ranges (78: trade and self); the self range is asked for
+  // separately only if a backend ever leaves it out
+  const all = await getProducts({ locale });
+  if (all?.items.some((d) => (d.data as { range?: string }).range === 'self')) return all.items;
+  const self = await getProducts({ locale, range: 'self' });
   if (!all && !self) return null;
   const seen = new Set<string>();
   return [...(all?.items || []), ...(self?.items || [])].filter((d) => !seen.has(d.key) && seen.add(d.key));
