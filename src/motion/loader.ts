@@ -60,7 +60,7 @@ export function runLoader({ videos = [], images = [] }: LoaderOptions = {}): Pro
   if (seen) {
     root.remove();
     navLogo?.classList.add('is-in');
-    document.body.classList.remove('is-loading');
+    // (the page itself is shown by boot.ts once it is set up: see "is-loading" there)
     return Promise.resolve();
   }
   const card = document.querySelector<HTMLElement>('[data-hero-inner]');

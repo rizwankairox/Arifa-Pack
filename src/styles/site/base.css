@@ -87,7 +87,10 @@ body.is-loading { overflow: hidden; }
 /* after the first page of a visit, no loader: the page is simply there (src/motion/loader.ts) */
 html.no-intro .loader { display: none; }
 html.no-intro .nav__logo { opacity: 1; }
-html.no-intro body.is-loading { overflow: auto; }
+/* …and no flash: the page stays out of sight until its scripts have set it up, then fades in once and
+   its own entrance plays (without this it showed twice: raw, then again as the animations started) */
+html.no-intro main, html.no-intro .foot { transition: opacity 0.45s ease-out; }
+html.no-intro body.is-loading main, html.no-intro body.is-loading .foot { opacity: 0; transition: none; }
 
 img, video, canvas, svg { display: block; max-width: 100%; }
 picture { display: contents; } /* <Picture> (src/components/site/Picture.tsx): the <img> inside lays out as if the wrapper weren't there */

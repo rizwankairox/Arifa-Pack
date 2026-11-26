@@ -85,6 +85,9 @@ export async function boot({ init, loader = {}, keepScroll = false }: BootOption
 
   await loaded;
   lenis.start();
+  // the page is set up (scenes built, entrance states in place): show it, then play its entrance.
+  // (first page of a visit: the loader already did this; every later page fades in here, once)
+  document.body.classList.remove('is-loading');
   page.intro?.();
   return { lenis, page };
 }
