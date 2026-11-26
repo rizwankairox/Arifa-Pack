@@ -55,6 +55,14 @@ export function runLoader({ videos = [], images = [] }: LoaderOptions = {}): Pro
   try { seen = sessionStorage.getItem('arifa-intro') === '1'; sessionStorage.setItem('arifa-intro', '1'); } catch {}
   const navLogo = document.querySelector<HTMLElement>('[data-nav-logo]');
   const navSvg = navLogo?.querySelector<SVGSVGElement>('.logo-svg');
+  // the logo intro plays on the first page of a visit only: every later page (another page, a refresh)
+  // opens straight away (the inline script in RootHtml.tsx already hid the loader before the first paint)
+  if (seen) {
+    root.remove();
+    navLogo?.classList.add('is-in');
+    document.body.classList.remove('is-loading');
+    return Promise.resolve();
+  }
   const card = document.querySelector<HTMLElement>('[data-hero-inner]');
   const cinematic = !!(card && navSvg) && !env.reduced && !location.hash;
 

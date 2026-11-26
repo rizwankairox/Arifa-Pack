@@ -522,9 +522,9 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
   async function handle(text: string, input: 'text' | 'voice' = 'text') {
     text = text.trim();
     if (!text) return;
-    captureContact(text);
     if (busy) { queued = { text, input }; return; }
     busy = true;
+    const picked = pickContact(text); // (sent after the message: see the end of this turn)
     chips([]);
     setVoiceState(liveVoice ? 'listening' : 'thinking');
     try {
@@ -532,6 +532,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
       // once (the page moves straight away); what leaves it waits until the reply has been shown
       const later: SiteAction[] = [];
       const out = await brain.reply(text, { input, onAction: (a) => (leavesPage(a) ? later.push(a) : enqueue(a)) });
+      sendPicked(picked); // the message has reached the backend: now the details it held go to /contact
       showSource();
       await say(out.say);
       if (out.whatsapp) whatsapp(out.whatsapp);
@@ -658,9 +659,15 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
     const asked = askedFor(line || '');
     (Object.keys(asked) as (keyof Expecting)[]).forEach((k) => { if (asked[k]) expecting[k] = true; });
   }
-  function captureContact(text: string) {
+  // read what the visitor said now (while her last question still counts) …
+  function pickContact(text: string): ContactFields {
     const found = extractContact(text, expecting);
     expecting = {};
+    return found;
+  }
+  // … and send it once the message itself has gone to the backend (messages first, then contact)
+  function captureContact(text: string) { sendPicked(pickContact(text)); }
+  function sendPicked(found: ContactFields) {
     const known = (state.contact || {}) as ContactFields;
     const fresh = (Object.keys(found) as (keyof ContactFields)[]).filter((k) => found[k] && found[k] !== known[k]);
     if (!fresh.length || !apiEnabled()) return;
@@ -730,7 +737,7 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
     if (!text) return;
     input.value = '';
     bubble('you', text);
-    if (liveVoice) { captureContact(text); liveVoice.sendText(text); return; }
+    if (liveVoice) { liveVoice.sendText(text); captureContact(text); return; }
     handle(text, 'text');
   });
 
@@ -755,6 +762,15 @@ export function initAssistant({ page, lenis, hero: heroIn = null }: { page: Page
 
   setVoiceState('off');
   if (state.docked) dock.hidden = false;
+
+  // a refresh (the visitor reloaded this page) starts her afresh: closed, no conversation on screen, as on a
+  // first visit. Moving to another page is not a refresh: she stays open with the conversation (below).
+  // (the backend conversation itself carries on, so a refresh doesn't use up one of the visitor's sessions)
+  const navType = (performance.getEntriesByType?.('navigation')?.[0] as PerformanceNavigationTiming | undefined)?.type;
+  if (navType === 'reload') {
+    Object.assign(state, { open: false, log: [], pending: null, docked: false, contact: state.contact });
+    save(state);
+  }
 
   // a new page, and the visitor was talking to her: she is still open, with the conversation so far
   if (state.open) {

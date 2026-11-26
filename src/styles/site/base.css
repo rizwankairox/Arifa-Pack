@@ -84,6 +84,10 @@ body {
   overflow-x: clip;
 }
 body.is-loading { overflow: hidden; }
+/* after the first page of a visit, no loader: the page is simply there (src/motion/loader.ts) */
+html.no-intro .loader { display: none; }
+html.no-intro .nav__logo { opacity: 1; }
+html.no-intro body.is-loading { overflow: auto; }
 
 img, video, canvas, svg { display: block; max-width: 100%; }
 picture { display: contents; } /* <Picture> (src/components/site/Picture.tsx): the <img> inside lays out as if the wrapper weren't there */

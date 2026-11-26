@@ -34,6 +34,8 @@ export function RootHtml({ locale, children }: { locale: Locale; children: React
           <link key={href} rel="preload" href={href} as="font" type="font/woff2" crossOrigin="" />
         ))}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.replace('no-js','js')" }} />
+        {/* the logo intro plays once per visit (tab): after that, pages open straight away, with no curtain flash (src/motion/loader.ts) */}
+        <script dangerouslySetInnerHTML={{ __html: "try{if(sessionStorage.getItem('arifa-intro')==='1')document.documentElement.classList.add('no-intro')}catch(e){}" }} />
       </head>
       <body className="is-loading" suppressHydrationWarning>
         {children}
