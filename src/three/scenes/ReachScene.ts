@@ -135,8 +135,10 @@ export class ReachScene {
   }
 
   resize(w, h) {
-    this.w = Math.max(1, w);
-    this.h = Math.max(1, h);
+    w = Math.max(1, Math.round(w)); h = Math.max(1, Math.round(h));
+    if (w === this.w && h === this.h) return; // same size: nothing to rebuild
+    this.w = w;
+    this.h = h;
     this.renderer.setSize(this.w, this.h, false);
     this.camera.aspect = this.w / this.h;
     this.#view();

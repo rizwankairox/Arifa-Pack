@@ -27,8 +27,8 @@ type SceneSettings = {
 
 export const SCENES: Record<SceneName, SceneSettings> = {
   // the dots that become products (home hero) and the About page's chapters
-  hero: { gl: { alpha: true, antialias: true, premultipliedAlpha: true }, maxDpr: { high: 2, low: 2 } },
-  aboutStage: { gl: { alpha: true, antialias: true, premultipliedAlpha: true }, maxDpr: { high: 2, low: 2 } },
+  hero: { gl: { alpha: true, antialias: true, premultipliedAlpha: true }, maxDpr: { high: 2, low: 1.5 } },
+  aboutStage: { gl: { alpha: true, antialias: true, premultipliedAlpha: true }, maxDpr: { high: 2, low: 1.5 } },
   // the press forming a container (home, "The line")
   line: { gl: { antialias: false, alpha: false }, maxDpr: { high: 1.75, low: 1.25 } },
   // the media plate that follows the cursor over the product list (home)

@@ -96,6 +96,8 @@ async function previewToken(): Promise<string | null> {
 }
 
 const warned = new Set<string>();
+/** how long one CMS read may take before the page goes on without it */
+const TIMEOUT_MS = Number(process.env.ARIFA_CONTENT_TIMEOUT_MS || 4000);
 
 /** one GET on the content API: cached and tagged, or fresh in preview. null when off or failing. */
 async function get<T>(path: string, params: Record<string, string | null | undefined>, tags: string[]): Promise<T | null> {
@@ -105,7 +107,9 @@ async function get<T>(path: string, params: Record<string, string | null | undef
   Object.entries({ ...params, preview }).forEach(([k, v]) => { if (v) q.set(k, v); });
   const url = `${BASE}${path}${q.size ? `?${q}` : ''}`;
   try {
-    const r = await fetch(url, preview ? { cache: 'no-store' } : { next: { revalidate: 60, tags } });
+    // never wait long: a slow or hanging CMS must not hold the page (the site's own text is used instead)
+    const signal = AbortSignal.timeout(TIMEOUT_MS);
+    const r = await fetch(url, preview ? { cache: 'no-store', signal } : { next: { revalidate: 60, tags }, signal });
     if (r.status === 404) return null;
     if (!r.ok) throw new Error(`${r.status}`);
     return (await r.json()) as T;

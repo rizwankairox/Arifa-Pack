@@ -3,7 +3,7 @@
   Read every frame by the 3D scenes and by the page scripts. Browser-only: imported after the page
   has loaded (see src/motion/PageScripts.tsx), never on the server.
 */
-import { hasWebGL } from '@/three/probe';
+import { hasWebGL, softwareGL } from '@/three/probe';
 import { clipFor } from './clips';
 
 const mq = (q: string) => window.matchMedia(q).matches;
@@ -22,6 +22,10 @@ export const env = {
   lowPower: mq('(max-width: 720px)') || (navigator.hardwareConcurrency || 8) <= 4,
   webgl: hasWebGL(),
 };
+
+// No graphics card doing the drawing (a virtual machine, remote desktop, hardware acceleration off):
+// the stylesheet drops the costliest effects (html.lite).
+if (env.webgl === false && softwareGL()) document.documentElement.classList.add('lite');
 
 /** pointer position in pixels (x, y), as -1…1 across the window (nx, ny), and its speed */
 export const mouse = { x: innerWidth / 2, y: innerHeight / 2, nx: 0, ny: 0, speed: 0 };

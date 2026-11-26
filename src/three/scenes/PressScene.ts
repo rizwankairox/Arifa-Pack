@@ -539,8 +539,12 @@ export class PressScene {
     r.autoClear = true;
   }
 
+  #w = 0;
+  #h = 0;
   resize() {
     const w = this.canvas.clientWidth || 1, h = this.canvas.clientHeight || 1;
+    if (w === this.#w && h === this.#h) return; // same size: nothing to rebuild
+    this.#w = w; this.#h = h;
     this.renderer.setSize(w, h, false);
     this.composer.setSize(w, h);
     this.camera.aspect = w / h;

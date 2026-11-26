@@ -130,6 +130,7 @@ async function call<T>(path: string, body: unknown, token?: string): Promise<T> 
       method: 'POST',
       headers: { 'content-type': 'application/json', ...(token ? { authorization: `Bearer ${token}` } : {}) },
       body: JSON.stringify(body ?? {}),
+      signal: AbortSignal.timeout(20_000), // (a backend that never answers mustn't leave the assistant waiting)
     });
   } catch {
     throw new ApiError(0, 'network', 'The Arifa API could not be reached.');
@@ -194,13 +195,19 @@ export function sendMessage(
 
 async function streamTurn(path: string, body: unknown, token: string, onAction?: (a: SiteAction) => void): Promise<MessageOut> {
   let r: Response;
+  // a watchdog: the turn is dropped if the backend goes silent for 45 s (it answers in 3-19 s, streaming as it goes)
+  const ctl = new AbortController();
+  let dog = setTimeout(() => ctl.abort(), 45_000);
+  const alive = () => { clearTimeout(dog); dog = setTimeout(() => ctl.abort(), 45_000); };
   try {
     r = await fetch(`${BASE}${path}`, {
       method: 'POST',
       headers: { 'content-type': 'application/json', accept: 'text/event-stream', authorization: `Bearer ${token}` },
       body: JSON.stringify(body),
+      signal: ctl.signal,
     });
   } catch {
+    clearTimeout(dog);
     throw new ApiError(0, 'network', 'The Arifa API could not be reached.');
   }
   if (!r.ok) {
@@ -220,8 +227,11 @@ async function streamTurn(path: string, body: unknown, token: string, onAction?:
   let buf = '';
   let text = '';
   for (;;) {
-    const { value, done } = await reader.read();
+    let chunk: ReadableStreamReadResult<string>;
+    try { chunk = await reader.read(); } catch { clearTimeout(dog); throw new ApiError(0, 'network', 'The Arifa API stopped answering.'); }
+    const { value, done } = chunk;
     if (done) break;
+    alive();
     buf += value;
     let i;
     while ((i = buf.search(/\r?\n\r?\n/)) >= 0) {
@@ -237,6 +247,7 @@ async function streamTurn(path: string, body: unknown, token: string, onAction?:
       else if (event === 'error') throw new ApiError(Number(data.status) || 500, data.code || null, data.message || '');
     }
   }
+  clearTimeout(dog);
   out.reply = text || null;
   return out;
 }

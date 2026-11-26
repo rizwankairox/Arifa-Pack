@@ -94,7 +94,9 @@ export function initSkipScenes(lenis: Lenis) {
       // product range does under the press on Home)
       const next = scene.nextElementSibling as HTMLElement | null;
       const end = (next ? next.getBoundingClientRect().top : scene.getBoundingClientRect().bottom) + window.scrollY;
-      lenis.scrollTo(end, { duration: 1.2, easing: (t) => 1 - Math.pow(1 - t, 3) });
+      // straight there, no scrolling through the rest of the scene
+      lenis.scrollTo(end, { immediate: true, force: true });
+      ScrollTrigger.update();
     });
   });
 }

@@ -66,7 +66,13 @@ export function SceneCanvas({ name, className, dataAttr }: Props) {
         frameloop="never"
         flat
         dpr={sceneDpr(name)}
-        gl={(defaults) => new THREE.WebGLRenderer({ ...defaults, powerPreference: 'high-performance', ...settings.gl })}
+        // Measure the box only when it really changes size. By default React Three Fiber re-measures on
+        // every scroll and reads the box *with* CSS transforms, so a section that scales while you scroll
+        // (the hero shrinks to 0.94) resized the WebGL surface many times a second: the main stutter.
+        // The scenes size their own drawing surface, so this only needs layout changes.
+        resize={{ scroll: false, offsetSize: true, debounce: { scroll: 0, resize: 150 } }}
+        // 'default' lets the browser choose the graphics chip; forcing the big one stalls some laptops while it switches
+        gl={(defaults) => new THREE.WebGLRenderer({ ...defaults, powerPreference: 'default', ...settings.gl })}
         onCreated={({ gl }) => {
           // the graphics card was reset, or the browser took the context back: the page switches to its photographs
           gl.domElement.addEventListener('webglcontextlost', (e) => { e.preventDefault(); glLost(name, gl.domElement); }, { once: true });
